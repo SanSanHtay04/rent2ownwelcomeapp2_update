@@ -1,0 +1,207 @@
+PODS:
+  - app_settings (5.1.1):
+    - Flutter
+  - audio_session (0.0.1):
+    - Flutter
+  - battery_plus (1.0.0):
+    - Flutter
+  - connectivity_plus (0.0.1):
+    - Flutter
+    - ReachabilitySwift
+  - device_info_plus (0.0.1):
+    - Flutter
+  - fast_contacts (0.0.1):
+    - Flutter
+  - FBAEMKit (16.0.1):
+    - FBSDKCoreKit_Basics (= 16.0.1)
+  - FBSDKCoreKit (16.0.1):
+    - FBAEMKit (= 16.0.1)
+    - FBSDKCoreKit_Basics (= 16.0.1)
+  - FBSDKCoreKit_Basics (16.0.1)
+  - FBSDKLoginKit (16.0.1):
+    - FBSDKCoreKit (= 16.0.1)
+  - Flutter (1.0.0)
+  - flutter_facebook_auth (5.0.9):
+    - FBSDKLoginKit (~> 16.0.1)
+    - Flutter
+  - flutter_local_notifications (0.0.1):
+    - Flutter
+  - flutter_localization (0.0.1):
+    - Flutter
+  - flutter_secure_storage (6.0.0):
+    - Flutter
+  - flutter_tiktok_sdk (0.2.6):
+    - Flutter
+    - TikTokOpenSDK (~> 5.0.14)
+  - fluttertoast (0.0.2):
+    - Flutter
+    - Toast
+  - FMDB (2.7.5):
+    - FMDB/standard (= 2.7.5)
+  - FMDB/standard (2.7.5)
+  - geolocator_apple (1.2.0):
+    - Flutter
+  - just_audio (0.0.1):
+    - Flutter
+  - package_info_plus (0.4.5):
+    - Flutter
+  - path_provider_foundation (0.0.1):
+    - Flutter
+    - FlutterMacOS
+  - permission_handler_apple (9.1.1):
+    - Flutter
+  - ReachabilitySwift (5.0.0)
+  - share_plus (0.0.1):
+    - Flutter
+  - shared_preferences_foundation (0.0.1):
+    - Flutter
+    - FlutterMacOS
+  - sqflite (0.0.3):
+    - Flutter
+    - FMDB (>= 2.7.5)
+  - TikTokOpenSDK (5.0.15)
+  - Toast (4.1.0)
+  - url_launcher_ios (0.0.1):
+    - Flutter
+  - video_player_avfoundation (0.0.1):
+    - Flutter
+    - FlutterMacOS
+  - wakelock_plus (0.0.1):
+    - Flutter
+  - webview_flutter_wkwebview (0.0.1):
+    - Flutter
+  - workmanager (0.0.1):
+    - Flutter
+
+DEPENDENCIES:
+  - app_settings (from `.symlinks/plugins/app_settings/ios`)
+  - audio_session (from `.symlinks/plugins/audio_session/ios`)
+  - battery_plus (from `.symlinks/plugins/battery_plus/ios`)
+  - connectivity_plus (from `.symlinks/plugins/connectivity_plus/ios`)
+  - device_info_plus (from `.symlinks/plugins/device_info_plus/ios`)
+  - fast_contacts (from `.symlinks/plugins/fast_contacts/ios`)
+  - Flutter (from `Flutter`)
+  - flutter_facebook_auth (from `.symlinks/plugins/flutter_facebook_auth/ios`)
+  - flutter_local_notifications (from `.symlinks/plugins/flutter_local_notifications/ios`)
+  - flutter_localization (from `.symlinks/plugins/flutter_localization/ios`)
+  - flutter_secure_storage (from `.symlinks/plugins/flutter_secure_storage/ios`)
+  - flutter_tiktok_sdk (from `.symlinks/plugins/flutter_tiktok_sdk/ios`)
+  - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
+  - geolocator_apple (from `.symlinks/plugins/geolocator_apple/ios`)
+  - just_audio (from `.symlinks/plugins/just_audio/ios`)
+  - package_info_plus (from `.symlinks/plugins/package_info_plus/ios`)
+  - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
+  - permission_handler_apple (from `.symlinks/plugins/permission_handler_apple/ios`)
+  - share_plus (from `.symlinks/plugins/share_plus/ios`)
+  - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
+  - sqflite (from `.symlinks/plugins/sqflite/ios`)
+  - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
+  - video_player_avfoundation (from `.symlinks/plugins/video_player_avfoundation/darwin`)
+  - wakelock_plus (from `.symlinks/plugins/wakelock_plus/ios`)
+  - webview_flutter_wkwebview (from `.symlinks/plugins/webview_flutter_wkwebview/ios`)
+  - workmanager (from `.symlinks/plugins/workmanager/ios`)
+
+SPEC REPOS:
+  trunk:
+    - FBAEMKit
+    - FBSDKCoreKit
+    - FBSDKCoreKit_Basics
+    - FBSDKLoginKit
+    - FMDB
+    - ReachabilitySwift
+    - TikTokOpenSDK
+    - Toast
+
+EXTERNAL SOURCES:
+  app_settings:
+    :path: ".symlinks/plugins/app_settings/ios"
+  audio_session:
+    :path: ".symlinks/plugins/audio_session/ios"
+  battery_plus:
+    :path: ".symlinks/plugins/battery_plus/ios"
+  connectivity_plus:
+    :path: ".symlinks/plugins/connectivity_plus/ios"
+  device_info_plus:
+    :path: ".symlinks/plugins/device_info_plus/ios"
+  fast_contacts:
+    :path: ".symlinks/plugins/fast_contacts/ios"
+  Flutter:
+    :path: Flutter
+  flutter_facebook_auth:
+    :path: ".symlinks/plugins/flutter_facebook_auth/ios"
+  flutter_local_notifications:
+    :path: ".symlinks/plugins/flutter_local_notifications/ios"
+  flutter_localization:
+    :path: ".symlinks/plugins/flutter_localization/ios"
+  flutter_secure_storage:
+    :path: ".symlinks/plugins/flutter_secure_storage/ios"
+  flutter_tiktok_sdk:
+    :path: ".symlinks/plugins/flutter_tiktok_sdk/ios"
+  fluttertoast:
+    :path: ".symlinks/plugins/fluttertoast/ios"
+  geolocator_apple:
+    :path: ".symlinks/plugins/geolocator_apple/ios"
+  just_audio:
+    :path: ".symlinks/plugins/just_audio/ios"
+  package_info_plus:
+    :path: ".symlinks/plugins/package_info_plus/ios"
+  path_provider_foundation:
+    :path: ".symlinks/plugins/path_provider_foundation/darwin"
+  permission_handler_apple:
+    :path: ".symlinks/plugins/permission_handler_apple/ios"
+  share_plus:
+    :path: ".symlinks/plugins/share_plus/ios"
+  shared_preferences_foundation:
+    :path: ".symlinks/plugins/shared_preferences_foundation/darwin"
+  sqflite:
+    :path: ".symlinks/plugins/sqflite/ios"
+  url_launcher_ios:
+    :path: ".symlinks/plugins/url_launcher_ios/ios"
+  video_player_avfoundation:
+    :path: ".symlinks/plugins/video_player_avfoundation/darwin"
+  wakelock_plus:
+    :path: ".symlinks/plugins/wakelock_plus/ios"
+  webview_flutter_wkwebview:
+    :path: ".symlinks/plugins/webview_flutter_wkwebview/ios"
+  workmanager:
+    :path: ".symlinks/plugins/workmanager/ios"
+
+SPEC CHECKSUMS:
+  app_settings: 017320c6a680cdc94c799949d95b84cb69389ebc
+  audio_session: 4f3e461722055d21515cf3261b64c973c062f345
+  battery_plus: 091633b7f01cb33dfc4aeedb450816f4d33818fa
+  connectivity_plus: 07c49e96d7fc92bc9920617b83238c4d178b446a
+  device_info_plus: c6fb39579d0f423935b0c9ce7ee2f44b71b9fce6
+  fast_contacts: d5f0da976a40f8fd07a9ff730c2e9bee8c3898dd
+  FBAEMKit: daac7466b918752f020345be5c7d9787f98cfc07
+  FBSDKCoreKit: 2cb033464b2134af0138f87d20b859eb3f9be359
+  FBSDKCoreKit_Basics: d37280da2e65872f0e931d15f45d97ea324fec37
+  FBSDKLoginKit: c47a3b90920702487b10b647c63520dc2676dad9
+  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
+  flutter_facebook_auth: 42016bec1574eabf69bc2fe4311e8cd55813d352
+  flutter_local_notifications: 0c0b1ae97e741e1521e4c1629a459d04b9aec743
+  flutter_localization: f43b18844a2b3d2c71fd64f04ffd6b1e64dd54d4
+  flutter_secure_storage: 23fc622d89d073675f2eaa109381aefbcf5a49be
+  flutter_tiktok_sdk: d3a9b8f51c40984ffcb9eb62f8b7e19a3257541f
+  fluttertoast: 31b00dabfa7fb7bacd9e7dbee580d7a2ff4bf265
+  FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
+  geolocator_apple: 9157311f654584b9bb72686c55fc02a97b73f461
+  just_audio: baa7252489dbcf47a4c7cc9ca663e9661c99aafa
+  package_info_plus: 115f4ad11e0698c8c1c5d8a689390df880f47e85
+  path_provider_foundation: 3784922295ac71e43754bd15e0653ccfd36a147c
+  permission_handler_apple: e76247795d700c14ea09e3a2d8855d41ee80a2e6
+  ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
+  share_plus: c3fef564749587fc939ef86ffb283ceac0baf9f5
+  shared_preferences_foundation: b4c3b4cddf1c21f02770737f147a3f5da9d39695
+  sqflite: 31f7eba61e3074736dff8807a9b41581e4f7f15a
+  TikTokOpenSDK: dc1199ba9c6d7815aee0eaca6ec80ad13f7d9c1f
+  Toast: ec33c32b8688982cecc6348adeae667c1b9938da
+  url_launcher_ios: bbd758c6e7f9fd7b5b1d4cde34d2b95fcce5e812
+  video_player_avfoundation: 02011213dab73ae3687df27ce441fbbcc82b5579
+  wakelock_plus: 8b09852c8876491e4b6d179e17dfe2a0b5f60d47
+  webview_flutter_wkwebview: be0f0d33777f1bfd0c9fdcb594786704dbf65f36
+  workmanager: 0afdcf5628bbde6924c21af7836fed07b42e30e6
+
+PODFILE CHECKSUM: 7aa20477a1eab225f7a6f351ba13f1e18868ea1c
+
+COCOAPODS: 1.14.3
