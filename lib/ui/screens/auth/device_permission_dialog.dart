@@ -14,25 +14,26 @@ import 'package:rent2ownwelcomeapp/models/storeSMSLogModel.dart';
 import '../../../../../core/values/colors.dart';
 import '../../../../../core/values/strings.dart';
 import '../../../../../models/store_sim_card_model.dart';
-import '../location/locationCustomDialog.dart';
+import 'permission/location/locationCustomDialog.dart';
 
-class ContactCallNSMSLogsCustomDialog extends StatefulWidget {
+// TODO : need to figure out the whole dialog.
+class DevicePermissionDialog extends StatefulWidget {
   final String phoneNumber;
   final List<StoreSimCardModel> storeSims;
 
-  const ContactCallNSMSLogsCustomDialog({
+  const DevicePermissionDialog({
     super.key,
     required this.phoneNumber,
     required this.storeSims,
   });
 
   @override
-  State<ContactCallNSMSLogsCustomDialog> createState() =>
-      _ContactCallNSMSLogsCustomDialogState();
+  State<DevicePermissionDialog> createState() =>
+      _DevicePermissionDialogState();
 }
 
-class _ContactCallNSMSLogsCustomDialogState
-    extends State<ContactCallNSMSLogsCustomDialog> {
+class _DevicePermissionDialogState
+    extends State<DevicePermissionDialog> {
   bool isEnableBtn = true;
 
   //Contact

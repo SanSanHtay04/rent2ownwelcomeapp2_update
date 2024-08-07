@@ -16,7 +16,7 @@ import '../../../models/storeContactModel.dart';
 import '../../../models/storeFacebookModel.dart';
 import '../../../models/storeLocationModel.dart';
 import '../../../models/storeSMSLogModel.dart';
-import '../../../models/storeSimCardModel.dart';
+import '../../../models/store_sim_card_model.dart';
 import '../../../models/textMessageFrequencyModel.dart';
 import '../../../utils/logger.dart';
 

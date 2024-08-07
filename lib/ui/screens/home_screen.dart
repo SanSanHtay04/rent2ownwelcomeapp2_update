@@ -9,7 +9,7 @@ import 'package:rent2ownwelcomeapp/models/storeCallLogModel.dart';
 import 'package:rent2ownwelcomeapp/models/storeContactModel.dart';
 import 'package:rent2ownwelcomeapp/models/storeFacebookModel.dart';
 import 'package:rent2ownwelcomeapp/models/storeSMSLogModel.dart';
-import 'package:rent2ownwelcomeapp/models/storeSimCardModel.dart';
+import 'package:rent2ownwelcomeapp/models/store_sim_card_model.dart';
 import 'package:rent2ownwelcomeapp/models/storeTiktokModel.dart';
 import 'package:rent2ownwelcomeapp/ui/screens/home/homeBloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';

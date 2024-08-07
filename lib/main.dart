@@ -9,6 +9,8 @@ import 'package:rent2ownwelcomeapp/ui/screens/test/testing_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_tiktok_sdk/flutter_tiktok_sdk.dart';
 
+import 'core/themes/themes.dart';
+
 mixin AppLocale {
   static const String contract_has_been_created_successfully =
       'The Contract Has Been Created Successfully.';
@@ -113,14 +115,12 @@ class _MyAppState extends State<MyApp> {
         supportedLocales: _localization.supportedLocales,
         localizationsDelegates: _localization.localizationsDelegates,
         title: 'Rent2Own Welcome App',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: AuthScreen());
-    // _isAldLogin
-    //     ? HomeWithTabScreen(
-    //         isAldLogin: _isAldLogin,
-    //       )
-    //     : const AuthScreen());
+        theme: Themes.lightTheme,
+        darkTheme: Themes.darkTheme,
+        home: _isAldLogin
+            ? HomeWithTabScreen(
+                isAldLogin: _isAldLogin,
+              )
+            : const AuthScreen());
   }
 }

@@ -16,8 +16,10 @@ class OTPBloc {
   Stream<ApiResponse> otpCodeStream() => _otpCodeController.stream;
 
   getOtpCode(String phoneNum) async {
-    ApiResponse responseOb =
-        ApiResponse(msgState: MsgState.loading, errorState: ErrorState.noErr);
+    ApiResponse responseOb = ApiResponse(
+      msgState: MsgState.loading,
+      errorState: ErrorState.noErr,
+    );
 
     var map = Map<String, dynamic>();
     map['phoneNo'] = phoneNum;

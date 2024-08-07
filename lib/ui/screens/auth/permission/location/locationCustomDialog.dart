@@ -10,7 +10,7 @@ import '../../../../../core/values/strings.dart';
 import '../../../../../models/storeCallLogModel.dart';
 import '../../../../../models/storeContactModel.dart';
 import '../../../../../models/storeSMSLogModel.dart';
-import '../../../../../models/storeSimCardModel.dart';
+import '../../../../../models/store_sim_card_model.dart';
 import '../socialMedia/socialMediaCustomDialog.dart';
 
 class LocationCustomDialog extends StatefulWidget {

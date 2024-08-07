@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:logger/logger.dart';
 import 'package:rent2ownwelcomeapp/models/api_response.dart';
 import 'package:rent2ownwelcomeapp/models/storeFacebookModel.dart';
 import 'package:rent2ownwelcomeapp/models/storeTiktokModel.dart';
@@ -28,6 +29,7 @@ class TiktokBloc {
 
   //Get user info
   late TiktokUserInfoModel userInfo;
+
   getUserInfo({required accessToken}) async {
     var res = await _apiBaseHelper.getTiktokUserInfo(
         getUserInfoEndpoint, accessToken);
@@ -39,6 +41,7 @@ class TiktokBloc {
 
   //Get video list
   List<TiktokVideoModel> videos = [];
+
   getVideoList({required accessToken}) async {
     var res = await _apiBaseHelper.getTiktokVideoList(
         getVideoListEndpoint, accessToken);
@@ -52,6 +55,7 @@ class TiktokBloc {
 
   final StreamController<ApiResponse> _storeTiktokInfoConrtoller =
       StreamController.broadcast();
+
   Stream<ApiResponse> getStoreTikTokInfoStream() =>
       _storeTiktokInfoConrtoller.stream;
 
@@ -76,6 +80,7 @@ class TiktokBloc {
   //get facebook profile info
   final StreamController<ApiResponse> _storeFBProfileInfoController =
       StreamController.broadcast();
+
   Stream<ApiResponse> getStoreFBProfileInfoStream() =>
       _storeFBProfileInfoController.stream;
   late AccessToken? _accessToken;
@@ -93,24 +98,20 @@ class TiktokBloc {
     );
 
     if (result.status == LoginStatus.success) {
+      final fbInstance = FacebookAuth.instance;
       _accessToken = await FacebookAuth.instance.accessToken;
 
-      String loginId = _accessToken!.userId.toString();
-
-      final graphResponse = await http
-          .get(Uri.parse(
-              'https://graph.facebook.com/$loginId?fields=id,name,email,picture,friends,link&access_token=${_accessToken!.token}'
-              //'https://graph.facebook.com/$loginId?fields=id,name,email,picture,link&access_token=${_accessToken!.token}' //for user_link
-              ))
+      await fbInstance
+          .getUserData(fields: "id,name,email,picture,friends,link")
           .then((value) {
         if (value == null) {
           // print("FB ERR => null");
         } else {
-          // print("Value => ${value.body.toString()}");
-          final profile = json.decode(value.body);
+
+          // print("Value => ${value.entries.toString()}");
+          final profile = json.decode(value.entries.toString());
 
           // logger.e("PP => ${json.encode(profile)}"); "friends":{"data":[],"summary":{"total_count":0}}
-
           String type = "facebook";
           String loginIds = profile['id']; //_accessToken.userId.toString();
           String name = profile['name'];
@@ -118,8 +119,10 @@ class TiktokBloc {
           String phone = "";
           String image = profile['picture']['data']['url'];
 
+
           // print(
-          //     "AccTok => ${_accessToken!.token}  LIDS => $loginIds Email => $email , Name => $name , Img => $image , phoneNo: $phone");
+          //  "AccTok => ${_accessToken!.token}  LIDS => $loginIds Email => $email , Name => $name , Img => $image , phoneNo: $phone");
+
 
           StoreFacebookModel storeFB = StoreFacebookModel(
               userID: loginIds,
@@ -133,21 +136,69 @@ class TiktokBloc {
           _storeFBProfileInfoController.sink.add(responseOb);
         }
       }).onError((error, stackTrace) {
-        responseOb.data = null;
-        responseOb.msgState = MsgState.error;
-        responseOb.errorState = ErrorState.unknownErr;
-        _storeFBProfileInfoController.sink.add(responseOb);
-      }).catchError((e) {
-        responseOb.data = null;
-        responseOb.msgState = MsgState.error;
-        responseOb.errorState = ErrorState.unknownErr;
-        _storeFBProfileInfoController.sink.add(responseOb);
-      });
+          responseOb.data = null;
+          responseOb.msgState = MsgState.error;
+          responseOb.errorState = ErrorState.unknownErr;
+          _storeFBProfileInfoController.sink.add(responseOb);
+        }).catchError((e) {
+          responseOb.data = null;
+          responseOb.msgState = MsgState.error;
+          responseOb.errorState = ErrorState.unknownErr;
+          _storeFBProfileInfoController.sink.add(responseOb);
+        });
+
+      // final graphResponse = await http
+      //     .get(Uri.parse(
+      //         'https://graph.facebook.com/"iii"?fields=id,name,email,picture,friends,link&access_token=${_accessToken!.token}'
+      //         //'https://graph.facebook.com/$loginId?fields=id,name,email,picture,link&access_token=${_accessToken!.token}' //for user_link
+      //         ))
+      //     .then((value) {
+      //   if (value == null) {
+      //     // print("FB ERR => null");
+      //   } else {
+      //     // print("Value => ${value.body.toString()}");
+      //     final profile = json.decode(value.body);
+      //
+      //     // logger.e("PP => ${json.encode(profile)}"); "friends":{"data":[],"summary":{"total_count":0}}
+      //
+      //     String type = "facebook";
+      //     String loginIds = profile['id']; //_accessToken.userId.toString();
+      //     String name = profile['name'];
+      //     String email = profile['email'] ?? "";
+      //     String phone = "";
+      //     String image = profile['picture']['data']['url'];
+      //
+      //     // print(
+      //     //     "AccTok => ${_accessToken!.token}  LIDS => $loginIds Email => $email , Name => $name , Img => $image , phoneNo: $phone");
+      //
+      //     StoreFacebookModel storeFB = StoreFacebookModel(
+      //         userID: loginIds,
+      //         userName: name,
+      //         imageUrl: image,
+      //         email: email,
+      //         phoneNo: phone);
+      //
+      //     responseOb.data = storeFB;
+      //     responseOb.msgState = MsgState.data;
+      //     _storeFBProfileInfoController.sink.add(responseOb);
+      //   }
+      // }).onError((error, stackTrace) {
+      //   responseOb.data = null;
+      //   responseOb.msgState = MsgState.error;
+      //   responseOb.errorState = ErrorState.unknownErr;
+      //   _storeFBProfileInfoController.sink.add(responseOb);
+      // }).catchError((e) {
+      //   responseOb.data = null;
+      //   responseOb.msgState = MsgState.error;
+      //   responseOb.errorState = ErrorState.unknownErr;
+      //   _storeFBProfileInfoController.sink.add(responseOb);
+      // });
     } else {
       responseOb.data = null;
       responseOb.msgState = MsgState.error;
       responseOb.errorState = ErrorState.unknownErr;
       _storeFBProfileInfoController.sink.add(responseOb);
+
     }
   }
 }

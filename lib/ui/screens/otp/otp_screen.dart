@@ -15,7 +15,7 @@ import '../../../models/storeContactModel.dart';
 import '../../../models/storeFacebookModel.dart';
 import '../../../models/storeLocationModel.dart';
 import '../../../models/storeSMSLogModel.dart';
-import '../../../models/storeSimCardModel.dart';
+import '../../../models/store_sim_card_model.dart';
 
 class OTPScreen extends StatefulWidget {
   final String phoneNum;
@@ -26,17 +26,17 @@ class OTPScreen extends StatefulWidget {
   final List<StoreLocationModel> storeLocations;
   final StoreFacebookModel? storeFacebooks;
   final StoreTiktokModel? storeTiktokInfo;
-  const OTPScreen(
-      {Key? key,
-      required this.phoneNum,
-      required this.storeSims,
-      required this.storeContacts,
-      required this.storeCallLogs,
-      required this.storeSMSs,
-      required this.storeLocations,
-      this.storeFacebooks,
-      this.storeTiktokInfo})
-      : super(key: key);
+  const OTPScreen({
+    super.key,
+    required this.phoneNum,
+    required this.storeSims,
+    required this.storeContacts,
+    required this.storeCallLogs,
+    required this.storeSMSs,
+    required this.storeLocations,
+    this.storeFacebooks,
+    this.storeTiktokInfo,
+  });
 
   @override
   State<OTPScreen> createState() => _OTPScreenState();
@@ -48,6 +48,7 @@ class _OTPScreenState extends State<OTPScreen> {
   final int _otpCodeLength = 4;
   bool _isLoadingButton = false;
   bool _enableButton = false;
+  bool _enableTryAgainButton = true;
   String _otpCode = "";
   final intRegex = RegExp(r'\d+', multiLine: true);
   TextEditingController textEditingController = TextEditingController(text: "");
@@ -122,7 +123,8 @@ class _OTPScreenState extends State<OTPScreen> {
     });
   }
 
-  _onClickRetry() {
+  _onClickRetry() async {
+    await Future.delayed(const Duration(seconds: 5));
     setState(() {
       _otpCode = "";
       textEditingController.clear();
@@ -132,6 +134,19 @@ class _OTPScreenState extends State<OTPScreen> {
     _bloc.getOtpCode(widget.phoneNum);
     _startListeningSms();
     activeCounter();
+  }
+
+  bool _isTryAgainButtonRunning = false;
+  Future _onPressed() async {
+    setState(() {
+      _isTryAgainButtonRunning = true;
+    });
+
+    await _onClickRetry();
+
+    setState(() {
+      _isTryAgainButtonRunning = false;
+    });
   }
 
   _onOtpCallBack(String otpCode, bool isAutofill) {
@@ -280,9 +295,9 @@ class _OTPScreenState extends State<OTPScreen> {
                 return Center(
                     child: snapshot.data == 0
                         ? TextButton(
-                            onPressed: () {
-                              _onClickRetry();
-                            },
+                            onPressed: _isTryAgainButtonRunning
+                                ? null
+                                : () async => await _onPressed(),
                             child: Text(
                               tryAgain,
                               style: GoogleFonts.comfortaa(
