@@ -7,6 +7,7 @@ import 'package:rent2ownwelcomeapp/models/storeTiktokModel.dart';
 import 'package:rent2ownwelcomeapp/ui/screens/home/home_with_tab_screen.dart';
 import 'package:rent2ownwelcomeapp/ui/screens/otp/otpBloc.dart';
 import 'package:rent2ownwelcomeapp/ui/screens/otp/otpEvent.dart';
+import 'package:rent2ownwelcomeapp/utils/utils.dart';
 import 'package:sms_otp_auto_verify/sms_otp_auto_verify.dart';
 
 import '../../../core/values/strings.dart';
@@ -59,10 +60,18 @@ class _OTPScreenState extends State<OTPScreen> {
   late Timer _resendCodeTimer;
 
   String? signature;
+  String _versionNumber = "";
 
   @override
   void initState() {
     super.initState();
+
+    getVersionInfo().then((value) {
+      _versionNumber = value;
+      setState(() {
+        
+      });
+    });
 
     _bloc.getOtpCode(widget.phoneNum);
 
@@ -319,6 +328,10 @@ class _OTPScreenState extends State<OTPScreen> {
               },
             ),
             const Spacer(),
+            Text("$_versionNumber"),
+            const SizedBox(
+              height: 8,
+            )
           ],
         ),
       ),

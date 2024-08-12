@@ -24,7 +24,8 @@ class _AuthScreenState extends State<AuthScreen> {
   List<StoreSimCardModel> _storedSimCards = [];
 
   var _initPhoneNumber = "";
-  onPhoneNumberChanged(text) {
+  var _versionNumber = "";
+  updatePhoneNumber(text) {
     setState(() {
       _initPhoneNumber = text;
     });
@@ -39,6 +40,9 @@ class _AuthScreenState extends State<AuthScreen> {
           (isPermissionGranted) ? initMobileNumberState() : null,
     );
     initMobileNumberState();
+    getVersionInfo().then((value) {
+      _versionNumber = value;
+    });
   }
 
   // Handle phone_number permission
@@ -65,7 +69,7 @@ class _AuthScreenState extends State<AuthScreen> {
         simCardNo2: (_simCard.length > 1) ? _simCard[1].format() : "",
       );
       _storedSimCards.add(simCardModel);
-      onPhoneNumberChanged(_simCard[0].number);
+      updatePhoneNumber(_simCard[0].number);
     }
   }
 
@@ -193,19 +197,20 @@ class _AuthScreenState extends State<AuthScreen> {
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                       const Text("WELCOME",
-                       textAlign: TextAlign.center,
-                        style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 14,
-                              color: Colors.black),
-                        ),
+                      Text(
+                        "WELCOME\n $_versionNumber",
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 14,
+                            color: Colors.black),
+                      ),
                       kSpaceVertical24,
                       PhoneTextFormField(
                         labelText: "Phone Number",
                         initialValue: _initPhoneNumber,
                         required: true,
-                        onChanged: onPhoneNumberChanged,
+                        onChanged: updatePhoneNumber,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
