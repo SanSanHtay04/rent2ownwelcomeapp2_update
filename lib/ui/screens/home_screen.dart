@@ -103,7 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
     await Permission.location.request();
 
     final position = await _geolocatorPlatform.getCurrentPosition();
-    logger.i("POSITION => ${position.latitude} , ${position.longitude}");
+    AppLogger.i("POSITION => ${position.latitude} , ${position.longitude}");
 
     List<StoreLocationModel> storeLocations = [];
     StoreLocationModel location = StoreLocationModel(

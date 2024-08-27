@@ -21,7 +21,7 @@ class TiktokBloc {
         getTokenApiEndpoint, authCode);
 
     TiktokTokenResponse response = res;
-    logger.i("RESP => ${response.accessToken}");
+    AppLogger.i("RESP => ${response.accessToken}");
 
     getUserInfo(accessToken: response.accessToken);
     getVideoList(accessToken: response.accessToken);

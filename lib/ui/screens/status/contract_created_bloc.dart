@@ -26,13 +26,13 @@ class ContractCreatedBloc {
       responseOb.data = response;
       responseOb.msgState = MsgState.data;
       _contractInfoController.sink.add(responseOb);
-      logger.i(res.body);
+      AppLogger.i(res.body);
     } else {
       responseOb.data = null;
       responseOb.msgState = MsgState.error;
       responseOb.errorState = ErrorState.unknownErr;
       _contractInfoController.sink.add(responseOb);
-      logger.e("Err ${res.body}");
+      AppLogger.e("Err ${res.body}");
     }
   }
 }

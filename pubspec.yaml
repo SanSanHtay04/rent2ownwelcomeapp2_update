@@ -55,7 +55,11 @@ dependencies:
   google_fonts: ^6.2.1
   confetti: ^0.7.0
   fluttertoast: ^8.2.1
-  sms_otp_auto_verify: ^2.1.0
+  # sms_otp_auto_verify: ^2.1.0
+  sms_otp_auto_verify:
+    git:
+      url: https://github.com/TandohAnthonyNwiAckah/sms_otp_auto_verify.git
+      ref: d321a9c7a25e17eeb4d5a2e8ba4d170978811a81
   flutter_launcher_icons: ^0.13.1
   flutter_widget_from_html: ^0.15.0
   flutter_localization: ^0.2.0

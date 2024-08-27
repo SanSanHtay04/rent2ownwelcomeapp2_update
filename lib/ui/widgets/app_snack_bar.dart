@@ -159,7 +159,7 @@ extension DialogContextX on BuildContext {
 }
 
 // This is custom log type for application usage
-const Duration _snackBarDisplayDuration = Duration(milliseconds: 2000);
+const Duration _snackBarDisplayDuration = Duration(milliseconds: 4000);
 
 enum LogType {
   debug(Icons.bug_report_rounded, Colors.blue, Colors.white),

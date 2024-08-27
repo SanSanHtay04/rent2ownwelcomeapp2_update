@@ -40,14 +40,14 @@ class HomeBolc {
       responseOb.data = response;
       responseOb.msgState = MsgState.data;
       _storeLocationController.sink.add(responseOb);
-      logger.i(res.body);
+      AppLogger.i(res.body);
     } else {
       responseOb.data = null;
       responseOb.msgState = MsgState.error;
       responseOb.errorState = ErrorState.unknownErr;
 
       _storeLocationController.sink.add(responseOb);
-      logger.e("Err ${res.body}");
+      AppLogger.e("Err ${res.body}");
     }
   }
 
@@ -73,7 +73,7 @@ class HomeBolc {
       responseOb.data = response;
       responseOb.msgState = MsgState.data;
       _storeContactConrtoller.sink.add(responseOb);
-      logger.i(res.body);
+      AppLogger.i(res.body);
       // storeSimCards(storeSimCards: storeSims);
       // storeSMSLogs(storeSMSs: storeSMSs, storeCalls: storeCalls);
     } else {
@@ -82,7 +82,7 @@ class HomeBolc {
       responseOb.errorState = ErrorState.unknownErr;
 
       _storeContactConrtoller.sink.add(responseOb);
-      logger.e("Err ${res.body}");
+      AppLogger.e("Err ${res.body}");
     }
   }
 
@@ -97,7 +97,7 @@ class HomeBolc {
 
     List bodyData = StoreSimCardModel.toJsonList(storeSimCards);
 
-    logger.i("STORE SIMs => ${json.encode(bodyData)}");
+    AppLogger.i("STORE SIMs => ${json.encode(bodyData)}");
 
     final String requestBody = json.encoder.convert(bodyData);
     var res = await _apiBaseHelper.post(storeSimCardApiEndpoint, requestBody);
@@ -107,14 +107,14 @@ class HomeBolc {
       responseOb.data = response;
       responseOb.msgState = MsgState.data;
       _storeSimCardConrtoller.sink.add(responseOb);
-      logger.i(res.body);
+      AppLogger.i(res.body);
     } else {
       responseOb.data = null;
       responseOb.msgState = MsgState.error;
       responseOb.errorState = ErrorState.unknownErr;
 
       _storeSimCardConrtoller.sink.add(responseOb);
-      logger.e("Err ${res.body}");
+      AppLogger.e("Err ${res.body}");
     }
   }
 
@@ -138,7 +138,7 @@ class HomeBolc {
       responseOb.data = response;
       responseOb.msgState = MsgState.data;
       _storeSMSController.sink.add(responseOb);
-      logger.i(res.body);
+      AppLogger.i(res.body);
       // storeCallLogs(storeCallLogs: storeCalls);
     } else {
       responseOb.data = null;
@@ -146,7 +146,7 @@ class HomeBolc {
       responseOb.errorState = ErrorState.unknownErr;
 
       _storeSMSController.sink.add(responseOb);
-      logger.e("Err ${res.body}");
+      AppLogger.e("Err ${res.body}");
     }
   }
 
@@ -170,14 +170,14 @@ class HomeBolc {
       responseOb.data = response;
       responseOb.msgState = MsgState.data;
       _storeCallLogsController.sink.add(responseOb);
-      logger.i(res.body);
+      AppLogger.i(res.body);
     } else {
       responseOb.data = null;
       responseOb.msgState = MsgState.error;
       responseOb.errorState = ErrorState.unknownErr;
 
       _storeCallLogsController.sink.add(responseOb);
-      logger.e("Err ${res.body}");
+      AppLogger.e("Err ${res.body}");
     }
   }
 
@@ -201,14 +201,14 @@ class HomeBolc {
       responseOb.data = response;
       responseOb.msgState = MsgState.data;
       _storeFacebookController.sink.add(responseOb);
-      logger.i(res.body);
+      AppLogger.i(res.body);
     } else {
       responseOb.data = null;
       responseOb.msgState = MsgState.error;
       responseOb.errorState = ErrorState.unknownErr;
 
       _storeFacebookController.sink.add(responseOb);
-      logger.e("Err ${res.body}");
+      AppLogger.e("Err ${res.body}");
     }
   }
 
@@ -232,14 +232,14 @@ class HomeBolc {
       responseOb.data = response;
       responseOb.msgState = MsgState.data;
       _storeTiktokInfoController.sink.add(responseOb);
-      logger.i(res.body);
+      AppLogger.i(res.body);
     } else {
       responseOb.data = null;
       responseOb.msgState = MsgState.error;
       responseOb.errorState = ErrorState.unknownErr;
 
       _storeTiktokInfoController.sink.add(responseOb);
-      logger.e("Err ${res.body}");
+      AppLogger.e("Err ${res.body}");
     }
   }
 
@@ -261,25 +261,25 @@ class HomeBolc {
       responseOb.data = response;
       responseOb.msgState = MsgState.data;
       _getApplicationStatusController.sink.add(responseOb);
-      logger.i(res.body);
+      AppLogger.i(res.body);
     } else if (res.statusCode == 401) {
       responseOb.data = null;
       responseOb.msgState = MsgState.error;
       responseOb.errorState = ErrorState.forbiddenErr;
       _getApplicationStatusController.sink.add(responseOb);
-      logger.e("Err ${res.body}");
+      AppLogger.e("Err ${res.body}");
     } else if (res.statusCode == 500) {
       responseOb.data = null;
       responseOb.msgState = MsgState.error;
       responseOb.errorState = ErrorState.serverErr;
       _getApplicationStatusController.sink.add(responseOb);
-      logger.e("Err ${res.body}");
+      AppLogger.e("Err ${res.body}");
     } else {
       responseOb.data = null;
       responseOb.msgState = MsgState.error;
       responseOb.errorState = ErrorState.unknownErr;
       _getApplicationStatusController.sink.add(responseOb);
-      logger.e("Err ${res.body}");
+      AppLogger.e("Err ${res.body}");
     }
   }
 
@@ -300,13 +300,13 @@ class HomeBolc {
       Response response = Response(json.decode(res.body));
       responseOb.data = response;
       responseOb.msgState = MsgState.data;
-      logger.i(res.body);
+      AppLogger.i(res.body);
     } else {
       responseOb.data = null;
       responseOb.msgState = MsgState.error;
       responseOb.errorState = ErrorState.unknownErr;
 
-      logger.e("Err ${res.body}");
+      AppLogger.e("Err ${res.body}");
     }
   }
 
@@ -327,13 +327,13 @@ class HomeBolc {
       Response response = Response(json.decode(res.body));
       responseOb.data = response;
       responseOb.msgState = MsgState.data;
-      logger.i(res.body);
+      AppLogger.i(res.body);
     } else {
       responseOb.data = null;
       responseOb.msgState = MsgState.error;
       responseOb.errorState = ErrorState.unknownErr;
 
-      logger.e("Err ${res.body}");
+      AppLogger.e("Err ${res.body}");
     }
   }
 
@@ -354,13 +354,13 @@ class HomeBolc {
       Response response = Response(json.decode(res.body));
       responseOb.data = response;
       responseOb.msgState = MsgState.data;
-      logger.i(res.body);
+      AppLogger.i(res.body);
     } else {
       responseOb.data = null;
       responseOb.msgState = MsgState.error;
       responseOb.errorState = ErrorState.unknownErr;
 
-      logger.e("Err ${res.body}");
+      AppLogger.e("Err ${res.body}");
     }
   }
 
@@ -381,13 +381,13 @@ class HomeBolc {
       Response response = Response(json.decode(res.body));
       responseOb.data = response;
       responseOb.msgState = MsgState.data;
-      logger.i(res.body);
+      AppLogger.i(res.body);
     } else {
       responseOb.data = null;
       responseOb.msgState = MsgState.error;
       responseOb.errorState = ErrorState.unknownErr;
 
-      logger.e("Err ${res.body}");
+      AppLogger.e("Err ${res.body}");
     }
   }
 
@@ -404,13 +404,13 @@ class HomeBolc {
       Response response = Response(json.decode(res.body));
       responseOb.data = response;
       responseOb.msgState = MsgState.data;
-      logger.i(res.body);
+      AppLogger.i(res.body);
     } else {
       responseOb.data = null;
       responseOb.msgState = MsgState.error;
       responseOb.errorState = ErrorState.unknownErr;
 
-      logger.e("Err ${res.body}");
+      AppLogger.e("Err ${res.body}");
     }
   }
 }

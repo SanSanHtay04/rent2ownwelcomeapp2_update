@@ -1085,11 +1085,12 @@ packages:
   sms_otp_auto_verify:
     dependency: "direct main"
     description:
-      name: sms_otp_auto_verify
-      sha256: "7c7fa9c7f08f60b34e9ba683796899b13c889a68d074b5ed91db9ab72f9b1355"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.1.0"
+      path: "."
+      ref: d321a9c7a25e17eeb4d5a2e8ba4d170978811a81
+      resolved-ref: d321a9c7a25e17eeb4d5a2e8ba4d170978811a81
+      url: "https://github.com/TandohAnthonyNwiAckah/sms_otp_auto_verify.git"
+    source: git
+    version: "2.1.2"
   source_span:
     dependency: transitive
     description:

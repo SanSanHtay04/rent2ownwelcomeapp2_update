@@ -87,7 +87,7 @@ class _LocationCustomDialogState extends State<LocationCustomDialog> {
     PermissionStatus permissionStatus = await _getLocationPermission();
     if (permissionStatus == PermissionStatus.granted) {
       final position = await _geolocatorPlatform.getCurrentPosition();
-      logger.i("POSITION => ${position.latitude} , ${position.longitude}");
+      AppLogger.i("POSITION => ${position.latitude} , ${position.longitude}");
 
       StoreLocationModel location = StoreLocationModel(
           latitude: position.latitude.toString(),

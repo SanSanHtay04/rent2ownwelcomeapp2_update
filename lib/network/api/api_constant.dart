@@ -1,6 +1,6 @@
-//const baseUrl = "https://rto-01-be.vnapp.xyz/api/welcome-app/v1/"; //Staging
+const baseUrl = "https://rto-01-be.vnapp.xyz/api/welcome-app/v1/"; //Staging
 
-const baseUrl = "https://mmsys-be.vnapp.xyz/api/welcome-app/v1/"; //Production
+//const baseUrl = "https://mmsys-be.vnapp.xyz/api/welcome-app/v1/"; //Production
 
 //Endpoint
 const storeSimCardApiEndpoint = "store-sim-card";

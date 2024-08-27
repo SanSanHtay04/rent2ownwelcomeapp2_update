@@ -9,9 +9,9 @@ import 'package:http/http.dart';
 import 'package:rent2ownwelcomeapp/models/tiktokUserInfoResponse.dart';
 import 'package:rent2ownwelcomeapp/models/tiktokVideoResponse.dart';
 import 'package:rent2ownwelcomeapp/network/api/api_constant.dart';
+import 'package:rent2ownwelcomeapp/utils/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../models/tiktokTokenResponse.dart';
-import '../../../utils/logger.dart';
 
 class ApiBaseHelper {
   final String _baseUrl = baseUrl;
@@ -22,9 +22,9 @@ class ApiBaseHelper {
     String accessToken = await getAccessTokenDataFromSharedPreference();
     String lang = await getLanguage();
 
-    logger.i("BASEURL => $_baseUrl $lang");
+    AppLogger.i("BASEURL => $_baseUrl $lang");
 
-    logger.i('POST => $url , DevID => $deviceID');
+    AppLogger.i('POST => $url , DevID => $deviceID');
     final response = await client.post(Uri.parse(_baseUrl + url),
         headers: {
           "Cache-Control": "no-cache",
@@ -43,9 +43,9 @@ class ApiBaseHelper {
     String accessToken = await getAccessTokenDataFromSharedPreference();
     String lang = await getLanguage();
 
-    logger.i("BASEURL => $_baseUrl");
+    AppLogger.i("BASEURL => $_baseUrl");
 
-    logger.i('POST => $url , DevID => $deviceID');
+    AppLogger.i('POST => $url , DevID => $deviceID');
     final response = await client.post(Uri.parse(_baseUrl + url),
         headers: {
           "Cache-Control": "no-cache",
@@ -57,7 +57,7 @@ class ApiBaseHelper {
         body: bodyData);
     // .interceptWithChuck(chuck, body: bodyData);
 
-    logger.i("HEA => ${response.headers}");
+    AppLogger.i("HEA => ${response.headers}");
 
     return response;
   }
@@ -128,10 +128,10 @@ class ApiBaseHelper {
     await res.then((resp) {
       response = TiktokTokenResponse(resp.data);
 
-      logger.i("RESP => ${response.accessToken}");
+      AppLogger.i("RESP => ${response.accessToken}");
     });
 
-    logger.i("HEA => ${json.encode(res.toString())}");
+    AppLogger.i("HEA => ${json.encode(res.toString())}");
 
     return response;
   }
@@ -173,7 +173,7 @@ class ApiBaseHelper {
 
     await res.then((resp) {
       response = TiktokVideoResponse(resp.data);
-      logger.i("VL RESP => ${response.error.code}");
+      AppLogger.i("VL RESP => ${response.error.code}");
     });
 
     return response;
@@ -185,9 +185,9 @@ class ApiBaseHelper {
     String accessToken = await getAccessTokenDataFromSharedPreference();
     String lang = await getLanguage();
 
-    logger.i("BASEURL => ${_baseUrl + url}");
-    logger.i("AT => $accessToken");
-    logger.i("LANG => ${lang}");
+    AppLogger.i("BASEURL => ${_baseUrl + url}");
+    AppLogger.i("AT => $accessToken");
+    AppLogger.i("LANG => ${lang}");
 
     final response = await client.get(
       Uri.parse(_baseUrl + url),
@@ -202,7 +202,7 @@ class ApiBaseHelper {
       },
     );
 
-    logger.i("RES => ${json.encode(response.body)}");
+    AppLogger.i("RES => ${json.encode(response.body)}");
 
     return response;
   }
