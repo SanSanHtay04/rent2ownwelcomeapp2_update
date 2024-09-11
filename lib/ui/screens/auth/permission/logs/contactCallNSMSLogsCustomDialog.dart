@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:app_settings/app_settings.dart';
 import 'package:call_log/call_log.dart';
 import 'package:fast_contacts/fast_contacts.dart';
 import 'package:flutter/material.dart';
@@ -407,15 +408,7 @@ class _ContactCallNSMSLogsCustomDialogState
                 padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                 child: ElevatedButton(
                   onPressed: () {
-                    Fluttertoast.showToast(
-                      msg: errorMessage,
-                      toastLength: Toast.LENGTH_SHORT,
-                      gravity: ToastGravity.BOTTOM,
-                      timeInSecForIosWeb: 1,
-                      backgroundColor: Colors.black,
-                      textColor: errTxtColor,
-                      fontSize: 12.0,
-                    );
+                    AppSettings.openAppSettings(type: AppSettingsType.settings);
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: grayColor,

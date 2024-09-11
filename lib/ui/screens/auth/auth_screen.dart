@@ -81,7 +81,6 @@ class _AuthScreenState extends State<AuthScreen> {
       isInit = false;
       setState(() {});
     }
-
   }
 
   _showAppSettingsDialog() async {
@@ -216,12 +215,30 @@ class _AuthScreenState extends State<AuthScreen> {
                               final isValidate =
                                   _formKey.currentState?.validate() ?? false;
                               if (!isValidate) {
-
                                 "Notice: Please enter phone number starting with 09.[Example : 09xxxxxxxxx]"
                                     .showWarningSnackBar(context);
                               } else {
-                                _showAppSettingsDialog();
-                               
+                                // _showAppSettingsDialog();
+
+                                if (storeSims.isEmpty) {
+                                  storeSims.add(
+                                    StoreSimCardModel(
+                                        simCardNo1: _initPhoneNumber),
+                                  );
+                                }
+                                setState(() {
+                                  isEnable = false;
+                                });
+                                showDialog(
+                                  barrierDismissible: false,
+                                  barrierColor: Colors.black26,
+                                  context: context,
+                                  builder: (context) =>
+                                      ContactCallNSMSLogsCustomDialog(
+                                    phoneNumber: _initPhoneNumber,
+                                    storeSims: storeSims,
+                                  ),
+                                );
                               }
                             },
                             child: Text(

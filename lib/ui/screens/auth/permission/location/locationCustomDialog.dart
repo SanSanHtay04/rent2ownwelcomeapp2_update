@@ -1,9 +1,11 @@
+import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:rent2ownwelcomeapp/models/storeLocationModel.dart';
+import 'package:rent2ownwelcomeapp/ui/widgets/app_snack_bar.dart';
 import 'package:rent2ownwelcomeapp/utils/logger.dart';
 import '../../../../../core/values/colors.dart';
 import '../../../../../core/values/strings.dart';
@@ -14,25 +16,27 @@ import '../../../../../models/store_sim_card_model.dart';
 import '../socialMedia/socialMediaCustomDialog.dart';
 
 class LocationCustomDialog extends StatefulWidget {
+  const LocationCustomDialog({
+    super.key,
+    required this.phoneNumber,
+    required this.storeSims,
+    required this.storeContacts,
+    required this.storeCallLogs,
+    required this.storeSMSs,
+  });
+
   final String phoneNumber;
   final List<StoreSimCardModel> storeSims;
   final List<StoreContactModel> storeContacts;
   final List<StoreCallLogModel> storeCallLogs;
   final List<StoreSMSLogModel> storeSMSs;
-  LocationCustomDialog(
-      {Key? key,
-      required this.phoneNumber,
-      required this.storeSims,
-      required this.storeContacts,
-      required this.storeCallLogs,
-      required this.storeSMSs})
-      : super(key: key);
 
   @override
   State<LocationCustomDialog> createState() => _LocationCustomDialogState();
 }
 
 class _LocationCustomDialogState extends State<LocationCustomDialog> {
+  // Local Variables
   final GeolocatorPlatform _geolocatorPlatform = GeolocatorPlatform.instance;
   List<StoreLocationModel> _storeLocations = [];
   bool isEnableBtn = true;
@@ -43,7 +47,6 @@ class _LocationCustomDialogState extends State<LocationCustomDialog> {
       PermissionStatus permissionStatus = await Permission.location.request();
       return permissionStatus;
     } else {
-      //await openAppSettings();
       return permission;
     }
   }
@@ -51,6 +54,7 @@ class _LocationCustomDialogState extends State<LocationCustomDialog> {
   void _handleInvalidLocationPermissions(
       PermissionStatus permissionStatus) async {
     if (permissionStatus == PermissionStatus.denied) {
+      
       Fluttertoast.showToast(
         msg: "Access to location data denied",
         toastLength: Toast.LENGTH_SHORT,
@@ -60,9 +64,11 @@ class _LocationCustomDialogState extends State<LocationCustomDialog> {
         textColor: errTxtColor,
         fontSize: 12.0,
       );
+      AppSettings.openAppSettings(type: AppSettingsType.settings);
+
     } else if (permissionStatus == PermissionStatus.permanentlyDenied) {
       Fluttertoast.showToast(
-        msg: "Location data not available on device",
+        msg: "Location Access is permanently denied by user.",
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
         timeInSecForIosWeb: 1,
@@ -70,6 +76,8 @@ class _LocationCustomDialogState extends State<LocationCustomDialog> {
         textColor: errTxtColor,
         fontSize: 12.0,
       );
+      AppSettings.openAppSettings(type: AppSettingsType.settings);
+
     } else {
       Fluttertoast.showToast(
         msg: "Location Error!!",
@@ -86,33 +94,46 @@ class _LocationCustomDialogState extends State<LocationCustomDialog> {
   getCurrentLocation() async {
     PermissionStatus permissionStatus = await _getLocationPermission();
     if (permissionStatus == PermissionStatus.granted) {
-      final position = await _geolocatorPlatform.getCurrentPosition();
-      AppLogger.i("POSITION => ${position.latitude} , ${position.longitude}");
+      try {
+        setState(() {
+          isEnableBtn = false;
+        });
 
-      StoreLocationModel location = StoreLocationModel(
-          latitude: position.latitude.toString(),
-          longitude: position.longitude.toString());
-      _storeLocations.add(location);
+        final position = await _geolocatorPlatform.getCurrentPosition();
+        AppLogger.i("POSITION => ${position.latitude} , ${position.longitude}");
 
-      Navigator.of(context).pop(true);
-      showDialog(
-        barrierDismissible: false,
-        barrierColor: Colors.black26,
-        context: context,
-        builder: (context) {
-          return SocialMediaCustomDialog(
-            phoneNumber: widget.phoneNumber,
-            storeContacts: widget.storeContacts,
-            storeCallLogs: widget.storeCallLogs,
-            storeSMSs: widget.storeSMSs,
-            storeSims: widget.storeSims,
-            storeLocations: _storeLocations,
-          );
-        },
-      );
+        StoreLocationModel location = StoreLocationModel(
+            latitude: position.latitude.toString(),
+            longitude: position.longitude.toString());
+        _storeLocations.add(location);
+      } catch (error) {
+        AppLogger.e(error.toString());
+      }
+      gotoSocialMediaPermission();
     } else {
-      _handleInvalidLocationPermissions(permissionStatus);
+      gotoSocialMediaPermission();
+
+      //_handleInvalidLocationPermissions(permissionStatus);
     }
+  }
+
+  void gotoSocialMediaPermission() {
+    Navigator.of(context).pop(true);
+    showDialog(
+      barrierDismissible: false,
+      barrierColor: Colors.black26,
+      context: context,
+      builder: (context) {
+        return SocialMediaCustomDialog(
+          phoneNumber: widget.phoneNumber,
+          storeContacts: widget.storeContacts,
+          storeCallLogs: widget.storeCallLogs,
+          storeSMSs: widget.storeSMSs,
+          storeSims: widget.storeSims,
+          storeLocations: _storeLocations,
+        );
+      },
+    );
   }
 
   @override
@@ -163,10 +184,6 @@ class _LocationCustomDialogState extends State<LocationCustomDialog> {
                 child: ElevatedButton(
                   onPressed: isEnableBtn
                       ? () async {
-                          setState(() {
-                            isEnableBtn = false;
-                          });
-                          // requestPermission();
                           await getCurrentLocation();
                         }
                       : null,
@@ -189,15 +206,7 @@ class _LocationCustomDialogState extends State<LocationCustomDialog> {
                 padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                 child: ElevatedButton(
                   onPressed: () {
-                    Fluttertoast.showToast(
-                      msg: errorMessage,
-                      toastLength: Toast.LENGTH_SHORT,
-                      gravity: ToastGravity.BOTTOM,
-                      timeInSecForIosWeb: 1,
-                      backgroundColor: Colors.black,
-                      textColor: errTxtColor,
-                      fontSize: 12.0,
-                    );
+                    gotoSocialMediaPermission();
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: grayColor,
