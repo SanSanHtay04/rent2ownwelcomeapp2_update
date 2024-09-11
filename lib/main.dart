@@ -2,14 +2,15 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 import 'package:rent2ownwelcomeapp/network/network.dart';
-import 'package:rent2ownwelcomeapp/ui/screens/auth/auth_screen.dart';
-import 'package:rent2ownwelcomeapp/ui/screens/home/home_with_tab_screen.dart';
-import 'package:rent2ownwelcomeapp/ui/screens/test/app_settings.dart';
-import 'package:rent2ownwelcomeapp/ui/screens/test/testing_screen.dart';
+import 'package:rent2ownwelcomeapp/src/features/auth/auth_screen.dart';
+import 'package:rent2ownwelcomeapp/src/features/auth/login/login_screen.dart';
+import 'package:rent2ownwelcomeapp/src/features/home/home_with_tab_screen.dart';
+import 'package:rent2ownwelcomeapp/src/features/test/app_settings.dart';
+import 'package:rent2ownwelcomeapp/src/features/test/testing_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_tiktok_sdk/flutter_tiktok_sdk.dart';
 
-import 'core/themes/themes.dart';
+import 'src/core/themes/themes.dart';
 
 mixin AppLocale {
   static const String contract_has_been_created_successfully =
@@ -105,7 +106,6 @@ class _MyAppState extends State<MyApp> {
       _isAldLogin = spfs.getBool(IS_ALD_LOGIN) ?? false;
     });
 
-    // print("ISLOGIN => $_isAldLogin");
   }
 
   // This widget is the root of your application.
@@ -121,6 +121,6 @@ class _MyAppState extends State<MyApp> {
             ? HomeWithTabScreen(
                 isAldLogin: _isAldLogin,
               )
-            : const AuthScreen());
+            : const LoginScreen());
   }
 }

@@ -1,0 +1,95 @@
+{
+  "@@locale": "en",
+  "userNameHint": "User name",
+  "passwordHint": "Password",
+  "titlePassword": "Password",
+  "errorShortPassword": "Password must longer than 6 characters!",
+  "errorDefault": "Oops! Something when wrong",
+  "errorDefaultServer": "Oops! Something when wrong with server",
+  "errorNoInternet": "No Internet",
+  "errorConnectTimeout": "Connect timeout",
+  "errorUnauthorized": "Unauthorized",
+  "errorUnGranted": "You are not granted access this app.\nPlease contact to IT to get permission for using.",
+  "errorRequired": "{label} is required!",
+  "@errorRequired": {
+    "description": "{label} is required!",
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "actionLogin": "LOGIN",
+  "actionChnagePassword": "CHANGE PASSWORD",
+  "mainMenuTitle": "MAIN MENU",
+  "ownerBookJournalDataLogWithParentheses": "[{oldValue}] to [{newValue}]",
+  "@ownerBookJournalDataLogWithParentheses": {
+    "description": "{oldValue} is updated to {newValue} with Parentheses",
+    "placeholders": {
+      "oldValue": {
+        "type": "String"
+      },
+      "newValue": {
+        "type": "String"
+      }
+    }
+  },
+  "ownerBookJournalDataLog": "{oldValue} to {newValue}",
+  "@ownerBookJournalDataLog": {
+    "description": "{oldValue} is updated to {newValue}",
+    "placeholders": {
+      "oldValue": {
+        "type": "String"
+      },
+      "newValue": {
+        "type": "String"
+      }
+    }
+  },
+  "ownerBookStatusLabel": "Status : ",
+  "ownerBookExpiryDateLabel":"Expiry Date : ",
+  "ownerBookPlateNoLabel": "Plate No : ",
+  "ownerBookRemarkLabel": "Remark : ",
+  "ownerBookProductNameLabel": "Product Name : ",
+  "ownerBookContractLabel": "{contractNo} ({contractDate})",
+  "@ownerBookContractLabel": {
+    "description": "contract description label of owner book journal",
+    "placeholders": {
+      "contractNo": {
+        "type": "String"
+      },
+      "contractDate": {
+        "type": "String"
+      }
+    }
+  },
+  "parenthesesEncoded": "( {data} )",
+  "@parenthesesEncoded": {
+    "description": "data is encoded with parentheses () ",
+    "placeholders": {
+      "data": {
+        "type": "String"
+      }
+    }
+  },
+  "ownerBookChassisNoLabel": "Chassis No : ",
+  "ownerBookEngineNoLabel": "Engine No : ",
+  "updateOwnerBook":"UPDATE OWNER BOOK",
+  "obStatusConfirmationTitle":"OB STATUS CONFIRMATION",
+  "todayDateLabel":"Today",
+  "obStatusJournalTitle":"OB STATUS JOURNAL",
+  "errorEmptyContractInfo": "The Contract Information of ID : {contractId} is empty!\nPlease contact to HO.",
+  "@errorEmptyContractInfo": {
+    "description": "contractId didn't have information",
+    "placeholders": {
+      "contractId": {
+        "type": "String"
+      }
+    }
+  },
+  "applicationBackMessage": "Please be patient while the application is being processed...\nAre you sure to back?",
+  "actionBack": "Back",
+  "actionUpdate": "Update",
+  "actionSkip":"Skip",
+  "titleUpdateVersion" :"Have new update version!"
+}

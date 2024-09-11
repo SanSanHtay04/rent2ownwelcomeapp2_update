@@ -9,7 +9,7 @@ import 'package:http/http.dart';
 import 'package:rent2ownwelcomeapp/models/tiktokUserInfoResponse.dart';
 import 'package:rent2ownwelcomeapp/models/tiktokVideoResponse.dart';
 import 'package:rent2ownwelcomeapp/network/api/api_constant.dart';
-import 'package:rent2ownwelcomeapp/utils/logger.dart';
+import 'package:rent2ownwelcomeapp/src/core/helpers/app_logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../models/tiktokTokenResponse.dart';
 

@@ -1,0 +1,10 @@
+{
+    "@@locale": "my",
+    "userNameHint": "အသုံးပြုသူအမည်",
+    "passwordHint": "စကားဝှက်",
+    "errorRequired": "{label} လိုအပ်ပါသည်။",
+    "actionLogin": "ဝင်ပါ",
+ 
+    "actionChnagePassword": "စကားဝှက်ပြောင်းပါ",
+    "mainMenuTitle": "မူလစာမျက်နှာ"
+}
