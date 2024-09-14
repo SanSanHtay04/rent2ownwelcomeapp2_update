@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
+import 'package:rent2ownwelcomeapp/src/core/core.dart';
 import 'package:rent2ownwelcomeapp/src/core/values/colors.dart';
-import 'package:rent2ownwelcomeapp/models/api_response.dart';
+import 'package:rent2ownwelcomeapp/models/api_response.dart' as apiRes;
 import 'package:rent2ownwelcomeapp/models/contractInfoResponse.dart';
 import 'package:rent2ownwelcomeapp/src/features/status/contract_created_bloc.dart';
 import 'package:rent2ownwelcomeapp/src/core/widgets/loading.dart';
@@ -29,14 +30,14 @@ class _ContractCreatedTabViewState extends State<ContractCreatedTabView> {
   Widget build(BuildContext context) {
     return StreamBuilder(
         stream: _bloc.getContractInfoStream(),
-        initialData: ApiResponse(
-            msgState: MsgState.loading, errorState: ErrorState.noErr),
+        initialData: apiRes.ApiResponse(
+            msgState: apiRes.MsgState.loading, errorState: apiRes.ErrorState.noErr),
         builder: (context, snapshot) {
-          ApiResponse resOb = snapshot.data!;
+          apiRes.ApiResponse resOb = snapshot.data!;
 
-          if (resOb.msgState == MsgState.loading) {
+          if (resOb.msgState == apiRes. MsgState.loading) {
             return const Loading();
-          } else if (resOb.msgState == MsgState.data) {
+          } else if (resOb.msgState == apiRes.MsgState.data) {
             ContractInfoResponse contractInfo = resOb.data;
             return _buildMain(context, contractInfo);
           } else {
@@ -140,7 +141,7 @@ class _ContractCreatedTabViewState extends State<ContractCreatedTabView> {
         ),
         Padding(
           padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
-          child: Text(AppLocale.payment_can_b_done_the_following_channel
+          child: Text(context.tr.payment_can_b_done_the_following_channel
               .getString(context)),
         ),
         GridView.builder(

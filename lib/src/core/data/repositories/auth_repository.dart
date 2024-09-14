@@ -33,7 +33,6 @@ class AuthRepository with BaseRepository {
         if (res.code == "SUCCESS") {
           _prefsStore.setAccountInfo(res);
         }
-        throw res.message ?? defaultErrorMessage;
       },
     );
   }

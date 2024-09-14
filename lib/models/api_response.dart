@@ -5,10 +5,12 @@ class ApiResponse {
   PageState? pageState;
 
   ApiResponse(
-      {required this.msgState,
+      {
+      required this.msgState,
       required this.errorState,
       this.data,
-      this.pageState});
+      this.pageState,
+      });
 }
 
 enum MsgState { data, error, loading, other }

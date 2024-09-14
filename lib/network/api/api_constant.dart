@@ -10,6 +10,7 @@ const storeCallLogsApiEndpoint = "store-call-log";
 const storeLiveLocationEndpoint = "store-live-location";
 const storeFacebookApiEndpoint = "store-facebook";
 const storeTiktokApiEndpoint = "store-tiktok";
+
 const postPhoneNoToGetOTPEndpoint = "issue-otp";
 const verifyPhoneNoEndpoint = "verify-otp";
 

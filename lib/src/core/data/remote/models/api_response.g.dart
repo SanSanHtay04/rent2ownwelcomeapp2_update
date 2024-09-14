@@ -12,6 +12,7 @@ ApiResponse<T> _$ApiResponseFromJson<T>(
 ) =>
     ApiResponse<T>(
       fromJsonT(json['data']),
+      code: json['code'] as String?,
       message: json['message'] as String?,
       messages: json['messages'] as String?,
     );
@@ -22,18 +23,7 @@ Map<String, dynamic> _$ApiResponseToJson<T>(
 ) =>
     <String, dynamic>{
       'data': toJsonT(instance.data),
+      'code': instance.code,
       'message': instance.message,
       'messages': instance.messages,
-    };
-
-MessageResponse _$MessageResponseFromJson(Map<String, dynamic> json) =>
-    MessageResponse(
-      json['messages'] as String?,
-      json['message'] as String?,
-    );
-
-Map<String, dynamic> _$MessageResponseToJson(MessageResponse instance) =>
-    <String, dynamic>{
-      'messages': instance.messages,
-      'message': instance.message,
     };

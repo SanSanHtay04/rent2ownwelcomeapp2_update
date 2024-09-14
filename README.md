@@ -12,12 +12,12 @@ dart  run build_runner build  --delete-conflicting-outputs
 
 | Name | Type | Value | Description |  
 |--|--|--|--|  
-| SERVER_URL | string | https://app-be.r2omm.xyz \| https://test-be.r2omm.xyz | Server URL mostly used as base URL. |
+| SERVER_URL | string | https://rto-01-be.vnapp.xyz \| https://mmsys-be.vnapp.xyz | Server URL mostly used as base URL. |
 | LOG_LEVEL | string | info \| warning \| error \| debug \| nothing \| verbose \| wtf | |
 | IS_PROD | bool | true\| false| Is production build? |
 
 E.g.
-`flutter run  --dart-define=SERVER_URL=http://test-be.r2omm.xyz --dart-define=LOG_LEVEL=info --dart-define=IS_PROD=false`
+`flutter run  --dart-define=SERVER_URL=https://rto-01-be.vnapp.xyz --dart-define=LOG_LEVEL=info --dart-define=IS_PROD=false`
 
 # Flavors
 This project has one dimension: "app" dimension; and two flavors: "dev" and "prod" for "app" dimensions. To run/build the project your need to specify the flavor that you want.
@@ -44,4 +44,5 @@ Note: Should do this at first time you clone source from git
     ```shell
     flutter build apk --release --flavor=prod 
     --dart-define=IS_PROD=true 
+    --dart-define=SERVER_URL=https://mmsys-be.vnapp.xyz
     ```

@@ -9,7 +9,7 @@ part 'auth_service.g.dart';
 abstract class AuthService {
   factory AuthService() => _AuthService(ApiClient.client);
 
-  @GET('/issue-otp')
+  @POST('/issue-otp')
   Future<LoginOtpResponse> otpLogin(@Body() Map<String, dynamic> body);
 
   @POST('/verify-otp')
@@ -17,7 +17,4 @@ abstract class AuthService {
 
   @DELETE('/access_token')
   Future<void> logout();
-
-  // const postPhoneNoToGetOTPEndpoint = "issue-otp";
-  // const verifyPhoneNoEndpoint = "verify-otp";
 }

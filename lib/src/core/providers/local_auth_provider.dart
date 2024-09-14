@@ -6,7 +6,7 @@ class LocalAuthProvider with ChangeNotifier {
   late bool isLoggedIn;
 
   LocalAuthProvider(this._prefsStore) {
-    isLoggedIn = _prefsStore.accessToken.isNullOrEmpty;
+    isLoggedIn = ! _prefsStore.accessToken.isNullOrEmpty;
   }
 
   Future<void> logout() async {

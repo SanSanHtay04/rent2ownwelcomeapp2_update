@@ -14,7 +14,6 @@ class AuthInterceptor extends Interceptor {
     RequestInterceptorHandler handler,
   ) async {
     
-    options.headers["app-id"] = EnvConfig.appId;
     options.headers["x-device-id"] = _authProvider.deviceId;
 
     final token = _authProvider.accessToken;

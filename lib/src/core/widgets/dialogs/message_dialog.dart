@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:rent2ownwelcomeapp/src/core/themes/dimensions.dart';
-import 'package:rent2ownwelcomeapp/src/core/widgets/app_snack_bar.dart';
-import 'package:rent2ownwelcomeapp/src/core/utils/utils.dart';
-
+import 'package:rent2ownwelcomeapp/src/core/core.dart';
 
 class MessageDialog extends StatelessWidget {
   const MessageDialog({
@@ -33,7 +30,7 @@ class MessageDialog extends StatelessWidget {
           shape: kRoundedRectangleBorder28,
           margin: kPaddingHorizontal16 + kPaddingVertical8,
           child: Padding(
-           padding: kPadding16,
+            padding: kPadding16,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -49,10 +46,10 @@ class MessageDialog extends StatelessWidget {
                     child: message.contains('<html')
                         ? Html(data: message)
                         : Text(
-                      message,
-                      style: textTheme.bodyMedium,
-                      textAlign: TextAlign.center,
-                    ),
+                            message,
+                            style: textTheme.bodyMedium,
+                            textAlign: TextAlign.center,
+                          ),
                   ),
                 ),
                 SizedBox(height: 16),

@@ -38,7 +38,7 @@ class Themes {
       //hintColor: hintColor,
       // canvasColor: colorScheme.surface,
       useMaterial3: true,
-      scaffoldBackgroundColor: colorScheme.background,
+      scaffoldBackgroundColor: colorScheme.surface,
       textTheme: GoogleFonts.robotoTextTheme().apply(
           bodyColor: Colors.grey.shade600, // colorScheme.secondary,
           displayColor: Colors.grey //colorScheme.secondary,

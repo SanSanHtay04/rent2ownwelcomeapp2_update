@@ -56,7 +56,8 @@ class _PhoneTextFormFieldState extends State<PhoneTextFormField> {
         fillColor: Colors.white,
       ),
       validator: (text) {
-        if (widget.required && !_validPhoneNumber) {
+
+        if (widget.required && !_validPhoneNumber ) {
           return 'Invalid Phone Number';
         }
         return widget.validator?.call(text);

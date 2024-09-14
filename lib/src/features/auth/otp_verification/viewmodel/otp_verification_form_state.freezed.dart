@@ -16,6 +16,9 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$OtpVerificationFormState {
+  IssueOtpState get status => throw _privateConstructorUsedError;
+  String? get message => throw _privateConstructorUsedError;
+  AppError<dynamic>? get error => throw _privateConstructorUsedError;
   String get phoneNo => throw _privateConstructorUsedError;
   String get otpCode => throw _privateConstructorUsedError;
 
@@ -30,7 +33,12 @@ abstract class $OtpVerificationFormStateCopyWith<$Res> {
           $Res Function(OtpVerificationFormState) then) =
       _$OtpVerificationFormStateCopyWithImpl<$Res, OtpVerificationFormState>;
   @useResult
-  $Res call({String phoneNo, String otpCode});
+  $Res call(
+      {IssueOtpState status,
+      String? message,
+      AppError<dynamic>? error,
+      String phoneNo,
+      String otpCode});
 }
 
 /// @nodoc
@@ -47,10 +55,25 @@ class _$OtpVerificationFormStateCopyWithImpl<$Res,
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? status = null,
+    Object? message = freezed,
+    Object? error = freezed,
     Object? phoneNo = null,
     Object? otpCode = null,
   }) {
     return _then(_value.copyWith(
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as IssueOtpState,
+      message: freezed == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+      error: freezed == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as AppError<dynamic>?,
       phoneNo: null == phoneNo
           ? _value.phoneNo
           : phoneNo // ignore: cast_nullable_to_non_nullable
@@ -72,7 +95,12 @@ abstract class _$$OtpVerificationFormStateImplCopyWith<$Res>
       __$$OtpVerificationFormStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String phoneNo, String otpCode});
+  $Res call(
+      {IssueOtpState status,
+      String? message,
+      AppError<dynamic>? error,
+      String phoneNo,
+      String otpCode});
 }
 
 /// @nodoc
@@ -88,10 +116,25 @@ class __$$OtpVerificationFormStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? status = null,
+    Object? message = freezed,
+    Object? error = freezed,
     Object? phoneNo = null,
     Object? otpCode = null,
   }) {
     return _then(_$OtpVerificationFormStateImpl(
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as IssueOtpState,
+      message: freezed == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+      error: freezed == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as AppError<dynamic>?,
       phoneNo: null == phoneNo
           ? _value.phoneNo
           : phoneNo // ignore: cast_nullable_to_non_nullable
@@ -107,9 +150,21 @@ class __$$OtpVerificationFormStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$OtpVerificationFormStateImpl extends _OtpVerificationFormState {
-  const _$OtpVerificationFormStateImpl({this.phoneNo = '', this.otpCode = ''})
+  const _$OtpVerificationFormStateImpl(
+      {this.status = IssueOtpState.loaded,
+      this.message,
+      this.error,
+      this.phoneNo = '',
+      this.otpCode = ''})
       : super._();
 
+  @override
+  @JsonKey()
+  final IssueOtpState status;
+  @override
+  final String? message;
+  @override
+  final AppError<dynamic>? error;
   @override
   @JsonKey()
   final String phoneNo;
@@ -119,7 +174,7 @@ class _$OtpVerificationFormStateImpl extends _OtpVerificationFormState {
 
   @override
   String toString() {
-    return 'OtpVerificationFormState(phoneNo: $phoneNo, otpCode: $otpCode)';
+    return 'OtpVerificationFormState(status: $status, message: $message, error: $error, phoneNo: $phoneNo, otpCode: $otpCode)';
   }
 
   @override
@@ -127,12 +182,16 @@ class _$OtpVerificationFormStateImpl extends _OtpVerificationFormState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$OtpVerificationFormStateImpl &&
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.message, message) || other.message == message) &&
+            (identical(other.error, error) || other.error == error) &&
             (identical(other.phoneNo, phoneNo) || other.phoneNo == phoneNo) &&
             (identical(other.otpCode, otpCode) || other.otpCode == otpCode));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, phoneNo, otpCode);
+  int get hashCode =>
+      Object.hash(runtimeType, status, message, error, phoneNo, otpCode);
 
   @JsonKey(ignore: true)
   @override
@@ -144,10 +203,19 @@ class _$OtpVerificationFormStateImpl extends _OtpVerificationFormState {
 
 abstract class _OtpVerificationFormState extends OtpVerificationFormState {
   const factory _OtpVerificationFormState(
-      {final String phoneNo,
+      {final IssueOtpState status,
+      final String? message,
+      final AppError<dynamic>? error,
+      final String phoneNo,
       final String otpCode}) = _$OtpVerificationFormStateImpl;
   const _OtpVerificationFormState._() : super._();
 
+  @override
+  IssueOtpState get status;
+  @override
+  String? get message;
+  @override
+  AppError<dynamic>? get error;
   @override
   String get phoneNo;
   @override

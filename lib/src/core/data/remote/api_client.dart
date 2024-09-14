@@ -46,7 +46,7 @@ class ApiClient {
     }
 
     // Isolate JSON decode
-    (dio.transformer as DefaultTransformer).jsonDecodeCallback = parseJson;
+  //  (dio.transformer as FusedTransformer).jsonDecodeCallback = parseJson;
 
     return dio;
   }

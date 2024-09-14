@@ -16,6 +16,11 @@ class LoginViewModel extends ChangeNotifier {
   bool get isLoading => (submitState is LoginSubmitStateLoading);
 
   bool get enableButton => (!formState.phoneNumber.isNullOrEmpty);
+  
+  loadData(String phoneNo){
+    AppLogger.i( "MOBILE NUMBER $phoneNo");
+   updatePhoneNumber(phoneNo);
+  }
 
   setFormState(LoginFormState value) {
     formState = value;

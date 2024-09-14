@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:rent2ownwelcomeapp/src/core/widgets/dialogs/permission_dialog.dart';
+import 'package:rent2ownwelcomeapp/src/core/widgets/dialogs/device_permission_dialog.dart';
 
 import 'dialogs/message_dialog.dart';
 
@@ -77,39 +77,38 @@ extension DialogContextX on BuildContext {
         LogType.debug,
       );
 
-  Future<bool> showPermissionDialog({
-    required String message,
-    String? title,
-    LogType type = LogType.confirm,
-    Color? primary,
-    required String imagePath,
-    String? confirmText,
-    String? cancelText,
-    VoidCallback? onConfirmPressed,
-    VoidCallback? onCancelPressed,
-    bool isDismissible = true,
-  }) async {
-    if (type == LogType.debug && !kDebugMode) return false;
-    final bool confirm = await showModalBottomSheet(
-          context: this,
-          builder: (_) => PermissionDialog(
-            message: message,
-            title: title,
-            type: type,
-            primary: primary,
-            imagePath: imagePath,
-            confirmText: confirmText,
-            cancelText: cancelText,
-          ),
-          backgroundColor: Colors.transparent,
-          enableDrag: false,
-          isDismissible: isDismissible,
-        ) ??
-        false;
-    final callback = confirm ? onConfirmPressed : onCancelPressed;
-    callback?.call();
-    return confirm;
-  }
+  // Future<bool> showPermissionDialog({
+  //   required String message,
+  //   String? title,
+  //   LogType type = LogType.confirm,
+  //   Color? primary,
+  //   required String imagePath,
+  //   String? confirmText,
+  //   String? cancelText,
+  //   VoidCallback? onConfirmPressed,
+  //   VoidCallback? onCancelPressed,
+  //   bool isDismissible = true,
+  // }) async {
+  //   if (type == LogType.debug && !kDebugMode) return false;
+  //   final bool confirm = await showModalBottomSheet(
+  //         context: this,
+  //         builder: (_) => PermissionDialog(
+  //           message: message,
+  //           title: title,         
+  //           primary: primary,
+  //           imagePath: imagePath,
+  //           confirmText: confirmText,
+  //           cancelText: cancelText,
+  //         ),
+  //         backgroundColor: Colors.transparent,
+  //         enableDrag: false,
+  //         isDismissible: isDismissible,
+  //       ) ??
+  //       false;
+  //   final callback = confirm ? onConfirmPressed : onCancelPressed;
+  //   callback?.call();
+  //   return confirm;
+  // }
 
   Future<void> showMessageDialog({
     required String message,

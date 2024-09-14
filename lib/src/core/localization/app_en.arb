@@ -1,10 +1,40 @@
 {
   "@@locale": "en",
-  "userNameHint": "User name",
-  "passwordHint": "Password",
-  "titlePassword": "Password",
-  "errorShortPassword": "Password must longer than 6 characters!",
-  "errorDefault": "Oops! Something when wrong",
+  "welcome": "WELCOME",
+  "phoneNo": "Phone Number",
+  "createNewAccount": "Create New Account",
+  "logIn": "Log-in",
+  "contactCallSMSPermission": "Allow Contacts,Call Log and SMS log access to R2O for better customer Service",
+  "locationPermission": "Allow Live Location access to R2O for better customer Service",
+  "socialMediaPermission": "Connect your social media for better customer understanding",
+  "errorMessage": "Sorry! You will need to allow the access to proceed further.",
+  "allow": "Allow",
+  "deny": "Deny",
+  "connectWithFB": "Connect with Facebook",
+  "connectWithTT": "Connect with Tik Tok",
+  "otp": "Please enter the OTP sent to your phone",
+  "successMessage": "Congratulations! You have successfully created the user account for R2O and Please see the application status below. ",
+  "accInfoMessage": "Your application is accepted by R2O, Please give Downpayment to the merchant & Create the contract with R2O.",
+  "tryAgain": "Try Again",
+  "skip": "Skip",
+  "phoneNoerrorMessage": "You must fill phone number!",
+  "invalidOTPerrorMessage": "Your OTP code is invalid. Please try again!",
+  "successfully_updated":"Successfully Updated!",
+  "toSubmit": "To Submit",
+  "toReview": "To Review",
+  "status": "Status",
+  "myApplication": "My Application",
+
+  "contract_has_been_created_successfully": "The Contract Has Been Created Successfully.",
+  "contract_number": "Contract Number",
+  "term_n_cond": "Terms and conditions",
+  "payment_schedule": "Payment Schedule",
+  "contract_detail_link": "Contract Details Link",
+  "payment_channels": "Payment Channels",
+  "payment_can_b_done_the_following_channel": "The payment can be done with the following channels",
+  "hotline_customer_service": "Hot Line & Customer Service",
+  "any_questions": "If you have any questions, please contact :",
+   "errorDefault": "Oops! Something when wrong",
   "errorDefaultServer": "Oops! Something when wrong with server",
   "errorNoInternet": "No Internet",
   "errorConnectTimeout": "Connect timeout",
@@ -19,66 +49,7 @@
       }
     }
   },
-  "actionLogin": "LOGIN",
-  "actionChnagePassword": "CHANGE PASSWORD",
-  "mainMenuTitle": "MAIN MENU",
-  "ownerBookJournalDataLogWithParentheses": "[{oldValue}] to [{newValue}]",
-  "@ownerBookJournalDataLogWithParentheses": {
-    "description": "{oldValue} is updated to {newValue} with Parentheses",
-    "placeholders": {
-      "oldValue": {
-        "type": "String"
-      },
-      "newValue": {
-        "type": "String"
-      }
-    }
-  },
-  "ownerBookJournalDataLog": "{oldValue} to {newValue}",
-  "@ownerBookJournalDataLog": {
-    "description": "{oldValue} is updated to {newValue}",
-    "placeholders": {
-      "oldValue": {
-        "type": "String"
-      },
-      "newValue": {
-        "type": "String"
-      }
-    }
-  },
-  "ownerBookStatusLabel": "Status : ",
-  "ownerBookExpiryDateLabel":"Expiry Date : ",
-  "ownerBookPlateNoLabel": "Plate No : ",
-  "ownerBookRemarkLabel": "Remark : ",
-  "ownerBookProductNameLabel": "Product Name : ",
-  "ownerBookContractLabel": "{contractNo} ({contractDate})",
-  "@ownerBookContractLabel": {
-    "description": "contract description label of owner book journal",
-    "placeholders": {
-      "contractNo": {
-        "type": "String"
-      },
-      "contractDate": {
-        "type": "String"
-      }
-    }
-  },
-  "parenthesesEncoded": "( {data} )",
-  "@parenthesesEncoded": {
-    "description": "data is encoded with parentheses () ",
-    "placeholders": {
-      "data": {
-        "type": "String"
-      }
-    }
-  },
-  "ownerBookChassisNoLabel": "Chassis No : ",
-  "ownerBookEngineNoLabel": "Engine No : ",
-  "updateOwnerBook":"UPDATE OWNER BOOK",
-  "obStatusConfirmationTitle":"OB STATUS CONFIRMATION",
-  "todayDateLabel":"Today",
-  "obStatusJournalTitle":"OB STATUS JOURNAL",
-  "errorEmptyContractInfo": "The Contract Information of ID : {contractId} is empty!\nPlease contact to HO.",
+    "errorEmptyContractInfo": "The Contract Information of ID : {contractId} is empty!\nPlease contact to HO.",
   "@errorEmptyContractInfo": {
     "description": "contractId didn't have information",
     "placeholders": {
@@ -86,10 +57,5 @@
         "type": "String"
       }
     }
-  },
-  "applicationBackMessage": "Please be patient while the application is being processed...\nAre you sure to back?",
-  "actionBack": "Back",
-  "actionUpdate": "Update",
-  "actionSkip":"Skip",
-  "titleUpdateVersion" :"Have new update version!"
+  }
 }

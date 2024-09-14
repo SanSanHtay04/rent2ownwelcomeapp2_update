@@ -29,7 +29,7 @@ class _AuthService implements AuthService {
     final _data = <String, dynamic>{};
     _data.addAll(body);
     final _options = _setStreamType<LoginOtpResponse>(Options(
-      method: 'GET',
+      method: 'POST',
       headers: _headers,
       extra: _extra,
     )

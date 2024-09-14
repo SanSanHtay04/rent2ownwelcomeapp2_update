@@ -2,7 +2,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:rent2ownwelcomeapp/src/core/core.dart';
-import 'package:rent2ownwelcomeapp/src/features/home_screen.dart';
+import 'package:rent2ownwelcomeapp/src/features/auth/otp_verification/viewmodel/otp_verification_form_state.dart';
 
 import '../widgets/login_scaffold.dart';
 import '../widgets/otp_verification_form.dart';
@@ -16,7 +16,7 @@ class OTPVerificationScreen extends StatelessWidget {
   goToSharedScreenIfLoggedIn(BuildContext context) {
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) async {
       Navigator.pushNamedAndRemoveUntil(
-          context, HomeScreen.routeName, (_) => false);
+          context, MainMenuTab.root, (_) => false);
     });
   }
 
@@ -118,16 +118,28 @@ class OTPVerificationScreen extends StatelessWidget {
             OTPVerificationViewModel(context.read())..loadData(phoneNo),
         child: Consumer<OTPVerificationViewModel>(
           builder: (context, vm, child) {
-            /// Handle CallBack for LoginSubmit State
+            WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+              if (vm.formState.status == IssueOtpState.failed) {
+                context.showErrorDialog(
+                  vm.formState.error
+                      .errorMessage(context, vm.formState.message ?? ""),
+                  onClosePressed: vm.resetFormState,
+                );
+              }
+            });
+
+            /// Handle CallBack for  State
             Future.delayed(Duration.zero, () {
               vm.submitState.maybeWhen(
                 failed: (message, error) => context.showErrorDialog(
                   error.errorMessage(context, message),
-                  onClosePressed: vm.resetSubmitState,
+                  onClosePressed: () {
+                    vm.resetSubmitState();
+                   // vm.resetFormState();
+                  },
                 ),
                 success: () async {
-                  
-                 // await initLoad(context);
+                  // await initLoad(context);
                   await goToSharedScreenIfLoggedIn(context);
                 },
                 orElse: () {},
@@ -135,8 +147,8 @@ class OTPVerificationScreen extends StatelessWidget {
             });
 
             return LoginScaffold(
-              appBar: SimpleToolbar(title: "Verify OTP"),
               isLoading: vm.isLoading,
+              step: AuthStep.otpVerification,
               form: OtpVerificationForm(vm: vm),
             );
           },

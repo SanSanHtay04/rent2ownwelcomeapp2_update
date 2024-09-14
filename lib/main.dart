@@ -1,16 +1,15 @@
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_localization/flutter_localization.dart';
-import 'package:rent2ownwelcomeapp/network/network.dart';
-import 'package:rent2ownwelcomeapp/src/features/auth/auth_screen.dart';
-import 'package:rent2ownwelcomeapp/src/features/auth/login/login_screen.dart';
-import 'package:rent2ownwelcomeapp/src/features/home/home_with_tab_screen.dart';
-import 'package:rent2ownwelcomeapp/src/features/test/app_settings.dart';
-import 'package:rent2ownwelcomeapp/src/features/test/testing_screen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:loader_overlay/loader_overlay.dart';
+import 'package:provider/provider.dart';
+import 'package:provider/single_child_widget.dart';
 import 'package:flutter_tiktok_sdk/flutter_tiktok_sdk.dart';
 
-import 'src/core/themes/themes.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import 'src/core/core.dart';
 
 mixin AppLocale {
   static const String contract_has_been_created_successfully =
@@ -71,56 +70,57 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final FlutterLocalization _localization = FlutterLocalization.instance;
-
-  bool _isAldLogin = false;
-
-  @override
-  void initState() {
-    _localization.init(
-      mapLocales: [
-        const MapLocale(
-          'en',
-          AppLocale.EN,
-        ),
-        const MapLocale(
-          'my',
-          AppLocale.MM,
-        ),
-      ],
-      initLanguageCode: 'my',
-    );
-    _localization.onTranslatedLanguage = _onTranslatedLanguage;
-
-    _checkIsAldLogin();
-    super.initState();
-  }
-
-  void _onTranslatedLanguage(Locale? locale) {
-    setState(() {});
-  }
-
-  Future<void> _checkIsAldLogin() async {
-    SharedPreferences spfs = await SharedPreferences.getInstance();
-    setState(() {
-      _isAldLogin = spfs.getBool(IS_ALD_LOGIN) ?? false;
-    });
-
-  }
+  final GlobalKey<NavigatorState> _key = GlobalKey();
+  late final Future<List<SingleChildWidget>> providers = globalProviders();
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        supportedLocales: _localization.supportedLocales,
-        localizationsDelegates: _localization.localizationsDelegates,
-        title: 'Rent2Own Welcome App',
-        theme: Themes.lightTheme,
-        darkTheme: Themes.darkTheme,
-        home: _isAldLogin
-            ? HomeWithTabScreen(
-                isAldLogin: _isAldLogin,
-              )
-            : const LoginScreen());
+    return FutureBuilder<List<SingleChildWidget>>(
+      future: providers,
+      builder: (_, snapShot) {
+        if (!snapShot.hasData) {
+          return const FullscreenProgressIndicator();
+        } else {
+          return MultiProvider(
+            providers: snapShot.data!,
+            child: Consumer<LocalAuthProvider>(
+              builder: (context, provider, widget) {
+                // if (!_firstOpen && !provider.isLoggedIn) {
+                //   _firstOpen = false;
+                //   SchedulerBinding.instance.addPostFrameCallback((_) {
+                //     _key.currentState?.pushNamedAndRemoveUntil(
+                //       "/login",
+                //       (_) => false,
+                //     );
+                //   });
+                // }
+
+                return GlobalLoaderOverlay(
+                  useDefaultLoading: false,
+                  overlayWidgetBuilder: (_) {
+                    return const Center(
+                      child: CircularProgressIndicator(
+                        color: Colors.amber,
+                      ),
+                    );
+                  },
+                  child: MaterialApp(
+                    title: 'WELCOME APP',
+                    debugShowCheckedModeBanner: false,
+                    navigatorKey: _key,
+                    theme: Themes.lightTheme,
+                    darkTheme: Themes.darkTheme,
+                    routes: APP_ROUTER,
+                    builder: EasyLoading.init(),
+                    initialRoute: !kDebugMode ? "/issue-otp" : "/issue-otp",
+                  ),
+                );
+              },
+            ),
+          );
+        }
+      },
+    );
   }
 }

@@ -47,6 +47,7 @@ class _AuthScreenState extends State<AuthScreen> {
     super.initState();
 
     getVersionInfo().then(updateVersionNumber);
+    
     MobileNumber.listenPhonePermission((isPermissionGranted) {
       if (isPermissionGranted) {
         initMobileNumberState();
