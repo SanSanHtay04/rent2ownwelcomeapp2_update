@@ -1,5 +1,11 @@
 {
   "@@locale": "en",
+  "actionCancel": "Cancel",
+  "actionConfirm": "Confirm",
+  "actionOkay": "Okay",
+  "applicationBackTitle": "Exit App",
+
+  "applicationBackMessage": "Do you wan to exit welcome application.",
   "welcome": "WELCOME",
   "phoneNo": "Phone Number",
   "createNewAccount": "Create New Account",

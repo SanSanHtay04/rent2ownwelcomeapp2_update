@@ -1,8 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:rent2ownwelcomeapp/src/core/widgets/dialogs/device_permission_dialog.dart';
+import 'package:rent2ownwelcomeapp/src/core/core.dart';
 
-import 'dialogs/message_dialog.dart';
 
 class AppSnackBar {
   static final scaffoldMessageKey = GlobalKey<ScaffoldMessengerState>();
@@ -76,6 +75,43 @@ extension DialogContextX on BuildContext {
         'In development',
         LogType.debug,
       );
+
+
+
+  Future<bool> showConfirmDialog({
+    required String message,
+    String? title,
+    LogType type = LogType.confirm,
+    Color? primary,
+    Widget? icon,
+    String? confirmText,
+    String? cancelText,
+    VoidCallback? onConfirmPressed,
+    VoidCallback? onCancelPressed,
+    bool isDismissible = true,
+  }) async {
+    if (type == LogType.debug && !kDebugMode) return false;
+    final bool confirm = await showModalBottomSheet(
+      context: this,
+      builder: (_) => ConfirmDialog(
+        message: message,
+        title: title,
+        type: type,
+        primary: primary,
+        icon: icon,
+        confirmText: confirmText,
+        cancelText: cancelText,
+      ),
+      backgroundColor: Colors.transparent,
+      enableDrag: false,
+      isDismissible: isDismissible,
+    ) ??
+        false;
+    final callback = confirm ? onConfirmPressed : onCancelPressed;
+    callback?.call();
+    return confirm;
+  }
+
 
   // Future<bool> showPermissionDialog({
   //   required String message,

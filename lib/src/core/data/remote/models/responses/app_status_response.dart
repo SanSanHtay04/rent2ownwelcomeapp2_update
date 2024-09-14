@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:rent2ownwelcomeapp/src/core/core.dart';
 
 part 'app_status_response.freezed.dart';
 part 'app_status_response.g.dart';
@@ -10,7 +11,7 @@ class AppStatusResponse with _$AppStatusResponse {
   const factory AppStatusResponse({
     @JsonKey(name: 'status_code') @Default('') String? code,
     @JsonKey(name: 'status_message') @Default('') String? message,
-    @JsonKey(name: 'status') @Default('') String? appStatus,
+    @JsonKey(name: 'status') @Default(AppStatusType.notFound) AppStatusType appStatus,
     @JsonKey(name: 'message') @Default('') String? appMsg,
     @Default('') String? contactNo,
     @Default('') String? contactMsg,

@@ -9,6 +9,13 @@ class HomeViewModel extends ChangeNotifier {
   HomeDataState dataState = const HomeDataStateIdle();
   bool get isLoading => (dataState is HomeDataStateLoading);
 
+  @override
+  notifyListeners() {
+    if (hasListeners) {
+      super.notifyListeners();
+    }
+  }
+
   loadData() {
     checkAppStatus();
   }
@@ -19,7 +26,7 @@ class HomeViewModel extends ChangeNotifier {
   }
 
   checkAppStatus() async {
-    setDataState(const HomeDataStateIdle());
+    setDataState(const HomeDataStateLoading());
 
     final res = await repo.getApplicationStatus();
 

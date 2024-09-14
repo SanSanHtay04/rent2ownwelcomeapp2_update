@@ -108,6 +108,8 @@ class _MyAppState extends State<MyApp> {
                   child: MaterialApp(
                     title: 'WELCOME APP',
                     debugShowCheckedModeBanner: false,
+                    localizationsDelegates: delegates,
+                    supportedLocales: supportedLocales,
                     navigatorKey: _key,
                     theme: Themes.lightTheme,
                     darkTheme: Themes.darkTheme,

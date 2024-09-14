@@ -1,4 +1,5 @@
 export 'dialogs/message_dialog.dart';
+export 'dialogs/confirm_dialog.dart';
 export 'dialogs/device_permission_dialog.dart';
 export 'dialogs/location_permission_dialog.dart';
 export 'dialogs/social_permission_dialog.dart';

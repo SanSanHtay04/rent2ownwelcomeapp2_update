@@ -5,7 +5,6 @@ import 'package:rent2ownwelcomeapp/src/core/core.dart';
 import 'package:rent2ownwelcomeapp/src/features/features.dart';
 import 'package:rent2ownwelcomeapp/src/features/auth/login/viewmodel/login_view_model.dart';
 
-import '../../../core/helpers/app_router.dart';
 import '../widgets/login_scaffold.dart';
 import '../widgets/login_form.dart';
 
@@ -13,6 +12,7 @@ class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
   goToSharedScreenIfLoggedIn(BuildContext context) {
+
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
       Navigator.pushNamedAndRemoveUntil(
           context, MainMenuTab.root, (_) => false);

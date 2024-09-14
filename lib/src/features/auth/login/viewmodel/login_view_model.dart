@@ -10,6 +10,13 @@ class LoginViewModel extends ChangeNotifier {
   AuthRepository repo;
   LoginViewModel(this.repo);
 
+  @override
+  notifyListeners() {
+    if (hasListeners) {
+      super.notifyListeners();
+    }
+  }
+
   LoginFormState formState = const LoginFormState();
   LoginSubmitState submitState = const LoginSubmitStateIdle();
 
