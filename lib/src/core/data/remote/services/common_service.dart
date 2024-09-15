@@ -12,8 +12,8 @@ abstract class CommonService {
   @GET('/application-status')
   Future<AppStatusResponse> getApplicationStatus();
 
-  @POST('/application-status/contract')
-  Future<ApiResponse<dynamic>> getContractInfo();
+  @GET('/application-status/contract')
+  Future<ContractInfoResponse> getContractInfo();
 
   // const getApplicationStatusApiEndpoint = "application-status";
   // const getContractInfoApiEndpoint = "application-status/contract";

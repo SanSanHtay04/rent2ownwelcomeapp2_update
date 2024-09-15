@@ -12,13 +12,10 @@ class CommonRepository with BaseRepository {
     );
   }
 
-  Future<DataResponse<Map<String, dynamic>>> getContractInfo() {
+  Future<DataResponse<ContractInfoResponse>> getContractInfo() {
     return handleRequestApi(
       handleDataRequest: () => api.getContractInfo(),
-      handleDataResponse: (res) {
-        AppLogger.i("API MESSAGE : ${res.message}");
-        return res.data;
-      },
+      handleDataResponse: (res)=> res,
     );
   }
 }

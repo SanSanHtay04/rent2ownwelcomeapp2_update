@@ -9,26 +9,19 @@ class AppStatusResponse with _$AppStatusResponse {
   const AppStatusResponse._();
 
   const factory AppStatusResponse({
-    @JsonKey(name: 'status_code') @Default('') String? code,
-    @JsonKey(name: 'status_message') @Default('') String? message,
-    @JsonKey(name: 'status') @Default(AppStatusType.notFound) AppStatusType appStatus,
-    @JsonKey(name: 'message') @Default('') String? appMsg,
-    @Default('') String? contactNo,
-    @Default('') String? contactMsg,
+    @JsonKey(name: 'status_code') @Default('') String? statusCode,
+    @JsonKey(name: 'status_message') @Default('') String? statusMessage,
+    @JsonKey(name: 'status')
+    @Default(AppStatusType.notFound)
+    AppStatusType appStatus,
+    @JsonKey(name: 'message') required String appMessage,
+    required String contactNo,
+    required String contactMsg,
   }) = _AppStatusResponse;
 
   factory AppStatusResponse.fromJson(Map<String, dynamic> json) =>
       _$AppStatusResponseFromJson(json);
 }
-
-/*
-{
-    "status_code": "SUCCESS",
-    "status_message": "Successfully logged in.",
-    "access_token": "22618|2S5tG0VC3stb5pWS1VxmGj8O9JZoyiOKI1RwjRvN",
-    "token_expiration": 86400
-}
-*/
 
 /*
    {

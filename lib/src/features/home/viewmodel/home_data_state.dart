@@ -8,8 +8,9 @@ class HomeDataState with _$HomeDataState {
 
   const factory HomeDataState.loading() = HomeDataStateLoading;
 
-  const factory HomeDataState.success(AppStatusResponse data) = HomeDataStateSuccess;
+  const factory HomeDataState.success(AppStatusResponse response) = HomeDataStateSuccess;
 
   const factory HomeDataState.failed(String message, {AppError? error}) =
       HomeDataStateFailed;
+  
 }

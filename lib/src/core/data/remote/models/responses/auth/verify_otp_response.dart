@@ -8,8 +8,8 @@ class VerifyOtpResponse with _$VerifyOtpResponse {
   const VerifyOtpResponse._();
 
   const factory VerifyOtpResponse({
-    @JsonKey(name: 'status_code') @Default('') String? code,
-    @JsonKey(name: 'status_message') @Default('') String? message,
+    @JsonKey(name: 'status_code') @Default('') String? statusCode,
+    @JsonKey(name: 'status_message') @Default('') String? statusMessage,
     @JsonKey(name: 'access_token') required String accessToken,
     @JsonKey(name: 'token_expiration') @Default(0) num expiration,
   }) = _VerifyOtpResponse;

@@ -1,68 +1,54 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_localization/flutter_localization.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
+import 'package:provider/provider.dart';
 import 'package:rent2ownwelcomeapp/src/core/core.dart';
 import 'package:rent2ownwelcomeapp/src/core/values/colors.dart';
-import 'package:rent2ownwelcomeapp/models/api_response.dart' as apiRes;
-import 'package:rent2ownwelcomeapp/models/contractInfoResponse.dart'as CIR;
-import 'package:rent2ownwelcomeapp/src/features/status/contract_created_bloc.dart';
-import 'package:rent2ownwelcomeapp/src/core/widgets/loading.dart';
+import 'package:rent2ownwelcomeapp/src/features/home/viewmodel/contract_info_notifier.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../../../main.dart';
 
-class ContractCreatedTabView extends StatefulWidget {
-  const ContractCreatedTabView({Key? key}) : super(key: key);
 
-  @override
-  State<ContractCreatedTabView> createState() => _ContractCreatedTabViewState();
-}
-
-class _ContractCreatedTabViewState extends State<ContractCreatedTabView> {
-  final _bloc = ContractCreatedBloc();
-
-  @override
-  void initState() {
-    _bloc.getContractInfo();
-    super.initState();
-  }
+class PerformingTab extends StatelessWidget {
+  const PerformingTab({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-        stream: _bloc.getContractInfoStream(),
-        initialData: apiRes.ApiResponse(
-            msgState: apiRes.MsgState.loading, errorState: apiRes.ErrorState.noErr),
-        builder: (context, snapshot) {
-          apiRes.ApiResponse resOb = snapshot.data!;
+    return Consumer<ContractInfoNotifier>(builder: (context, vm, unsubscribedChild) {
 
-          if (resOb.msgState == apiRes. MsgState.loading) {
-            return const Loading();
-          } else if (resOb.msgState == apiRes.MsgState.data) {
-            ContractInfoResponse contractInfo = resOb.data;
-            return _buildMain(context, contractInfo);
-          } else {
-            return const Text("ERROR!");
-          }
+       Future.delayed(Duration.zero, () {
+        WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+          vm.dataState.maybeWhen(
+            failed: (message, error) => context.showErrorDialog(
+              error.errorMessage(context, message),
+              onClosePressed: () {},
+            ),
+            success: (response) {
+             
+            },
+            orElse: () {},
+          );
         });
+      });
+
+
+      return _buildMain(context, vm.data?.response,);
+    });
   }
 
-  Widget _buildMain(BuildContext context, ContractInfoResponse contractInfo) {
-    var _space = const SizedBox(
-      height: 10,
-    );
+  Widget _buildMain(BuildContext context, ContractInfoResponse? data) {
+   
     return SingleChildScrollView(
       child: Container(
           color: const Color.fromRGBO(218, 218, 218, 0.1),
-          padding: const EdgeInsets.fromLTRB(8, 16, 8, 16),
+          padding: kPaddingHorizontal8 + kPaddingVertical16,
           child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _space,
+           
                 Center(
                   child: Text(
-                    AppLocale.contract_has_been_created_successfully
-                        .getString(context),
+                    context.tr.contract_has_been_created_successfully
+                        ,
                     style: const TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.w700,
@@ -70,42 +56,41 @@ class _ContractCreatedTabViewState extends State<ContractCreatedTabView> {
                     textAlign: TextAlign.center,
                   ),
                 ),
-                _space,
-                _contractNumberWidget(contractInfo.contractNo??""),
-                _space,
-                _termNConditionsWidget(contractInfo.termsAndConditions??[]),
-                _space,
+             
+             kSpaceVertical10,
+                _contractNumberWidget(context, data?.contractNo??""),
+                 kSpaceVertical10,
+                _termNConditionsWidget(context, data?.termsAndConditions??[]),
+                  kSpaceVertical10,
                 const Divider(),
-                _space,
-                _paymentScheduleWidget(contractInfo.paymentSchedule??""),
-                _space,
-                _space,
-                _contractDetailLinkWidget(contractInfo.contractDetailLink??""),
-                _space,
+                kSpaceVertical10,
+                _paymentScheduleWidget( context, data?.paymentSchedule??""),
+                 kSpaceVertical10,
+                _contractDetailLinkWidget(context, data?.contractDetailLink??""),
+                  kSpaceVertical10,
                 const Divider(),
-                _space,
-                _paymentChannels(),
-                _space,
+                  kSpaceVertical10,
+                _paymentChannels( context ),
+                  kSpaceVertical10,
                 const Divider(),
-                _space,
-                _hotLinesNCusServiceWidget(contractInfo.hotLineNo??[])
+                  kSpaceVertical10,
+                _hotLinesNCusServiceWidget(context,data?.hotLineNo??[])
               ])),
     );
   }
 
-  Widget _paymentScheduleWidget(String html) {
+  Widget _paymentScheduleWidget (BuildContext context, String html) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          AppLocale.payment_schedule.getString(context),
+          context.tr.payment_schedule,
           style: const TextStyle(
               color: Colors.black, fontWeight: FontWeight.w700, fontSize: 15),
         ),
-        const SizedBox(
-          height: 8,
-        ),
+          kSpaceVertical8,
+       
         Container(
             child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
@@ -117,7 +102,7 @@ class _ContractCreatedTabViewState extends State<ContractCreatedTabView> {
     );
   }
 
-  Widget _paymentChannels() {
+  Widget _paymentChannels(BuildContext context) {
     List<String> images = [
       "assets/icons/kbz_pay.png",
       "assets/icons/wave_pay.jpeg",
@@ -132,17 +117,14 @@ class _ContractCreatedTabViewState extends State<ContractCreatedTabView> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          AppLocale.payment_channels.getString(context),
+         context.tr.payment_channels,
           style: const TextStyle(
               color: Colors.black, fontWeight: FontWeight.w700, fontSize: 15),
         ),
-        const SizedBox(
-          height: 8,
-        ),
+         kSpaceVertical8,
         Padding(
-          padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
-          child: Text(context.tr.payment_can_b_done_the_following_channel
-              .getString(context)),
+          padding: kPadding8,
+          child: Text(context.tr.payment_can_b_done_the_following_channel),
         ),
         GridView.builder(
           shrinkWrap: true,
@@ -162,22 +144,20 @@ class _ContractCreatedTabViewState extends State<ContractCreatedTabView> {
     );
   }
 
-  Widget _hotLinesNCusServiceWidget(List<String> numbers) {
+  Widget _hotLinesNCusServiceWidget(BuildContext context, List<String> numbers) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Text(
-          AppLocale.hotline_customer_service.getString(context),
+          context.tr.hotline_customer_service,
           style: const TextStyle(
               color: Colors.black, fontWeight: FontWeight.w700, fontSize: 15),
         ),
-        const SizedBox(
-          height: 8,
-        ),
+        kSpaceVertical8,
         Padding(
-          padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
-          child: Text(AppLocale.any_questions.getString(context)),
+          padding: kPadding8,
+          child: Text(context.tr.any_questions),
         ),
         ListView.builder(
             physics: const NeverScrollableScrollPhysics(),
@@ -211,13 +191,13 @@ class _ContractCreatedTabViewState extends State<ContractCreatedTabView> {
     );
   }
 
-  Widget _contractDetailLinkWidget(String url) {
+  Widget _contractDetailLinkWidget(BuildContext context, String url) {
     return GestureDetector(
         onTap: () {
           launchUrl(Uri.parse(url));
         },
         child: Text(
-          AppLocale.contract_detail_link.getString(context),
+          context.tr.contract_detail_link,
           style: const TextStyle(
               decoration: TextDecoration.underline,
               color: Color.fromRGBO(0, 142, 251, 1),
@@ -226,7 +206,7 @@ class _ContractCreatedTabViewState extends State<ContractCreatedTabView> {
         ));
   }
 
-  Widget _termNConditionsWidget(List<String> datas) {
+  Widget _termNConditionsWidget( BuildContext context, List<String> datas) {
     return Card(
       shadowColor: const Color.fromRGBO(217, 217, 217, 0.62),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -235,13 +215,13 @@ class _ContractCreatedTabViewState extends State<ContractCreatedTabView> {
           border: Border.all(color: const Color.fromRGBO(218, 218, 218, 1)),
           borderRadius: BorderRadius.circular(10),
         ),
-        padding: const EdgeInsets.fromLTRB(12, 12, 12, 12),
+        padding:kPadding12,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              AppLocale.term_n_cond.getString(context),
+              context.tr.term_n_cond,
               style: const TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.w700,
@@ -249,9 +229,7 @@ class _ContractCreatedTabViewState extends State<ContractCreatedTabView> {
                   decorationThickness: 2,
                   fontSize: 14),
             ),
-            const SizedBox(
-              height: 10,
-            ),
+           kSpaceVertical10,
             ListView.builder(
                 primary: false,
                 shrinkWrap: true,
@@ -269,7 +247,6 @@ class _ContractCreatedTabViewState extends State<ContractCreatedTabView> {
                       Expanded(
                           child: Text(
                         datas[index],
-                        //textAlign: TextAlign.justify,
                         style: const TextStyle(
                             color: Colors.black, fontWeight: FontWeight.w500),
                       ))
@@ -282,18 +259,17 @@ class _ContractCreatedTabViewState extends State<ContractCreatedTabView> {
     );
   }
 
-  Widget _contractNumberWidget(String contractNo) {
+  Widget _contractNumberWidget(BuildContext context,  String contractNo) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Text(
-          AppLocale.contract_number.getString(context),
-          style: TextStyle(
+          context.tr.contract_number,
+          style: const TextStyle(
               color: bg1Color, fontWeight: FontWeight.w700, fontSize: 15),
         ),
-        const SizedBox(
-          width: 5,
-        ),
+            kSpaceVertical4,
+       
         Expanded(
           child: Card(
             shape:
@@ -308,7 +284,7 @@ class _ContractCreatedTabViewState extends State<ContractCreatedTabView> {
               child: Center(
                 child: Text(
                   contractNo,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontWeight: FontWeight.w700,
                       fontSize: 15,
                       color: Colors.black),

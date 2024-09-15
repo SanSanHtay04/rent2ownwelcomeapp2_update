@@ -15,7 +15,7 @@ class AuthRepository with BaseRepository {
         final request = {"phoneNo": phoneNo};
         return _api.otpLogin(request);
       },
-      handleDataResponse: (LoginOtpResponse res) => res.message ?? "",
+      handleDataResponse: (LoginOtpResponse res) => res.statusMessage ?? "",
     );
   }
 
@@ -30,7 +30,7 @@ class AuthRepository with BaseRepository {
         return _api.verifyOTP(request);
       },
       handleDataResponse: (VerifyOtpResponse res) async {
-        if (res.code == "SUCCESS") {
+        if (res.statusCode == "SUCCESS") {
           _prefsStore.setAccountInfo(res);
         }
       },

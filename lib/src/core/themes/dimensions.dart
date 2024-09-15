@@ -29,6 +29,7 @@ const Radius kRadius40 = Radius.circular(40);
 const Radius kRadius44 = Radius.circular(44);
 const Radius kRadius48 = Radius.circular(48);
 const Radius kRadius52 = Radius.circular(52);
+const Radius kRadius100 = Radius.circular(100);
 
 /// Constants [BorderRadius].
 const BorderRadius kBorderRadius4 = BorderRadius.all(kRadius4);
@@ -45,6 +46,7 @@ const BorderRadius kBorderRadius40 = BorderRadius.all(kRadius40);
 const BorderRadius kBorderRadius44 = BorderRadius.all(kRadius44);
 const BorderRadius kBorderRadius48 = BorderRadius.all(kRadius48);
 const BorderRadius kBorderRadius52 = BorderRadius.all(kRadius52);
+const BorderRadius kBorderRadius100 = BorderRadius.all(kRadius100);
 
 /// Constants [EdgeInsets.all]
 const EdgeInsets kPadding2 = EdgeInsets.all(2);

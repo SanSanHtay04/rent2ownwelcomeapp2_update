@@ -18,18 +18,18 @@ enum AppStatusType {
 }
 
 extension AppStatusTypeX on AppStatusType {
-  bool isEnabledTap(int position) {
+  int getIndexPosition() {
     switch (this) {
       case AppStatusType.notFound:
       case AppStatusType.submit:
-        return position == 0;
+        return  0;
       case AppStatusType.review:
-        return position == 1;
+        return 1;
       case AppStatusType.performing:
       case AppStatusType.accepted:
       case AppStatusType.rejected:
       case AppStatusType.counterProposed:
-        return position == 2;
+        return 2;
     }
   }
 }

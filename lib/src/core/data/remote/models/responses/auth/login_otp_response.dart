@@ -8,8 +8,8 @@ class LoginOtpResponse with _$LoginOtpResponse {
   const LoginOtpResponse._();
 
   const factory LoginOtpResponse({
-    @JsonKey(name: 'status_code') @Default('')  String? code,
-    @JsonKey(name: 'status_message') @Default('')  String? message,
+    @JsonKey(name: 'status_code') @Default('')  String? statusCode,
+    @JsonKey(name: 'status_message') @Default('')  String? statusMessage,
   }) = _LoginOtpResponse;
 
   factory LoginOtpResponse.fromJson(Map<String, dynamic> json) =>
