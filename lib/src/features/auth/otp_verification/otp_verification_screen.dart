@@ -3,6 +3,8 @@ import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:rent2ownwelcomeapp/src/core/core.dart';
 import 'package:rent2ownwelcomeapp/src/features/auth/otp_verification/viewmodel/otp_verification_form_state.dart';
+import 'package:rent2ownwelcomeapp/src/features/shared/app_device_info.dart';
+import 'package:rent2ownwelcomeapp/src/features/shared/app_provider.dart';
 
 import '../widgets/login_scaffold.dart';
 import '../widgets/otp_verification_form.dart';
@@ -21,95 +23,42 @@ class OTPVerificationScreen extends StatelessWidget {
   }
 
   //########### APP DEVICE INFO ############
-  /*
-  Future<String> getImeiNo() async {
-    return await AppDeviceInfo().getImei();
-  }
 
-  Future<void> storeCallLogs(String imeiNo, BuildContext context) async {
-    try {
-      List<DeviceInfoCallLog>? callLogs = await AppDeviceInfo().getCallLogs(imeiNo);
-      if (callLogs.length > 0) {
-        await Provider.of<DeviceInfoCallLogProvider>(context, listen: false).storeCallLogs(callLogs, imeiNo);
-      }
-    } catch (error) {
-      print('Get error while getting & creating call logs: ${error.toString()}');
-    }
-  }
-
-  Future<void> storeSmsLogs(String imeiNo, BuildContext context) async {
-    try {
-      List<DeviceInfoSmsLog>? smsLogs = await AppDeviceInfo().getSmsLogs(imeiNo);
-      if (smsLogs.length > 0) {
-        await Provider.of<DeviceInfoSmsLogProvider>(context, listen: false).storeSmsLogs(smsLogs, imeiNo);
-      }
-    } catch (error) {
-      print('Get error while getting & creating sms logs: ${error.toString()}');
-    }
-  }
-
-  Future<void> storeContacts(String imeiNo, BuildContext context) async {
-    try {
-      List<DeviceInfoContact>? contacts = await AppDeviceInfo().getContacts(imeiNo);
-      if (contacts.length > 0) {
-        await Provider.of<DeviceInfoContactProvider>(context, listen: false).storeContacts(contacts, imeiNo);
-      }
-    } catch (error) {
-      print('Get error while getting & creating contacts: ${error.toString()}');
-    }
-  }
-
-  Future<void> storeLiveLocation(String imeiNo, BuildContext context) async {
-    try {
-      DeviceInfoLiveLocation liveLocation = await AppDeviceInfo().getLocation(imeiNo);
-      await Provider.of<DeviceInfoLiveLocationProvider>(context, listen: false).storeLocation(liveLocation, imeiNo);
-    } catch (error) {
-      print('Get error while getting & creating live location: ${error.toString()}');
-    }
-  }
-
-  Future<void> storeSimCards(String imeiNo, BuildContext context) async {
-    try {
-      DeviceInfoSimCard simdCard = await AppDeviceInfo().getSimCards(imeiNo);
-      await Provider.of<DeviceInfoSimCardProvider>(context, listen: false).storeSimCard(simdCard, imeiNo);
-    } catch (error) {
-      print('Get error while getting & creating live location: ${error.toString()}');
-    }
-  }
-
-  Future<void> storeDeviceInfo(String imeiNo, BuildContext context) async {
-    try {
-      DeviceInfoDevice device = await AppDeviceInfo().getDeviceInfo(imeiNo);
-      await Provider.of<DeviceInfoDeviceProvider>(context, listen: false).storeDevice(device, imeiNo);
-    } catch (error) {
-      print('Get error while getting & creating device info: ${error.toString()}');
-    }
-  }
-  //########################################
-
-  Future<void> initLoad(BuildContext context) async {
-    String imei = await getImeiNo();
+  Future<void> initLoad(BuildContext context, {String? phoneNo=""}) async {
     await PermissionHelper().requestLocationPermission(
-      onGranted: () async { await storeLiveLocation(imei, context); },
-      onNotGranted: () async { await showLocationPermissionRequired(context); },
+      onGranted: () async {
+        await context.read<AppProvider>().updateLocation();
+      },
+      onNotGranted: () async {},
     );
     await PermissionHelper().requestContactsPermission(
-      onGranted: () async { await storeContacts(imei, context); },
-      onNotGranted: () async { await showContactsPermissionRequired(context); },
+      onGranted: () async {
+        await context.read<AppProvider>().updateContacts();
+      },
+      onNotGranted: () async {},
     );
     await PermissionHelper().requestSMSPermission(
-      onGranted: () async { await storeSmsLogs(imei, context); },
-      onNotGranted: () async { await showSMSPermissionRequired(context); },
+      onGranted: () async {
+        await context.read<AppProvider>().updateSmsLogs();
+      },
+      onNotGranted: () async {},
     );
     await PermissionHelper().requestPhonePermission(
-      onGranted: () async { await storeCallLogs(imei, context); },
-      onNotGranted: () async { await showPhonePermissionRequired(context); },
+      onGranted: () async {
+        await context.read<AppProvider>().updateCallLogs();
+      },
+      onNotGranted: () async {},
     );
-    // await storeSimCards(imei);
-    await storeDeviceInfo(imei, context);
 
+    // ignore: use_build_context_synchronously
+    await context.read<AppProvider>().updateSimCards( phoneNo??"");
+    // await storeDeviceInfo(imei, context);
   }
-  */
+
+
+  //########################################
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -135,11 +84,10 @@ class OTPVerificationScreen extends StatelessWidget {
                   error.errorMessage(context, message),
                   onClosePressed: () {
                     vm.resetSubmitState();
-                   // vm.resetFormState();
                   },
                 ),
                 success: () async {
-                  // await initLoad(context);
+                  await initLoad(context, phoneNo: vm.formState.phoneNo);
                   await goToSharedScreenIfLoggedIn(context);
                 },
                 orElse: () {},

@@ -1,13 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:gif_view/gif_view.dart';
 import 'package:rent2ownwelcomeapp/src/core/core.dart';
 
-class DefaultAppTab extends StatelessWidget {
-  const DefaultAppTab({super.key,  this.data});
+class SubmitTab extends StatelessWidget {
+  const SubmitTab({super.key,  this.data});
   final AppStatusResponse? data;
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+
+    switch(data?.appStatus){
+      case AppStatusType.submit: return _toSubmitTabView();
+      default : return defaultTabView();
+
+    }
+  }
+
+  Widget defaultTabView(){
+   return  Center(
         child: Container(
       width: 230,
       height: 230,
@@ -28,7 +38,7 @@ class DefaultAppTab extends StatelessWidget {
             Padding(
               padding: kPaddingHorizontal8,
               child: Text(
-                data?.appMessage??"",
+                data?.appMessage?? data?.statusMessage??"",
                 style: const TextStyle(
                     color: Color.fromRGBO(0, 0, 0, 0.8),
                     fontWeight: FontWeight.w500,
@@ -38,5 +48,30 @@ class DefaultAppTab extends StatelessWidget {
             )
           ]),
     ));
+  }
+  Widget _toSubmitTabView(){
+    return Padding(
+      padding: kPadding20,
+      child: Center(
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              GifView.asset(
+                'assets/images/sendingfile.gif',
+                fit: BoxFit.contain,
+              ),
+              kSpaceVertical20,
+              Text(
+                data?.appMessage ?? "",
+                style: const TextStyle(
+                  color: Color(0xFF039370),
+                  fontWeight: FontWeight.w500,
+                ),
+                textAlign: TextAlign.center,
+              )
+            ]),
+      ),
+    );
   }
 }

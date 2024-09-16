@@ -16,6 +16,7 @@ class LoginForm extends StatefulWidget {
 
 class _LoginFormState extends State<LoginForm> {
   final GlobalKey<FormState> _formKey = GlobalKey();
+  bool isInitialState = true;
 
   @override
   void initState() {
@@ -31,17 +32,25 @@ class _LoginFormState extends State<LoginForm> {
 
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initMobileNumberState() async {
+
+    if(isInitialState){
+
     if (!await MobileNumber.hasPhonePermission) {
-      await MobileNumber.requestPhonePermission;
-      return;
+        await MobileNumber.requestPhonePermission;
+        return;
+      }
+      // Platform messages may fail, so we use a try/catch PlatformException.
+      try {
+        String mobileNumber = (await MobileNumber.mobileNumber)!;
+        widget.vm.updatePhoneNumber(mobileNumber);
+      } on PlatformException catch (e) {
+        debugPrint("Failed to get mobile number because of '${e.message}'");
+      }
+
+      isInitialState= false;
+
     }
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    try {
-      String mobileNumber = (await MobileNumber.mobileNumber)!;
-      widget.vm.updatePhoneNumber(mobileNumber);
-    } on PlatformException catch (e) {
-      debugPrint("Failed to get mobile number because of '${e.message}'");
-    }
+
 
     if (!mounted) return;
     setState(() {});

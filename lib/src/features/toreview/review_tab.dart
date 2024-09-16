@@ -1,22 +1,16 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
-import 'package:rent2ownwelcomeapp/src/core/values/colors.dart';
-import 'package:rent2ownwelcomeapp/models/applicationStatusResponse.dart';
+import 'package:rent2ownwelcomeapp/src/core/core.dart';
 
-class ToReviewTabView extends StatefulWidget {
-  final ApplicationStatusResponse? appStatusRes;
-  const ToReviewTabView({Key? key, this.appStatusRes}) : super(key: key);
+class ReviewTab extends StatelessWidget {
+  final AppStatusResponse? data;
+  const ReviewTab({super.key, this.data});
 
-  @override
-  State<ToReviewTabView> createState() => _ToReviewTabViewState();
-}
-
-class _ToReviewTabViewState extends State<ToReviewTabView> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: kPadding16,
       child: Center(
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -26,44 +20,46 @@ class _ToReviewTabViewState extends State<ToReviewTabView> {
             height: 200,
             width: 200,
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(100), color: bg1Color),
+              borderRadius: BorderRadius.circular(100),
+              color: const Color(0xFF039370),
+            ),
             child: Image.asset(
               "assets/images/image3.png",
-              // scale: 1,
               width: 50,
               height: 50,
             ),
           ),
-          const SizedBox(
-            height: 30,
-          ),
+          kSpaceVertical32,
+
           Text(
-            widget.appStatusRes!.message,
+            data?.appMessage ?? "",
             style: const TextStyle(
-              color: bg1Color,
+              color: Color(0xFF039370),
               fontWeight: FontWeight.w500,
             ),
             textAlign: TextAlign.center,
           ),
+          kSpaceVertical16,
           const SizedBox(
             height: 16,
           ),
           // Text(
-          //   widget.appStatusRes!.contactMsg,
+          //   widget.data!.contactMsg,
           //   style: TextStyle(
           //       color: Colors.black, fontWeight: FontWeight.w400, fontSize: 11),
           //   textAlign: TextAlign.center,
           // ),
           HtmlWidget(
-            widget.appStatusRes!.contactMsg,
+            data?.contactMsg ?? "",
             textStyle: const TextStyle(
                 color: Colors.black, fontWeight: FontWeight.w400, fontSize: 11),
           ),
           const SizedBox(
             height: 16,
           ),
-          widget.appStatusRes!.contactNo.isNotEmpty
-              ? RichText(
+          data?.contactNo.isNullOrEmpty ?? true
+              ? Container()
+              : RichText(
                   text: TextSpan(
                     text: '( ',
                     style: DefaultTextStyle.of(context).style,
@@ -79,15 +75,16 @@ class _ToReviewTabViewState extends State<ToReviewTabView> {
                             //   //dailer is not opened
                             // }
                           },
-                        text: widget.appStatusRes!.contactNo,
-                        style: const TextStyle(
-                            fontWeight: FontWeight.w400, color: bg1Color),
+                        text: data?.contactNo ?? "",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w400,
+                          color: context.getColorScheme().primary,
+                        ),
                       ),
                       const TextSpan(text: ' )'),
                     ],
                   ),
                 )
-              : Container()
         ],
       )),
     );

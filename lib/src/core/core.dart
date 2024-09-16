@@ -13,6 +13,7 @@ export 'providers/local_auth_provider.dart';
 
 export 'themes/dimensions.dart';
 export 'themes/themes.dart';
+export 'themes/colors.dart';
 
 export 'utils/utils.dart';
 export 'widgets/widgets.dart';

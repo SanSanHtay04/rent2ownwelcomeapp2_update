@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'dart:ui';
 
 const bgColor = Color(0xFFF5F5F5);
 const bg1Color = Color(0xFF039370);
@@ -11,3 +11,4 @@ const borderColor = Color(0xFFDADADA);
 const dialogBgColor = Color.fromRGBO(255, 255, 255, 0.95);
 const iconBgColor = Color.fromRGBO(217, 217, 217, 0.62);
 const bgCounterProposal = Color.fromRGBO(249, 197, 15, 0.7);
+

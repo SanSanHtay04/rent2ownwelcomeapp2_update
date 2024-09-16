@@ -3,10 +3,10 @@ import 'package:provider/provider.dart';
 import 'package:rent2ownwelcomeapp/src/core/core.dart';
 import 'package:rent2ownwelcomeapp/src/features/home/viewmodel/contract_info_notifier.dart';
 import 'package:rent2ownwelcomeapp/src/features/home/viewmodel/home_view_model.dart';
-import 'package:rent2ownwelcomeapp/src/features/home/widgets/app_status_tab.dart';
-import 'package:rent2ownwelcomeapp/src/features/home/widgets/review_tab.dart';
+import 'package:rent2ownwelcomeapp/src/features/status/app_status_tab.dart';
+import 'package:rent2ownwelcomeapp/src/features/toreview/review_tab.dart';
 
-import 'default_app_tab.dart';
+import '../../tosubmit/submit_tab.dart';
 
 class HomeContentView extends StatefulWidget {
   const HomeContentView({super.key});
@@ -84,7 +84,7 @@ class _HomeContentViewState extends State<HomeContentView>
                         controller: _tabController,
                         physics: const NeverScrollableScrollPhysics(),
                         children: [
-                          DefaultAppTab(data: vm.data?.response),
+                          SubmitTab(data: vm.data?.response),
                           ReviewTab(data: vm.data?.response),
                           AppStatusTab(data: vm.data?.response)
                         ]),

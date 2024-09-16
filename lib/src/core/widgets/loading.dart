@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:rent2ownwelcomeapp/src/core/core.dart';
 
-import '../values/colors.dart';
 
 class Loading extends StatelessWidget {
-  const Loading({Key? key}) : super(key: key);
+  const Loading({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -12,8 +12,8 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:rent2ownwelcomeapp/models/storeCallLogModel.dart';
 import 'package:rent2ownwelcomeapp/models/storeContactModel.dart';
 import 'package:rent2ownwelcomeapp/models/storeSMSLogModel.dart';
-import '../../../../core/values/colors.dart';
-import '../../../../core/values/strings.dart';
+import 'package:rent2ownwelcomeapp/src/core/core.dart';
+
 import '../../../../../models/store_sim_card_model.dart';
 import '../location/locationCustomDialog.dart';
 
@@ -363,7 +363,7 @@ class _ContactCallNSMSLogsCustomDialogState
                   ),
                   Expanded(
                       child: Text(
-                    contactCallSMSPermission,
+                    context.tr.contactCallSMSPermission,
                     textAlign: TextAlign.center,
                     style: GoogleFonts.comfortaa(
                         textStyle: const TextStyle(
@@ -399,7 +399,7 @@ class _ContactCallNSMSLogsCustomDialogState
                     ),
                   ),
                   child: Text(
-                    allow,
+                  context.tr.  allow,
                     style: GoogleFonts.comfortaa(
                         color: Colors.white,
                         fontWeight: FontWeight.w500,
@@ -420,7 +420,7 @@ class _ContactCallNSMSLogsCustomDialogState
                     ),
                   ),
                   child: Text(
-                    deny,
+                    context.tr.deny,
                     textAlign: TextAlign.start,
                     style: GoogleFonts.comfortaa(
                         color: Colors.white,

@@ -1,14 +1,21 @@
-
 import 'package:flutter/foundation.dart';
 import 'package:rent2ownwelcomeapp/src/core/core.dart';
+import 'package:rent2ownwelcomeapp/src/features/shared/app_device_info.dart';
 
 import 'login_form_state.dart';
 import 'login_submit_state.dart';
 
-
 class LoginViewModel extends ChangeNotifier {
   AuthRepository repo;
-  LoginViewModel(this.repo);
+  PrefsStore prefsStore;
+  LoginViewModel(this.repo, this.prefsStore) {
+    updateDeviceId();
+  }
+
+  Future<void> updateDeviceId() async {
+    final data = await AppDeviceInfo().getImei();
+    await prefsStore.setDeviceId(data);
+  }
 
   @override
   notifyListeners() {
@@ -23,10 +30,10 @@ class LoginViewModel extends ChangeNotifier {
   bool get isLoading => (submitState is LoginSubmitStateLoading);
 
   bool get enableButton => (!formState.phoneNumber.isNullOrEmpty);
-  
-  loadData(String phoneNo){
-    AppLogger.i( "MOBILE NUMBER $phoneNo");
-   updatePhoneNumber(phoneNo);
+
+  loadData(String phoneNo) {
+    AppLogger.i("MOBILE NUMBER $phoneNo");
+    updatePhoneNumber(phoneNo);
   }
 
   setFormState(LoginFormState value) {
@@ -43,7 +50,7 @@ class LoginViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  resetSubmitState (){
+  resetSubmitState() {
     setSubmitState(const LoginSubmitStateIdle());
   }
 
@@ -55,8 +62,7 @@ class LoginViewModel extends ChangeNotifier {
 
     final newState = res.when(
         success: (data) => LoginSubmitStateSuccess(data),
-        failed: (msg, error) =>
-            LoginSubmitStateFailed(msg, error: error));
+        failed: (msg, error) => LoginSubmitStateFailed(msg, error: error));
     setSubmitState(newState);
   }
 }

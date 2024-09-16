@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:rent2ownwelcomeapp/src/core/values/colors.dart';
-import 'package:rent2ownwelcomeapp/src/core/values/strings.dart';
+import 'package:rent2ownwelcomeapp/src/core/core.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class MCustomAlertDialog extends StatefulWidget {
@@ -78,7 +77,7 @@ class _MCustomAlertDialogState extends State<MCustomAlertDialog> {
                     ),
                   ),
                   child: Text(
-                    allow,
+                    context.tr.allow,
                     style: GoogleFonts.comfortaa(
                         color: Colors.white,
                         fontWeight: FontWeight.w500,
@@ -91,7 +90,7 @@ class _MCustomAlertDialogState extends State<MCustomAlertDialog> {
                 child: ElevatedButton(
                   onPressed: () {
                     Fluttertoast.showToast(
-                      msg: errorMessage,
+                      msg: context.tr.errorMessage,
                       toastLength: Toast.LENGTH_SHORT,
                       gravity: ToastGravity.BOTTOM,
                       timeInSecForIosWeb: 1,
@@ -107,7 +106,7 @@ class _MCustomAlertDialogState extends State<MCustomAlertDialog> {
                     ),
                   ),
                   child: Text(
-                    deny,
+                    context.tr.deny,
                     textAlign: TextAlign.start,
                     style: GoogleFonts.comfortaa(
                         color: Colors.white,

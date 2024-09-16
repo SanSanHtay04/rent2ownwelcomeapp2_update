@@ -2,7 +2,7 @@ name: rent2ownwelcomeapp
 description: A new Flutter project.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 1.0.5+5
+version: 1.0.7+7
 
 environment:
   sdk: '>=2.18.2 <3.0.0'
@@ -12,6 +12,7 @@ dependencies:
     sdk: flutter
 
   flutter_localization: ^0.2.0
+  intl: ^0.19.0
   workmanager: ^0.5.1
   geolocator: ^12.0.0
   phone_number: ^2.1.0
@@ -75,6 +76,8 @@ dependencies:
   flutter_widget_from_html: ^0.15.0
   flutter_html: ^3.0.0-beta.2
   flutter_easyloading: ^3.0.5
+  # DEVICE INFO
+  contacts_service: ^0.6.3
 
   
 dev_dependencies:
@@ -100,5 +103,9 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+
+
+flutter_intl:
+  enabled: true
 
   

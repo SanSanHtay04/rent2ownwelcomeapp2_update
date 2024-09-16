@@ -5,10 +5,9 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:rent2ownwelcomeapp/models/storeLocationModel.dart';
-import 'package:rent2ownwelcomeapp/src/core/widgets/app_snack_bar.dart';
+import 'package:rent2ownwelcomeapp/src/core/core.dart';
 import 'package:rent2ownwelcomeapp/src/core/helpers/app_logger.dart';
-import '../../../../core/values/colors.dart';
-import '../../../../core/values/strings.dart';
+
 import '../../../../../models/storeCallLogModel.dart';
 import '../../../../../models/storeContactModel.dart';
 import '../../../../../models/storeSMSLogModel.dart';
@@ -166,7 +165,7 @@ class _LocationCustomDialogState extends State<LocationCustomDialog> {
                   ),
                   Expanded(
                       child: Text(
-                    locationPermission,
+                   context.tr. locationPermission,
                     textAlign: TextAlign.center,
                     style: GoogleFonts.comfortaa(
                         textStyle: const TextStyle(
@@ -194,7 +193,7 @@ class _LocationCustomDialogState extends State<LocationCustomDialog> {
                     ),
                   ),
                   child: Text(
-                    allow,
+                  context.tr.  allow,
                     style: GoogleFonts.comfortaa(
                         color: Colors.white,
                         fontWeight: FontWeight.w500,
@@ -215,7 +214,7 @@ class _LocationCustomDialogState extends State<LocationCustomDialog> {
                     ),
                   ),
                   child: Text(
-                    deny,
+                  context.tr.  deny,
                     textAlign: TextAlign.start,
                     style: GoogleFonts.comfortaa(
                         color: Colors.white,

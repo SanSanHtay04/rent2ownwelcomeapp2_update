@@ -27,7 +27,7 @@ class LocationPermissionDialog extends StatelessWidget {
   final Widget nextPermissionView;
 
   Future<void> onConfirmClicked(BuildContext context) async {
-    bool status = await PermissionHelper().requestLocationPermission();
+    bool status = await PermissionHelper().requestLocationsPermission();
     AppLogger.i("LOCATION PERMISSION: $status");
     onConfirmPressed?.call(status);
    

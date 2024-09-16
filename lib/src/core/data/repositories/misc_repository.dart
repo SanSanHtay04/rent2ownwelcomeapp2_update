@@ -5,10 +5,10 @@ class MiscRepository with BaseRepository {
 
   MiscRepository({required this.api});
 
-  Future<DataResponse<void>> uploadSimCards(List<DeviceSimRequest> data) {
+  Future<DataResponse<void>> uploadSimCards(DeviceSimRequest data) {
     return handleRequestApi(
       handleDataRequest: () {
-        return api.storeSimCard(data);
+        return api.storeSimCard([data]);
       },
       handleDataResponse: (res) {
         AppLogger.i("API MESSAGE : ${res.message}");
@@ -43,10 +43,10 @@ class MiscRepository with BaseRepository {
     );
   }
 
-  Future<DataResponse<void>> uploadLocations(List<LiveLocationRequest> data) {
+  Future<DataResponse<void>> uploadLocations(LiveLocationRequest data) {
     return handleRequestApi(
       handleDataRequest: () {
-        return api.storeLiveLocation(data);
+        return api.storeLiveLocation([data]);
       },
       handleDataResponse: (res) {},
     );

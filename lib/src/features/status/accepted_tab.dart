@@ -2,27 +2,25 @@ import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:gif_view/gif_view.dart';
-import 'package:rent2ownwelcomeapp/models/applicationStatusResponse.dart';
+import 'package:rent2ownwelcomeapp/src/core/core.dart';
 
-import '../../core/values/colors.dart';
 
-class StatusAcceptedTabView extends StatefulWidget {
-  final ApplicationStatusResponse appStatusRes;
-  const StatusAcceptedTabView({Key? key, required this.appStatusRes})
-      : super(key: key);
+class AcceptedTab extends StatefulWidget {
+  final AppStatusResponse? data;
+  const AcceptedTab({super.key,  this.data});
 
   @override
-  State<StatusAcceptedTabView> createState() => _StatusAcceptedTabViewState();
+  State<AcceptedTab> createState() => _AcceptedTabState();
 }
 
-class _StatusAcceptedTabViewState extends State<StatusAcceptedTabView> {
-  final ConfettiController _controllerCenter =
-      ConfettiController(duration: const Duration(seconds: 10));
+class _AcceptedTabState extends State<AcceptedTab> {
+
+  late  ConfettiController _controllerCenter ;
 
   @override
   void initState() {
-    // _controllerCenter =
-    //     ConfettiController(duration: const Duration(seconds: 10));
+    _controllerCenter =
+        ConfettiController(duration: const Duration(seconds: 10));
     play();
 
     super.initState();
@@ -32,17 +30,17 @@ class _StatusAcceptedTabViewState extends State<StatusAcceptedTabView> {
     _controllerCenter.play();
   }
 
-  // @override
-  // void dispose() {
-  //   _controllerCenter.dispose();
-
-  //   super.dispose();
-  // }
+  @override
+  void dispose() {
+    super.dispose();
+    _controllerCenter.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     _controllerCenter.play();
-    return SafeArea(
+    return 
+    SafeArea(
       child: Stack(
         children: <Widget>[
           Align(
@@ -54,10 +52,7 @@ class _StatusAcceptedTabViewState extends State<StatusAcceptedTabView> {
               child: GifView.asset(
                 'assets/images/congrats.gif',
               ),
-              // Image.asset(
-              //   "assets/images/image6.png",
-              //   scale: 1,
-              // ),
+             
             ),
           ),
           Align(
@@ -85,35 +80,27 @@ class _StatusAcceptedTabViewState extends State<StatusAcceptedTabView> {
           Align(
             alignment: Alignment.center,
             child: Padding(
-              padding: const EdgeInsets.all(12.0),
+              padding: kPadding12,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  const SizedBox(
-                    height: 120,
-                  ),
+                  kSpaceVertical64,
+
+                 
                   Text(
-                    widget.appStatusRes.message,
-                    style: const TextStyle(
-                      color: bg1Color,
+                    widget.data?.appMessage??"",
+                    style:  TextStyle(
+                      color: context.getColorScheme().primary,
                       fontWeight: FontWeight.w500,
                     ),
                     textAlign: TextAlign.center,
                   ),
-                  const SizedBox(
-                    height: 50,
-                  ),
-                  // Text(
-                  //   widget.appStatusRes.contactMsg,
-                  //   style: TextStyle(
-                  //       color: Colors.black,
-                  //       fontWeight: FontWeight.w400,
-                  //       fontSize: 11),
-                  //   textAlign: TextAlign.justify,
-                  // ),
+                 
+                  kSpaceVertical20,
+                  
                   HtmlWidget(
-                    widget.appStatusRes.contactMsg,
+                    widget.data?.contactMsg??"",
                     textStyle: const TextStyle(
                         fontWeight: FontWeight.w400, fontSize: 11),
                   ),
@@ -123,13 +110,6 @@ class _StatusAcceptedTabViewState extends State<StatusAcceptedTabView> {
           )
         ],
       ),
-    );
-  }
-
-  Text _display(String text) {
-    return Text(
-      text,
-      style: const TextStyle(color: Colors.black, fontSize: 20),
     );
   }
 }

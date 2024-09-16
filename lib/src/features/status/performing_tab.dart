@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:provider/provider.dart';
 import 'package:rent2ownwelcomeapp/src/core/core.dart';
-import 'package:rent2ownwelcomeapp/src/core/values/colors.dart';
 import 'package:rent2ownwelcomeapp/src/features/home/viewmodel/contract_info_notifier.dart';
 import 'package:url_launcher/url_launcher.dart';
 

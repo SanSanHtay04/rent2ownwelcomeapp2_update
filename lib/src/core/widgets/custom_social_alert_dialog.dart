@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:rent2ownwelcomeapp/src/core/values/strings.dart';
+import 'package:rent2ownwelcomeapp/src/core/core.dart';
 
-import '../values/colors.dart';
 
 class MCustomSocialAlertDialog extends StatefulWidget {
-  MCustomSocialAlertDialog({Key? key}) : super(key: key);
+  const MCustomSocialAlertDialog({Key? key}) : super(key: key);
 
   @override
   State<MCustomSocialAlertDialog> createState() =>
@@ -43,7 +42,7 @@ class _MCustomSocialAlertDialogState extends State<MCustomSocialAlertDialog> {
                   ),
                   Expanded(
                       child: Text(
-                    socialMediaPermission,
+                    context.tr.socialMediaPermission,
                     textAlign: TextAlign.center,
                     style: GoogleFonts.comfortaa(
                         textStyle: const TextStyle(
@@ -68,7 +67,7 @@ class _MCustomSocialAlertDialogState extends State<MCustomSocialAlertDialog> {
                     ),
                   ),
                   label: Text(
-                    connectWithFB,
+                    context.tr. connectWithFB,
                     style: GoogleFonts.comfortaa(
                         color: Colors.white,
                         fontWeight: FontWeight.w500,
@@ -88,7 +87,7 @@ class _MCustomSocialAlertDialogState extends State<MCustomSocialAlertDialog> {
                     ),
                   ),
                   label: Text(
-                    connectWithTT,
+                    context.tr. connectWithTT,
                     textAlign: TextAlign.start,
                     style: GoogleFonts.comfortaa(
                         color: Colors.black,

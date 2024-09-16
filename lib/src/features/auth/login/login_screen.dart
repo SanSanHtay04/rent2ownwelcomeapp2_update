@@ -8,8 +8,16 @@ import 'package:rent2ownwelcomeapp/src/features/auth/login/viewmodel/login_view_
 import '../widgets/login_scaffold.dart';
 import '../widgets/login_form.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+
+   
 
   goToSharedScreenIfLoggedIn(BuildContext context) {
 
@@ -28,13 +36,14 @@ class LoginScreen extends StatelessWidget {
             builder: (_) =>
                 OTPVerificationScreen(phoneNo: formState.phoneNumber)),
       );
+      context.read<LoginViewModel>().resetSubmitState();
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<LoginViewModel>(
-      create: (context) => LoginViewModel(context.read()),
+      create: (context) => LoginViewModel(context.read(), context.read()),
       child: Consumer<LoginViewModel>(
         builder: (context, vm, unsubscribedChild) {
           /// Handle CallBack for State

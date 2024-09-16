@@ -31,7 +31,7 @@ class HomeViewModel extends ChangeNotifier {
     final res = await repo.getApplicationStatus();
 
     final newState = res.when(
-        success: (data) => HomeDataState.success(data.copyWith(appStatus: AppStatusType.performing)),
+        success: (data) => HomeDataState.success(data),
         failed: (msg, error) => HomeDataStateFailed(msg, error: error));
     setDataState(newState);
   }

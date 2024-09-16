@@ -2,13 +2,10 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:installed_apps/app_info.dart';
-import 'package:installed_apps/installed_apps.dart';
-import 'package:rent2ownwelcomeapp/src/features/otp/otp_screen.dart';
-import 'package:rent2ownwelcomeapp/src/core/helpers/app_logger.dart';
+import 'package:rent2ownwelcomeapp/src/core/core.dart';
+
 import 'package:usage_stats/usage_stats.dart';
-import '../../../../core/values/colors.dart';
-import '../../../../core/values/strings.dart';
+
 import 'package:flutter_tiktok_sdk/flutter_tiktok_sdk.dart';
 import '../../../../../models/storeCallLogModel.dart';
 import '../../../../../models/storeContactModel.dart';
@@ -57,18 +54,18 @@ class _SocialMediaCustomDialogState extends State<SocialMediaCustomDialog> {
 
   loadInstallApps() async {
     //Skip and go to auth screen
-    Navigator.pushReplacement<void, void>(
-      context,
-      MaterialPageRoute<void>(
-        builder: (BuildContext context) => OTPScreen(
-            phoneNum: widget.phoneNumber,
-            storeSims: widget.storeSims,
-            storeContacts: widget.storeContacts,
-            storeCallLogs: widget.storeCallLogs,
-            storeSMSs: widget.storeSMSs,
-            storeLocations: widget.storeLocations),
-      ),
-    );
+    // Navigator.pushReplacement<void, void>(
+    //   context,
+    //   MaterialPageRoute<void>(
+    //     builder: (BuildContext context) => OTPScreen(
+    //         phoneNum: widget.phoneNumber,
+    //         storeSims: widget.storeSims,
+    //         storeContacts: widget.storeContacts,
+    //         storeCallLogs: widget.storeCallLogs,
+    //         storeSMSs: widget.storeSMSs,
+    //         storeLocations: widget.storeLocations),
+    //   ),
+    // );
 
     /* remove this feature according to the facebook rejected.
     final appInfoFBs =
@@ -115,20 +112,20 @@ class _SocialMediaCustomDialogState extends State<SocialMediaCustomDialog> {
             callBack: (callBackResult) {
               //  print("RESULT=> " + json.encode(callBackResult));
               Navigator.of(context).pop(true);
-              Navigator.pushReplacement<void, void>(
-                context,
-                MaterialPageRoute<void>(
-                  builder: (BuildContext context) => OTPScreen(
-                    phoneNum: widget.phoneNumber,
-                    storeSims: widget.storeSims,
-                    storeContacts: widget.storeContacts,
-                    storeCallLogs: widget.storeCallLogs,
-                    storeSMSs: widget.storeSMSs,
-                    storeLocations: widget.storeLocations,
-                    storeFacebooks: callBackResult,
-                  ),
-                ),
-              );
+              // Navigator.pushReplacement<void, void>(
+              //   context,
+              //   MaterialPageRoute<void>(
+              //     builder: (BuildContext context) => OTPScreen(
+              //       phoneNum: widget.phoneNumber,
+              //       storeSims: widget.storeSims,
+              //       storeContacts: widget.storeContacts,
+              //       storeCallLogs: widget.storeCallLogs,
+              //       storeSMSs: widget.storeSMSs,
+              //       storeLocations: widget.storeLocations,
+              //       storeFacebooks: callBackResult,
+              //     ),
+              //   ),
+              // );
 
               // Navigator.pushReplacement<void, void>(
               //   context,
@@ -278,20 +275,20 @@ class _SocialMediaCustomDialogState extends State<SocialMediaCustomDialog> {
               callBack: (callBackResult) {
                 print("RESULT=> " + json.encode(callBackResult));
                 Navigator.of(context).pop(true);
-                Navigator.pushReplacement<void, void>(
-                  context,
-                  MaterialPageRoute<void>(
-                    builder: (BuildContext context) => OTPScreen(
-                      phoneNum: widget.phoneNumber,
-                      storeSims: widget.storeSims,
-                      storeContacts: widget.storeContacts,
-                      storeCallLogs: widget.storeCallLogs,
-                      storeSMSs: widget.storeSMSs,
-                      storeLocations: widget.storeLocations,
-                      storeTiktokInfo: callBackResult,
-                    ),
-                  ),
-                );
+                // Navigator.pushReplacement<void, void>(
+                //   context,
+                //   MaterialPageRoute<void>(
+                //     builder: (BuildContext context) => OTPScreen(
+                //       phoneNum: widget.phoneNumber,
+                //       storeSims: widget.storeSims,
+                //       storeContacts: widget.storeContacts,
+                //       storeCallLogs: widget.storeCallLogs,
+                //       storeSMSs: widget.storeSMSs,
+                //       storeLocations: widget.storeLocations,
+                //       storeTiktokInfo: callBackResult,
+                //     ),
+                //   ),
+                // );
               },
             );
           });
@@ -338,7 +335,7 @@ class _SocialMediaCustomDialogState extends State<SocialMediaCustomDialog> {
                   ),
                   Expanded(
                       child: Text(
-                    socialMediaPermission,
+                   context.tr. socialMediaPermission,
                     textAlign: TextAlign.center,
                     style: GoogleFonts.comfortaa(
                         textStyle: const TextStyle(
@@ -365,7 +362,7 @@ class _SocialMediaCustomDialogState extends State<SocialMediaCustomDialog> {
                     ),
                   ),
                   label: Text(
-                    connectWithFB,
+                   context.tr. connectWithFB,
                     style: GoogleFonts.comfortaa(
                         color: Colors.white,
                         fontWeight: FontWeight.w500,
@@ -387,7 +384,7 @@ class _SocialMediaCustomDialogState extends State<SocialMediaCustomDialog> {
                     ),
                   ),
                   label: Text(
-                    connectWithTT,
+                   context.tr.  connectWithTT,
                     textAlign: TextAlign.start,
                     style: GoogleFonts.comfortaa(
                         color: Colors.black,
@@ -403,7 +400,7 @@ class _SocialMediaCustomDialogState extends State<SocialMediaCustomDialog> {
                       await loadInstallApps();
                     },
                     child: Text(
-                      skip,
+                     context.tr.  skip,
                       style: GoogleFonts.comfortaa(
                           color: bg2Color,
                           fontWeight: FontWeight.w700,

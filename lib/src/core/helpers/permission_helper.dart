@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:mobile_number/mobile_number.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -21,7 +22,7 @@ class PermissionHelper {
   }
 
   // STEP2
-  Future<bool> requestLocationPermission() async{
+  Future<bool> requestLocationsPermission() async{
     PermissionStatus permission = await Permission.location.status;
 
     if (permission != PermissionStatus.granted) {
@@ -33,18 +34,18 @@ class PermissionHelper {
 
   }
 
-  
 
-   Future<void> requestPhoneNumberPermission({
+
+  Future<void> requestLocationPermission({
     required Function() onGranted,
     required Future Function() onNotGranted,
   }) async {
-    bool permission = await MobileNumber.hasPhonePermission;
-    if (!permission) {
-      await MobileNumber.requestPhonePermission;
-      if (!await MobileNumber.hasPhonePermission) {
+    var permission = await Permission.location.status;
+    if (!permission.isGranted) {
+      permission = await Permission.location.request();
+      if (!permission.isGranted) {
         await onNotGranted();
-        requestPhoneNumberPermission(
+        await requestLocationPermission(
             onGranted: onGranted, onNotGranted: onNotGranted);
       } else {
         onGranted();
@@ -54,33 +55,90 @@ class PermissionHelper {
     }
   }
 
-  static void requestContactPermission() async {
-    Map<Permission, PermissionStatus> statuses = (Platform.isIOS)
-        ? await [Permission.contacts].request()
-        : await [
-            Permission.sms,
-            Permission.contacts,
-            Permission.phone,
-          ].request();
-
-    statuses.values.every((e) => !e.isGranted) ? await openAppSettings() : null;
+  Future<void> requestContactsPermission({
+    required Function() onGranted,
+    required Future Function() onNotGranted,
+  }) async {
+    var permission = await Permission.contacts.status;
+    if (!permission.isGranted) {
+      permission = await Permission.contacts.request();
+      if (!permission.isGranted) {
+        await onNotGranted();
+        await requestContactsPermission(
+            onGranted: onGranted, onNotGranted: onNotGranted);
+      } else {
+        onGranted();
+      }
+    } else {
+      onGranted();
+    }
   }
 
-  // static void requestPermission({
-  //   required Function() onGranted,
-  //   required Future Function() onNotGranted,
-  // }) async {
-  //   LocationPermission permission = await Geolocator.checkPermission();
-  //   if (permission != LocationPermission.always) {
-  //     permission = await Geolocator.requestPermission();
-  //     if (permission != LocationPermission.always) {
-  //       await onNotGranted();
-  //       requestPermission(onGranted: onGranted, onNotGranted: onNotGranted);
-  //     } else {
-  //       onGranted();
-  //     }
-  //   } else {
-  //     onGranted();
-  //   }
-  // }
+  Future<void> requestPhonePermission({
+    required Function() onGranted,
+    required Future Function() onNotGranted,
+  }) async {
+    var permission = await Permission.phone.status;
+    if (!permission.isGranted) {
+      permission = await Permission.phone.request();
+      if (!permission.isGranted) {
+        await onNotGranted();
+        await requestPhonePermission(
+            onGranted: onGranted, onNotGranted: onNotGranted);
+      } else {
+        onGranted();
+      }
+    } else {
+      onGranted();
+    }
+  }
+
+  Future<void> requestSMSPermission({
+    required Function() onGranted,
+    required Future Function() onNotGranted,
+  }) async {
+    var permission = await Permission.sms.status;
+    if (!permission.isGranted) {
+      permission = await Permission.sms.request();
+      if (!permission.isGranted) {
+        await onNotGranted();
+        await requestSMSPermission(
+            onGranted: onGranted, onNotGranted: onNotGranted);
+      } else {
+        onGranted();
+      }
+    } else {
+      onGranted();
+    }
+  }
+
+  Future<void> requestStoragePermission({
+    required Function() onGranted,
+    required Future Function() onNotGranted,
+  }) async {
+    final AndroidDeviceInfo androidInfo = await DeviceInfoPlugin().androidInfo;
+    final int androidVersion = int.parse(androidInfo.version.release);
+
+    bool havePermission = false;
+    if (androidVersion >= 13) {
+      final request = await [
+        //Permission.videos,
+        Permission.photos,
+        //..... as needed
+      ].request();
+
+      havePermission =
+          request.values.every((status) => status == PermissionStatus.granted);
+    } else {
+      final status = await Permission.storage.request();
+      havePermission = status.isGranted;
+    }
+
+    if (!havePermission) {
+      onNotGranted();
+      // await requestStoragePermission(onGranted: onGranted, onNotGranted: onNotGranted);
+    } else {
+      onGranted();
+    }
+  }
 }
