@@ -7,9 +7,32 @@ import 'package:rent2ownwelcomeapp/src/features/home/viewmodel/contract_info_not
 import 'package:rent2ownwelcomeapp/src/features/home/viewmodel/home_view_model.dart';
 import 'package:rent2ownwelcomeapp/src/features/home/widgets/home_content_view.dart';
 
+import '../shared/app_provider.dart';
 
-class HomeScreen extends StatelessWidget {
+
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+
+  @override
+  void initState() {
+    initialLoad();
+    super.initState();
+  }
+
+  initialLoad() async {
+    await PermissionHelper().requestLocationPermission(
+      onGranted: () async {
+        await context.read<AppProvider>().updateLocation();
+      },
+      onNotGranted: () async {},
+    );
+  }
 
   _onBack(BuildContext context) async {
     await context.showConfirmDialog(
@@ -40,7 +63,7 @@ class HomeScreen extends StatelessWidget {
               create: (_) => ContractInfoNotifier(context.read())),
         ],
         child: const HomeContentView(),
-           
+
       ),
     );
   }

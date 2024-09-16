@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:rent2ownwelcomeapp/src/core/core.dart';
-import 'package:rent2ownwelcomeapp/src/core/data/repositories/misc_repository.dart';
 import 'package:rent2ownwelcomeapp/src/features/shared/app_device_info.dart';
 
 import 'app_state.dart';
@@ -69,8 +68,6 @@ class AppProvider extends ChangeNotifier {
     await _repo.updateLanguage(newLanguage);
   }
 
-
-
   Future<void> updateCallLogs() async {
     final  data =  await AppDeviceInfo().getCallLogs();
     miscRepo.uploadCallLogs(data);
@@ -92,8 +89,4 @@ class AppProvider extends ChangeNotifier {
     final data = await AppDeviceInfo().getSimCards(phoneNo);
     miscRepo.uploadSimCards(data);
   }
-
-
-
-
 }

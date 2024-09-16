@@ -45,8 +45,7 @@ class PermissionHelper {
       permission = await Permission.location.request();
       if (!permission.isGranted) {
         await onNotGranted();
-        await requestLocationPermission(
-            onGranted: onGranted, onNotGranted: onNotGranted);
+
       } else {
         onGranted();
       }

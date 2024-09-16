@@ -3,7 +3,6 @@ import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:rent2ownwelcomeapp/src/core/core.dart';
 import 'package:rent2ownwelcomeapp/src/features/auth/otp_verification/viewmodel/otp_verification_form_state.dart';
-import 'package:rent2ownwelcomeapp/src/features/shared/app_device_info.dart';
 import 'package:rent2ownwelcomeapp/src/features/shared/app_provider.dart';
 
 import '../widgets/login_scaffold.dart';
@@ -23,14 +22,7 @@ class OTPVerificationScreen extends StatelessWidget {
   }
 
   //########### APP DEVICE INFO ############
-
   Future<void> initLoad(BuildContext context, {String? phoneNo=""}) async {
-    await PermissionHelper().requestLocationPermission(
-      onGranted: () async {
-        await context.read<AppProvider>().updateLocation();
-      },
-      onNotGranted: () async {},
-    );
     await PermissionHelper().requestContactsPermission(
       onGranted: () async {
         await context.read<AppProvider>().updateContacts();
@@ -54,11 +46,7 @@ class OTPVerificationScreen extends StatelessWidget {
     await context.read<AppProvider>().updateSimCards( phoneNo??"");
     // await storeDeviceInfo(imei, context);
   }
-
-
   //########################################
-
-
 
   @override
   Widget build(BuildContext context) {

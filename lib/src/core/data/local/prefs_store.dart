@@ -55,15 +55,16 @@ class PrefsStore {
     return _preferences.getString(THEME_MODE);
   }
 
-  setLocale(String languageCode) {
+  setLanguage(String languageCode) {
     _preferences.setString(LAGUAGE_CODE, languageCode);
   }
 
-  String? getLocale() {
-    return _preferences.getString(LAGUAGE_CODE);
+  String? getLanguage() {
+  return   _preferences.getString(LAGUAGE_CODE);
+
   }
 
-  Locale _locale(String languageCode) {
+  Locale getLocale(String languageCode) {
     switch (languageCode) {
       case ENGLISH:
         return const Locale(ENGLISH, 'US');

@@ -34,11 +34,11 @@ class AppRepository with BaseRepository {
   }
 
   Future<String> languageCode() async {
-    return (await _prefsStore.getLocale()) ?? Intl.getCurrentLocale();
+    return (await _prefsStore.getLanguage()) ?? Intl.getCurrentLocale();
   }
 
   Future<void> updateLanguage(String language) async {
-    _prefsStore.setLocale(language);
+    _prefsStore.setLanguage(language);
 
     // await _storage.write(key: 'language', value: language);
   }

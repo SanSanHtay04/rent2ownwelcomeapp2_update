@@ -6,6 +6,7 @@ import 'package:rent2ownwelcomeapp/src/features/home/viewmodel/home_view_model.d
 import 'package:rent2ownwelcomeapp/src/features/status/app_status_tab.dart';
 import 'package:rent2ownwelcomeapp/src/features/toreview/review_tab.dart';
 
+import '../../shared/app_provider.dart';
 import '../../tosubmit/submit_tab.dart';
 
 class HomeContentView extends StatefulWidget {
@@ -122,9 +123,13 @@ class _HomeContentViewState extends State<HomeContentView>
             tabs: _tabs(context)),
         actions: [
           TextButton.icon(
-              onPressed: () {},
+              onPressed: () async {
+                final isEnglish = context.read<AppProvider>().state.isEnglish;
+                AppLogger.i("IsENGLISH : $isEnglish");
+                await context.read<AppProvider>().updateLanguage(isEnglish?'my':'en');
+              },
               icon: const Icon(Icons.language),
-              label: const Text('en'))
+              label:  Text(context.tr.languageName))
         ],
       ),
     ];
