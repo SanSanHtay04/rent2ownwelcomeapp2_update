@@ -18,7 +18,7 @@ class AuthInterceptor extends Interceptor {
 
     final token = _authProvider.accessToken;
     if (!token.isNullOrEmpty) {
-      options.headers[HttpHeaders.authorizationHeader] = 'Bearer $token';
+      options.headers['access-token'] = '$token';
     }
     return super.onRequest(options, handler);
   }
