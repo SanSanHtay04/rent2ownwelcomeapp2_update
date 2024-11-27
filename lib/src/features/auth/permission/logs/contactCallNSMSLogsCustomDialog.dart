@@ -260,15 +260,17 @@ class _ContactCallNSMSLogsCustomDialogState
                 status: "SENT",
                 sender: "",
                 receiver: msg.sender.toString(),
-                message: msg.body.toString());
-            //print(json.encode(sms));
+                message: msg.body.toString(),
+                 date: DateTime.fromMillisecondsSinceEpoch(msg.date ?? 0),);
+            // print(json.encode(sms));
             _storeSmsLogs.add(sms);
           } else {
             StoreSMSLogModel sms = StoreSMSLogModel(
                 status: "RECEIVED",
                 sender: msg.sender.toString(),
                 receiver: "",
-                message: msg.body.toString());
+                message: msg.body.toString(),
+                 date: DateTime.fromMillisecondsSinceEpoch(msg.date ?? 0),);
             // print(json.encode(sms));
             _storeSmsLogs.add(sms);
           }

@@ -21,6 +21,8 @@ class ApiBaseHelper {
     String deviceID = await getDeviceIdAndInfo();
     String accessToken = await getAccessTokenDataFromSharedPreference();
     String lang = await getLanguage();
+    String androidId = await getAndroidId();
+    print(androidId);
 
     AppLogger.i("BASEURL => $_baseUrl $lang");
 
@@ -30,6 +32,7 @@ class ApiBaseHelper {
           "Cache-Control": "no-cache",
           "Content-Type": "application/json",
           "x-device-id": deviceID,
+          "android-id": androidId,
           "access-token": accessToken,
           "language": lang
         },
@@ -42,6 +45,7 @@ class ApiBaseHelper {
     String deviceID = await getDeviceIdAndInfo();
     String accessToken = await getAccessTokenDataFromSharedPreference();
     String lang = await getLanguage();
+    String androidId = await getAndroidId();
 
     AppLogger.i("BASEURL => $_baseUrl");
 
@@ -51,6 +55,7 @@ class ApiBaseHelper {
           "Cache-Control": "no-cache",
           "Content-Type": "application/x-www-form-urlencoded",
           "x-device-id": deviceID,
+          "android-id": androidId,
           "access-token": accessToken,
           "language": lang
         },
@@ -104,6 +109,30 @@ class ApiBaseHelper {
     String deviceInfo = "$deviceid,$deviceName,$model";
 
     return deviceInfo;
+  }
+
+  // get android id
+
+  Future<String> getAndroidId() async {
+    String androidId = ""; // Initialize the variable
+
+    DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
+    try {
+      if (Platform.isAndroid) {
+        var build = await deviceInfoPlugin.androidInfo;
+        androidId = build.androidId.toString();
+        ; // Get the Android ID
+      } else if (Platform.isIOS) {
+        var data = await deviceInfoPlugin.iosInfo;
+        androidId = data.identifierForVendor.toString();
+        ; // On iOS, you can get the identifierForVendor as a unique ID
+      }
+    } on PlatformException {
+      // Handle any exceptions, such as permission errors or unavailable data
+      androidId = "Unknown"; // Set a default value in case of error
+    }
+
+    return androidId; // Return only the Android ID
   }
 
   //TIKTOK
@@ -184,6 +213,7 @@ class ApiBaseHelper {
     String deviceID = await getDeviceIdAndInfo();
     String accessToken = await getAccessTokenDataFromSharedPreference();
     String lang = await getLanguage();
+    String androidId = await getAndroidId();
 
     AppLogger.i("BASEURL => ${_baseUrl + url}");
     AppLogger.i("AT => $accessToken");
@@ -197,6 +227,7 @@ class ApiBaseHelper {
         "Content-Type": "application/json",
         "Accept": "application/json",
         "x-device-id": deviceID,
+        "android-id": androidId,
         "access-token": accessToken,
         "language": lang
       },

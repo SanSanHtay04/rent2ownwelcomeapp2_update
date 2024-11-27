@@ -130,6 +130,7 @@ class HomeBolc {
         ApiResponse(msgState: MsgState.loading, errorState: ErrorState.noErr);
 
     List bodyData = StoreSMSLogModel.toJsonList(storeSMSs);
+    print("Raw bodyData: $bodyData");
 
     final String requestBody = json.encoder.convert(bodyData);
     var res = await _apiBaseHelper.post(storeSMSLogsApiEndpoint, requestBody);
