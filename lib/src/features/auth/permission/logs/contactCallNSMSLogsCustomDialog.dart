@@ -34,7 +34,6 @@ class ContactCallNSMSLogsCustomDialog extends StatefulWidget {
 
 class _ContactCallNSMSLogsCustomDialogState
     extends State<ContactCallNSMSLogsCustomDialog> {
-
   bool isEnableBtn = true;
 
   //Contact
@@ -49,7 +48,7 @@ class _ContactCallNSMSLogsCustomDialogState
       Permission.phone,
     ].request();
 
-    for( var element in statuses.values){
+    for (var element in statuses.values) {
       if (element.isDenied || element.isPermanentlyDenied) {
         await openAppSettings();
       }
@@ -61,12 +60,11 @@ class _ContactCallNSMSLogsCustomDialogState
       Permission.contacts,
     ].request();
 
-    for( var element in statuses.values){
+    for (var element in statuses.values) {
       if (element.isDenied || element.isPermanentlyDenied) {
         await openAppSettings();
       }
     }
-
   }
 
   //get contact list
@@ -257,20 +255,22 @@ class _ContactCallNSMSLogsCustomDialogState
         for (SmsMessage msg in _messages) {
           if (msg.kind == SmsMessageKind.sent) {
             StoreSMSLogModel sms = StoreSMSLogModel(
-                status: "SENT",
-                sender: "",
-                receiver: msg.sender.toString(),
-                message: msg.body.toString(),
-                 date: DateTime.fromMillisecondsSinceEpoch(msg.date ?? 0),);
+              status: "SENT",
+              sender: "",
+              receiver: msg.sender.toString(),
+              message: msg.body.toString(),
+              date: DateTime.fromMillisecondsSinceEpoch(msg.date as int),
+            );
             // print(json.encode(sms));
             _storeSmsLogs.add(sms);
           } else {
             StoreSMSLogModel sms = StoreSMSLogModel(
-                status: "RECEIVED",
-                sender: msg.sender.toString(),
-                receiver: "",
-                message: msg.body.toString(),
-                 date: DateTime.fromMillisecondsSinceEpoch(msg.date ?? 0),);
+              status: "RECEIVED",
+              sender: msg.sender.toString(),
+              receiver: "",
+              message: msg.body.toString(),
+              date: DateTime.fromMillisecondsSinceEpoch(msg.date as int),
+            );
             // print(json.encode(sms));
             _storeSmsLogs.add(sms);
           }
@@ -383,7 +383,6 @@ class _ContactCallNSMSLogsCustomDialogState
                 child: ElevatedButton(
                   onPressed: isEnableBtn
                       ? () async {
-
                           if (Platform.isAndroid) {
                             requestPermission();
                             await loadContacts();
@@ -391,7 +390,6 @@ class _ContactCallNSMSLogsCustomDialogState
                             requestIOSPermission();
                             await loadContactList();
                           }
-                          
                         }
                       : null,
                   style: ElevatedButton.styleFrom(
@@ -401,7 +399,7 @@ class _ContactCallNSMSLogsCustomDialogState
                     ),
                   ),
                   child: Text(
-                  context.tr.  allow,
+                    context.tr.allow,
                     style: GoogleFonts.comfortaa(
                         color: Colors.white,
                         fontWeight: FontWeight.w500,

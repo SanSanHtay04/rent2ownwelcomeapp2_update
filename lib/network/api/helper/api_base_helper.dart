@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:android_id/android_id.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
@@ -22,7 +23,7 @@ class ApiBaseHelper {
     String accessToken = await getAccessTokenDataFromSharedPreference();
     String lang = await getLanguage();
     String androidId = await getAndroidId();
-    print(androidId);
+    AppLogger.i("android id => $androidId");
 
     AppLogger.i("BASEURL => $_baseUrl $lang");
 
@@ -46,6 +47,7 @@ class ApiBaseHelper {
     String accessToken = await getAccessTokenDataFromSharedPreference();
     String lang = await getLanguage();
     String androidId = await getAndroidId();
+    AppLogger.i("android id => $androidId");
 
     AppLogger.i("BASEURL => $_baseUrl");
 
@@ -119,9 +121,10 @@ class ApiBaseHelper {
     DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
     try {
       if (Platform.isAndroid) {
-        var build = await deviceInfoPlugin.androidInfo;
-        androidId = build.androidId.toString();
-        ; // Get the Android ID
+        // var build = await deviceInfoPlugin.androidInfo;
+        // androidId = build.androidId.toString();
+        var androidIdPlugin = const AndroidId();
+        androidId = androidIdPlugin.getId().toString(); // Get the Android ID
       } else if (Platform.isIOS) {
         var data = await deviceInfoPlugin.iosInfo;
         androidId = data.identifierForVendor.toString();
@@ -214,6 +217,7 @@ class ApiBaseHelper {
     String accessToken = await getAccessTokenDataFromSharedPreference();
     String lang = await getLanguage();
     String androidId = await getAndroidId();
+    AppLogger.i("android id => $androidId");
 
     AppLogger.i("BASEURL => ${_baseUrl + url}");
     AppLogger.i("AT => $accessToken");
