@@ -78,6 +78,7 @@ dependencies:
   # Socail Packs
   flutter_facebook_auth: ^7.0.0
   flutter_tiktok_sdk: ^0.2.5
+  android_id: ^0.4.0
 
 dev_dependencies:
   flutter_test:

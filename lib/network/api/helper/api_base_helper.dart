@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:android_id/android_id.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
@@ -19,11 +20,11 @@ class ApiBaseHelper {
   Future<dynamic> post(String url, dynamic bodyData) async {
     String deviceID = await getDeviceIdAndInfo();
     String accessToken = await getAccessTokenDataFromSharedPreference();
-    String lang = await getLanguage();
+    // String lang = await getLanguage();
     String androidId = await getAndroidId();
     AppLogger.i("android id => $androidId");
 
-    AppLogger.i("BASEURL => $_baseUrl $lang");
+    // AppLogger.i("BASEURL => $_baseUrl $lang");
 
     AppLogger.i('POST => $url , DevID => $deviceID');
     final response = await client.post(Uri.parse(_baseUrl + url),
@@ -33,7 +34,7 @@ class ApiBaseHelper {
           "x-device-id": deviceID,
           "android-id": androidId,
           "access-token": accessToken,
-          "language": lang
+          // "language": lang
         },
         body: bodyData);
 
@@ -43,7 +44,7 @@ class ApiBaseHelper {
   Future<dynamic> postFD(String url, dynamic bodyData) async {
     String deviceID = await getDeviceIdAndInfo();
     String accessToken = await getAccessTokenDataFromSharedPreference();
-    String lang = await getLanguage();
+    // String lang = await getLanguage();
     String androidId = await getAndroidId();
     AppLogger.i("android id => $androidId");
 
@@ -57,7 +58,7 @@ class ApiBaseHelper {
           "x-device-id": deviceID,
           "android-id": androidId,
           "access-token": accessToken,
-          "language": lang
+          // "language": lang
         },
         body: bodyData);
     // .interceptWithChuck(chuck, body: bodyData);
@@ -214,13 +215,13 @@ class ApiBaseHelper {
   Future<dynamic> get(String url) async {
     String deviceID = await getDeviceIdAndInfo();
     String accessToken = await getAccessTokenDataFromSharedPreference();
-    String lang = await getLanguage();
+    // String lang = await getLanguage();
     String androidId = await getAndroidId();
     AppLogger.i("android id => $androidId");
 
     AppLogger.i("BASEURL => ${_baseUrl + url}");
     AppLogger.i("AT => $accessToken");
-    AppLogger.i("LANG => ${lang}");
+    // AppLogger.i("LANG => ${lang}");
 
     final response = await client.get(
       Uri.parse(_baseUrl + url),
@@ -232,7 +233,7 @@ class ApiBaseHelper {
         "x-device-id": deviceID,
         "android-id": androidId,
         "access-token": accessToken,
-        "language": lang
+        // "language": lang
       },
     );
 
