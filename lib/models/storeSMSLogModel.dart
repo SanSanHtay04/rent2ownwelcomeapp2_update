@@ -3,10 +3,7 @@ class StoreSMSLogModel {
   late String sender;
   late String receiver;
   late String message;
-<<<<<<< HEAD
   late DateTime date;
-=======
->>>>>>> master
 
   StoreSMSLogModel(
       {required this.status,
@@ -17,11 +14,12 @@ class StoreSMSLogModel {
 
   factory StoreSMSLogModel.fromJson(Map<String, dynamic> json) =>
       StoreSMSLogModel(
-          status: json['status'],
-          sender: json['sender'],
-          receiver: json['receiver'],
-          message: json['message'],
-           date: DateTime.parse(json['date']),);
+        status: json['status'],
+        sender: json['sender'],
+        receiver: json['receiver'],
+        message: json['message'],
+        date: DateTime.parse(json['date']),
+      );
 
   Map<String, dynamic> toJson() => {
         'status': status,

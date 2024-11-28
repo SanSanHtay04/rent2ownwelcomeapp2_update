@@ -19,11 +19,6 @@ void RegisterPlugins(flutter::PluginRegistry* registry) {
       registry->GetRegistrarForPlugin("BatteryPlusWindowsPlugin"));
   ConnectivityPlusWindowsPluginRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("ConnectivityPlusWindowsPlugin"));
-<<<<<<< HEAD
-  FlutterLocalizationPluginCApiRegisterWithRegistrar(
-      registry->GetRegistrarForPlugin("FlutterLocalizationPluginCApi"));
-=======
->>>>>>> master
   FlutterSecureStorageWindowsPluginRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("FlutterSecureStorageWindowsPlugin"));
   GeolocatorWindowsRegisterWithRegistrar(
