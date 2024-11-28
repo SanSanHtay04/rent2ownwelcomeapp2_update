@@ -1,0 +1,13 @@
+{
+    "@@locale": "my",
+    "languageName":"En",
+    "contract_has_been_created_successfully": "စာချုပ်အောင်မြင်စွာ ချုပ်ဆိုပြီး ဖြစ်ပါသည်။",
+    "contract_number": "စာချုပ််နံပါတ်",
+    "term_n_cond": "စည်းကမ်းသတ်မှတ်ချက်များ",
+    "payment_schedule": "လစဥ်ကြေးပေးသွင်းရမည့် နေ့ရက်များ",
+    "contract_detail_link": "စာချုပ် အသေးစိတ် ကြည့်ရှု့ရန်",
+    "payment_channels": "လစဥ်ကြေးပေးသွင်းနိုင်သည့် နေရာများ",
+    "payment_can_b_done_the_following_channel": "လစဥ်ကြေးအား အောက်ဖော်ပြပါ ငွေလွှဲဝန်ဆောင်မှုများဖြင့် ပေးသွင်းနိုင်ပါသည်။",
+    "hotline_customer_service": "Hot Line & Customer Service",
+    "any_questions": "အသေးစိတ် သိလိုသည်များရှိပါက အောက်ဖော်ပြပါ ဖုန်းနံပါတ်များကို ခေါ်ဆိုနိုင်ပါသည်။"
+}

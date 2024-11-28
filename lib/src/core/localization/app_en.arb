@@ -1,0 +1,68 @@
+{
+  "@@locale": "en",
+  "languageName":"မြန်မာ",
+  "actionCancel": "Cancel",
+  "actionConfirm": "Confirm",
+  "actionOkay": "Okay",
+  "applicationBackTitle": "Exit App",
+
+  "applicationBackMessage": "Do you wan to exit welcome application.",
+  "welcome": "WELCOME",
+  "phoneNo": "Phone Number",
+  "createNewAccount": "Create New Account",
+  "logIn": "Log-in",
+  "contactCallSMSPermission": "Allow Contacts,Call Log and SMS log access to R2O for better customer Service",
+  "locationPermission": "Allow Live Location access to R2O for better customer Service",
+  "socialMediaPermission": "Connect your social media for better customer understanding",
+  "errorMessage": "Sorry! You will need to allow the access to proceed further.",
+  "allow": "Allow",
+  "deny": "Deny",
+  "connectWithFB": "Connect with Facebook",
+  "connectWithTT": "Connect with Tik Tok",
+  "otp": "Please enter the OTP sent to your phone",
+  "successMessage": "Congratulations! You have successfully created the user account for R2O and Please see the application status below. ",
+  "accInfoMessage": "Your application is accepted by R2O, Please give Downpayment to the merchant & Create the contract with R2O.",
+  "tryAgain": "Try Again",
+  "skip": "Skip",
+  "phoneNoerrorMessage": "You must fill phone number!",
+  "invalidOTPerrorMessage": "Your OTP code is invalid. Please try again!",
+  "successfully_updated":"Successfully Updated!",
+  "toSubmit": "To Submit",
+  "toReview": "To Review",
+  "status": "Status",
+  "myApplication": "My Application",
+
+  "contract_has_been_created_successfully": "The Contract Has Been Created Successfully.",
+  "contract_number": "Contract Number",
+  "term_n_cond": "Terms and conditions",
+  "payment_schedule": "Payment Schedule",
+  "contract_detail_link": "Contract Details Link",
+  "payment_channels": "Payment Channels",
+  "payment_can_b_done_the_following_channel": "The payment can be done with the following channels",
+  "hotline_customer_service": "Hot Line & Customer Service",
+  "any_questions": "If you have any questions, please contact :",
+   "errorDefault": "Oops! Something when wrong",
+  "errorDefaultServer": "Oops! Something when wrong with server",
+  "errorNoInternet": "No Internet",
+  "errorConnectTimeout": "Connect timeout",
+  "errorUnauthorized": "Unauthorized",
+  "errorUnGranted": "You are not granted access this app.\nPlease contact to IT to get permission for using.",
+  "errorRequired": "{label} is required!",
+  "@errorRequired": {
+    "description": "{label} is required!",
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "errorEmptyContractInfo": "The Contract Information of ID : {contractId} is empty!\nPlease contact to HO.",
+  "@errorEmptyContractInfo": {
+    "description": "contractId didn't have information",
+    "placeholders": {
+      "contractId": {
+        "type": "String"
+      }
+    }
+  }
+}
