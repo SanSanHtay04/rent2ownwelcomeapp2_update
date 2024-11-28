@@ -10,11 +10,17 @@ class LoginViewModel extends ChangeNotifier {
   PrefsStore prefsStore;
   LoginViewModel(this.repo, this.prefsStore) {
     updateDeviceId();
+    updateAndroidId();
   }
 
   Future<void> updateDeviceId() async {
     final data = await AppDeviceInfo().getImei();
     await prefsStore.setDeviceId(data);
+  }
+
+  Future<void> updateAndroidId() async {
+    final data = await AppDeviceInfo().getAndroidId();
+    await prefsStore.setAndroidId(data);
   }
 
   @override

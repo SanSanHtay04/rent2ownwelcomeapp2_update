@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 // welcome app data
 const String ACCOUNT_INFO_KEY = "account_info";
 const String DEVICE_ID = "device_id";
+const String ANDROID_ID = "android_id";
 const String LAGUAGE_CODE = 'language_code';
 const String THEME_MODE = "theme_mode";
 
@@ -28,6 +29,15 @@ class PrefsStore {
     return data ?? "Empty DeviceID";
   }
 
+  setAndroidId(String data) {
+    _preferences.setString(ANDROID_ID, data);
+  }
+
+  String? get androidId {
+    var data = _preferences.getString(ANDROID_ID);
+    return data ?? "Empty Android Id";
+  }
+
   setAccountInfo(VerifyOtpResponse authResponse) {
     _preferences.setString(ACCOUNT_INFO_KEY, json.encode(authResponse));
   }
@@ -43,7 +53,6 @@ class PrefsStore {
 
   String? get accessToken => accountInfo?.accessToken;
   num? get expiredTime => accountInfo?.expiration;
- 
 
   Future<void> clearAccountInfo() => _preferences.remove(ACCOUNT_INFO_KEY);
 
@@ -60,8 +69,7 @@ class PrefsStore {
   }
 
   String? getLanguage() {
-  return   _preferences.getString(LAGUAGE_CODE);
-
+    return _preferences.getString(LAGUAGE_CODE);
   }
 
   Locale getLocale(String languageCode) {

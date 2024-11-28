@@ -8,7 +8,7 @@ class LocalAuthProvider with ChangeNotifier {
   late bool isLoggedIn;
 
   LocalAuthProvider(this._prefsStore) {
-    isLoggedIn = ! _prefsStore.accessToken.isNullOrEmpty;
+    isLoggedIn = !_prefsStore.accessToken.isNullOrEmpty;
   }
 
   Future<void> logout() async {
@@ -20,5 +20,5 @@ class LocalAuthProvider with ChangeNotifier {
   String? get deviceId => _prefsStore.deviceId;
   String? get accessToken => _prefsStore.accessToken;
 
- 
+  String? get androidId => _prefsStore.androidId;
 }

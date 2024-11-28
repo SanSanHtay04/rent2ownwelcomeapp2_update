@@ -6,19 +6,26 @@ import 'package:rent2ownwelcomeapp/src/features/shared/app_device_info.dart';
 class AppRepository with BaseRepository {
   late PrefsStore _prefsStore;
 
-  AppRepository({ required PrefsStore prefsStore}){
-
-   _prefsStore = prefsStore;
-
+  AppRepository({required PrefsStore prefsStore}) {
+    _prefsStore = prefsStore;
   }
 
   Future<String> deviceId() async {
     return (_prefsStore.deviceId) ?? "Empty DeviceID";
   }
 
+  Future<String> androidId() async {
+    return (_prefsStore.androidId) ?? "Empty AndroidId";
+  }
+
   Future<void> updateDeviceId() async {
     final data = await AppDeviceInfo().getImei();
     await _prefsStore.setDeviceId(data);
+  }
+
+  Future<void> updateAndroidId() async {
+    final data = await AppDeviceInfo().getAndroidId();
+    await _prefsStore.setAndroidId(data);
   }
 
   Future<ThemeMode> themeMode() async {
