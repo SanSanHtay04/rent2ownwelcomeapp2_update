@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:mobile_number/mobile_number.dart';
 import 'package:rent2ownwelcomeapp/src/core/core.dart';
 import 'package:rent2ownwelcomeapp/src/features/auth/login/viewmodel/login_view_model.dart';
+import 'package:usage_stats/usage_stats.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key, required this.vm});
@@ -32,10 +33,8 @@ class _LoginFormState extends State<LoginForm> {
 
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initMobileNumberState() async {
-
-    if(isInitialState){
-
-    if (!await MobileNumber.hasPhonePermission) {
+    if (isInitialState) {
+      if (!await MobileNumber.hasPhonePermission) {
         await MobileNumber.requestPhonePermission;
         return;
       }
@@ -47,10 +46,8 @@ class _LoginFormState extends State<LoginForm> {
         debugPrint("Failed to get mobile number because of '${e.message}'");
       }
 
-      isInitialState= false;
-
+      isInitialState = false;
     }
-
 
     if (!mounted) return;
     setState(() {});
@@ -117,6 +114,8 @@ class _LoginButtonState extends State<LoginButton> {
               "Connect your social media for better customer understanding",
           imagePath: 'assets/icons/social.png',
           onSkipPrepressed: () {
+            // grant usage permission - opens Usage Settings
+            UsageStats.grantUsagePermission();
             widget.vm.generateOtp();
           },
         ),

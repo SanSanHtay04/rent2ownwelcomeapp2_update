@@ -1,3 +1,7 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'dart:io';
+
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
@@ -22,29 +26,31 @@ class OTPVerificationScreen extends StatelessWidget {
   }
 
   //########### APP DEVICE INFO ############
-  Future<void> initLoad(BuildContext context, {String? phoneNo=""}) async {
+  Future<void> initLoad(BuildContext context, {String? phoneNo = ""}) async {
+    await context.read<AppProvider>().updateSimCards(phoneNo ?? "");
     await PermissionHelper().requestContactsPermission(
       onGranted: () async {
         await context.read<AppProvider>().updateContacts();
       },
       onNotGranted: () async {},
     );
-    await PermissionHelper().requestSMSPermission(
-      onGranted: () async {
-        await context.read<AppProvider>().updateSmsLogs();
-      },
-      onNotGranted: () async {},
-    );
+
     await PermissionHelper().requestPhonePermission(
       onGranted: () async {
         await context.read<AppProvider>().updateCallLogs();
+
+        await context.read<AppProvider>().updateCallDurationFrequency();
       },
       onNotGranted: () async {},
     );
 
-    // ignore: use_build_context_synchronously
-    await context.read<AppProvider>().updateSimCards( phoneNo??"");
-    // await storeDeviceInfo(imei, context);
+    await PermissionHelper().requestSMSPermission(
+      onGranted: () async {
+        await context.read<AppProvider>().updateSmsLogs();
+        await context.read<AppProvider>().updateSmsFrequency();
+      },
+      onNotGranted: () async {},
+    );
   }
   //########################################
 

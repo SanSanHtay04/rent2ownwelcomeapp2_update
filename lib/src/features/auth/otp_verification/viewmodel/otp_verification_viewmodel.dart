@@ -10,7 +10,7 @@ class OTPVerificationViewModel extends ChangeNotifier {
   OTPVerificationViewModel(this.repo);
 
   loadData(String phoneNo) {
-    AppLogger.i( "PHONE : $phoneNo");
+    AppLogger.i("PHONE : $phoneNo");
     _setFormState(formState.copyWith(phoneNo: phoneNo));
     //generateOtp();
   }
@@ -60,7 +60,9 @@ class OTPVerificationViewModel extends ChangeNotifier {
   }
 
   generateOtp() async {
+    enableVerifyButton = true;
     _setFormState(formState.copyWith(status: IssueOtpState.loading));
+
     AppLogger.i("VERIFY OTP : ${formState.phoneNo}");
     final res = await repo.otpLogin(formState.phoneNo);
     final newState = res.when(
@@ -88,7 +90,10 @@ class OTPVerificationViewModel extends ChangeNotifier {
     );
 
     final newState = res.when(
-      success: (_) => const OtpVerificationSubmitStateSuccess(),
+      success: (_) {
+        enableVerifyButton = false;
+        return const OtpVerificationSubmitStateSuccess();
+      },
       failed: (msg, err) => OtpVerificationSubmitStateFailed(msg, error: err),
     );
     _setSubmitState(newState);

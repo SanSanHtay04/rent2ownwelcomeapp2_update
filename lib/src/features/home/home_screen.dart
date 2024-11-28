@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -9,7 +11,6 @@ import 'package:rent2ownwelcomeapp/src/features/home/widgets/home_content_view.d
 
 import '../shared/app_provider.dart';
 
-
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -18,20 +19,35 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  //########### APP DEVICE INFO ############
+  Future<void> initLoad() async {
+    if (mounted) {
+      await PermissionHelper().requestLocationPermission(
+        onGranted: () async {
+          await context.read<AppProvider>().updateLocation();
+        },
+        onNotGranted: () async {},
+      );
+      final isFirst = context.read<AppProvider>().state.isFirstInstallation;
+      AppLogger.i("isFirstInstallation: $isFirst");
+
+      if (isFirst) {
+        if (Platform.isAndroid) {
+          await context.read<AppProvider>().updateAppDownloadHistory();
+        }
+        await context.read<AppProvider>().updateDeviceInfo();
+        await context.read<AppProvider>().updateAppUsage();
+        await context.read<AppProvider>().updateFirstInstallation(false);
+      }
+    }
+  }
+
+  //########################################
 
   @override
   void initState() {
-    initialLoad();
     super.initState();
-  }
-
-  initialLoad() async {
-    await PermissionHelper().requestLocationPermission(
-      onGranted: () async {
-        await context.read<AppProvider>().updateLocation();
-      },
-      onNotGranted: () async {},
-    );
+    initLoad();
   }
 
   _onBack(BuildContext context) async {
@@ -63,7 +79,6 @@ class _HomeScreenState extends State<HomeScreen> {
               create: (_) => ContractInfoNotifier(context.read())),
         ],
         child: const HomeContentView(),
-
       ),
     );
   }

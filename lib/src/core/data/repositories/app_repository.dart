@@ -49,4 +49,14 @@ class AppRepository with BaseRepository {
 
     // await _storage.write(key: 'language', value: language);
   }
+
+  Future<bool> isFirstInstallation() async {
+    return (await _prefsStore.getFirstInstallation()) ?? true;
+  }
+
+  Future<void> updateFirstInstallation(bool isInstalled) async {
+    _prefsStore.setFirstInstallation(isInstalled);
+
+    // await _storage.write(key: 'language', value: language);
+  }
 }

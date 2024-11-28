@@ -1,13 +1,16 @@
 import 'dart:io';
-import 'package:android_id/android_id.dart';
+import 'package:app_usage/app_usage.dart';
+import 'package:battery_plus/battery_plus.dart';
 import 'package:call_log/call_log.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:fast_contacts/fast_contacts.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_sms_inbox/flutter_sms_inbox.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:installed_apps/app_info.dart';
+import 'package:installed_apps/installed_apps.dart';
 import 'package:mobile_number/mobile_number.dart';
 import 'package:rent2ownwelcomeapp/src/core/core.dart';
-import 'package:flutter/services.dart';
 
 class AppDeviceInfo {
   // - IMEI - //
@@ -143,28 +146,172 @@ class AppDeviceInfo {
     return simCard;
   }
 
+  // - USAGE STATS - //
+  Future<List<AppUsageRequest>> getUsageStats() async {
+    // grant usage permission - opens Usage Settings
+    // await UsageStats.grantUsagePermission();
+    List<AppUsageRequest>? temp = [];
+    try {
+      DateTime endDate = DateTime.now();
+      DateTime startDate = endDate.subtract(const Duration(days: 100));
+      List<AppUsageInfo> infoList =
+          await AppUsage().getAppUsage(startDate, endDate);
+
+      for (var info in infoList) {
+        String appName = info.appName;
+
+        if (info.packageName.contains("com.ss.android.ugc.trill")) {
+          appName = "TikTok";
+        } else if (info.packageName.contains("org.telegram.messenger")) {
+          appName = "Telegram";
+        } else if (info.packageName.contains("com.facebook.katana")) {
+          appName = "Facebook";
+        } else if (info.packageName.contains("com.facebook.orca")) {
+          appName = "Messenger";
+        } else if (info.packageName.contains("com.viber.voip")) {
+          appName = "Viber";
+        }
+
+        String packageName = info.packageName;
+        String fromDate = info.startDate.toString();
+        String toDate = info.endDate.toString();
+        String usage = info.usage.toString();
+        String appdetail = "$appName($packageName)";
+        temp.add(AppUsageRequest(
+          appName: appdetail,
+          duration: usage,
+          timeFrom: fromDate,
+          timeTo: toDate,
+        ));
+      }
+    } on AppUsageException catch (exception) {
+      AppLogger.e("AppUsageException : $exception");
+    }
+    return temp;
+  }
+
+  // - CALL FREQUENCY - //
+  Future<List<CallFrequencyRequest>> getCallDurationNFrequency() async {
+    final callLogEntries = await CallLog.query();
+    List<String> phoneNumbers = [];
+    List<CallFrequencyRequest> tempDataList = [];
+
+    for (CallLogEntry entry in callLogEntries) {
+      phoneNumbers.add(entry.number!);
+    }
+
+    phoneNumbers = phoneNumbers.toSet().toList();
+
+    for (String phone in phoneNumbers) {
+      tempDataList.add(
+        CallFrequencyRequest(
+            phoneNo: phone,
+            frequency: callLogEntries
+                .where((e) => e.number == phone)
+                .length
+                .toString()),
+      );
+    }
+    return tempDataList;
+  }
+
+  // - SMS FREQUENCY - //
+  Future<List<SmsFrequencyRequest>> getTextMessageFrequency() async {
+    List<SmsMessage> smsMessages = await SmsQuery()
+        .querySms(kinds: [SmsQueryKind.inbox, SmsQueryKind.sent]);
+
+    List<String> phoneNums = [];
+    List<SmsFrequencyRequest> tempDataList = [];
+
+    for (SmsMessage msg in smsMessages) {
+      phoneNums.add(msg.sender.toString());
+    }
+
+    phoneNums = phoneNums.toSet().toList();
+
+    for (String phone in phoneNums) {
+      tempDataList.add(SmsFrequencyRequest(
+          phoneNo: phone,
+          sendFrequency:
+              "${smsMessages.where((e) => e.sender == phone && e.kind == SmsMessageKind.sent).length}",
+          receivedFrequency:
+              "${smsMessages.where((e) => e.sender == phone && e.kind == SmsMessageKind.received).length}"));
+    }
+    return tempDataList;
+  }
+
+  // - APP DOWNLOAD HISTORY - //
+  Future<List<AppHistoryRequest>> getInstalledApps() async {
+    List<AppInfo> installApps = await InstalledApps.getInstalledApps();
+
+    List<AppHistoryRequest> tempDataList = [];
+
+    for (AppInfo info in installApps) {
+      tempDataList.add(AppHistoryRequest(
+        packageName: info.packageName,
+        appName: info.name,
+        version: "${info.versionName}(${info.versionCode})",
+      ));
+    }
+
+    return tempDataList;
+  }
+
   // - DEVICE INFO - //
-  // Future<DeviceInfoRequest> getDeviceInfo(String imeiNo) async {
-  //   DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-  //   AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-  //   DeviceInfoRequest device = DeviceInfoRequest(
+  Future<DeviceInfoRequest> getDeviceIdAndInfo() async {
+    DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
+    Battery battery = Battery();
 
-  //       deviceModel: '${androidInfo.model}',
-  //       deviceBrand: '${androidInfo.brand}',
-  //       deviceName: '${androidInfo.display}',
-  //       softwareId: '${androidInfo.id}',
-  //       operationSystemVersion:
-  //           'Android ${androidInfo.version.release} (SDK ${androidInfo.version.sdkInt}), ${androidInfo.manufacturer} ${androidInfo.model}');
-  //   return device;
+    String deviceType = '';
+    String brand = '';
+    String operationSystemVersion = '';
+    String deviceid = '';
 
-  //    DeviceInfoModel deviceInfoModel = DeviceInfoModel(
-  //       deviceType: deviceType,
-  //       brand: brand,
-  //       operationSystemVersion: operationSystemVersion,
-  //       deviceId: deviceid,
-  //       batteryState: batteryStateStr,
-  //       batteryLevel: batteryLevel,
-  //       noOfAppsInstalled: totalAppInstalled.toString());
+    final appsInstalledCount =
+        await InstalledApps.getInstalledApps().then((e) => e.length);
 
-  // }
+    final batteryLevel = await battery.batteryLevel;
+    final batteryState =
+        await battery.batteryState.then((e) => e.name.toUpperCase()); // EE
+
+    try {
+      if (Platform.isAndroid) {
+        var build = await deviceInfoPlugin.androidInfo;
+        AppLogger.i('Android Platform : $build');
+
+        deviceid = build.id.toString();
+        //deviceName = build.model;
+        deviceType = "Android";
+        brand = build.brand;
+
+        operationSystemVersion =
+            "Android ${build.version.release} (SDK ${build.version.sdkInt}), ${build.manufacturer} ${build.model}";
+      } else if (Platform.isIOS) {
+        var build = await deviceInfoPlugin.iosInfo;
+        AppLogger.i('IOS Platform : $build');
+
+        deviceid = build.identifierForVendor.toString();
+        // deviceName = build.name;
+        deviceType = "iOS";
+        brand = build.utsname.machine;
+
+        operationSystemVersion =
+            "${build.systemName} ${build.systemVersion}, ${build.name} ${build.model}";
+      }
+    } on PlatformException catch (exception) {
+      AppLogger.e("Platform Exception: $exception");
+    }
+
+    DeviceInfoRequest deviceInfo = DeviceInfoRequest(
+      deviceId: deviceid,
+      deviceType: deviceType,
+      brand: brand,
+      operationSystemVersion: operationSystemVersion,
+      noOfAppsInstalled: '$appsInstalledCount',
+      batteryState: batteryState,
+      batteryLevel: '$batteryLevel %',
+    );
+
+    return deviceInfo;
+  }
 }

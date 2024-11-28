@@ -25,9 +25,9 @@ class _AppStatusTabState extends State<AppStatusTab> {
             iconBgColor: Colors.yellow,
             despColor: context.getColorScheme().primary);
       case AppStatusType.accepted:
-        return AcceptedTab(data: widget.data);
+        return AcceptedContractView(data: widget.data);
       case AppStatusType.performing:
-        return const PerformingTab();
+        return const PerformingContractView();
 
       default:
         return Container();

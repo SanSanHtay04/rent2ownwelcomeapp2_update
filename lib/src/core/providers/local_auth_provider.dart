@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/foundation.dart';
 import 'package:rent2ownwelcomeapp/src/core/core.dart';
 

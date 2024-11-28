@@ -42,11 +42,12 @@ class ApiClient {
 
     dio.interceptors.add(AuthInterceptor(_authProvider));
     if (kDebugMode) {
-      dio.interceptors.add(PrettyDioLogger(requestBody: true, requestHeader: true));
+      dio.interceptors
+          .add(PrettyDioLogger(requestBody: true, requestHeader: true));
     }
 
     // Isolate JSON decode
-  //  (dio.transformer as FusedTransformer).jsonDecodeCallback = parseJson;
+    //  (dio.transformer as FusedTransformer).jsonDecodeCallback = parseJson;
 
     return dio;
   }

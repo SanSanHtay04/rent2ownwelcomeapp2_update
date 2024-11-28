@@ -16,11 +16,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-
-   
-
   goToSharedScreenIfLoggedIn(BuildContext context) {
-
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
       Navigator.pushNamedAndRemoveUntil(
           context, MainMenuTab.root, (_) => false);
@@ -61,8 +57,6 @@ class _LoginScreenState extends State<LoginScreen> {
               success: (data) => goToOtpVerification(context, data),
               orElse: () {},
             );
-
-            
           });
 
           return LoginScaffold(

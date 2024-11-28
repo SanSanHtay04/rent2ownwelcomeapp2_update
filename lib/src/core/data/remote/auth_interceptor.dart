@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:rent2ownwelcomeapp/src/core/core.dart';
 
 class AuthInterceptor extends Interceptor {
@@ -12,12 +11,16 @@ class AuthInterceptor extends Interceptor {
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) async {
+    // This is for MiscService APIs
     options.headers["x-device-id"] = _authProvider.deviceId;
     options.headers["android-id"] = _authProvider.androidId;
 
     final token = _authProvider.accessToken;
     if (!token.isNullOrEmpty) {
+      // This is for MiscService APIs
       options.headers['access-token'] = '$token';
+      // This is for CommonService APIs
+      options.headers[HttpHeaders.authorizationHeader] = 'Bearer $token';
     }
     return super.onRequest(options, handler);
   }

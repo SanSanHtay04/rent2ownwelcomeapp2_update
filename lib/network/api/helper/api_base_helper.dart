@@ -1,16 +1,14 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-import 'package:android_id/android_id.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_localization/flutter_localization.dart';
 import 'package:http/http.dart';
 import 'package:rent2ownwelcomeapp/models/tiktokUserInfoResponse.dart';
 import 'package:rent2ownwelcomeapp/models/tiktokVideoResponse.dart';
 import 'package:rent2ownwelcomeapp/network/api/api_constant.dart';
-import 'package:rent2ownwelcomeapp/src/core/helpers/app_logger.dart';
+import 'package:rent2ownwelcomeapp/src/core/core.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../models/tiktokTokenResponse.dart';
 
@@ -75,12 +73,13 @@ class ApiBaseHelper {
     return spf.getString(ACCESS_TOKEN) ?? "";
   }
 
-  Future<String> getLanguage() async {
-    final FlutterLocalization _localization = FlutterLocalization.instance;
-    String lang =
-        _localization.currentLocale.toString().contains("en") ? "en" : "my";
-    return lang;
-  }
+  // Future<String> getLanguage() async {
+  //   // ignore: no_leading_underscores_for_local_identifiers
+  //   final FlutterLocalization _localization = FlutterLocalization.instance;
+  //   String lang =
+  //       _localization.currentLocale.toString().contains("en") ? "en" : "my";
+  //   return lang;
+  // }
 
   Future<String> getDeviceIdAndInfo() async {
     late String deviceid;

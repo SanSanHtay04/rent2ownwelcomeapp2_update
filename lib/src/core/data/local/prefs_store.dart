@@ -8,6 +8,7 @@ const String ACCOUNT_INFO_KEY = "account_info";
 const String DEVICE_ID = "device_id";
 const String ANDROID_ID = "android_id";
 const String LAGUAGE_CODE = 'language_code';
+const String FIRST_INSTALLATION = 'first_installation';
 const String THEME_MODE = "theme_mode";
 
 //languages code
@@ -81,5 +82,13 @@ class PrefsStore {
       default:
         return const Locale(ENGLISH, 'US');
     }
+  }
+
+  setFirstInstallation(bool isInstalled) {
+    _preferences.setBool(FIRST_INSTALLATION, isInstalled);
+  }
+
+  bool? getFirstInstallation() {
+    return _preferences.getBool(FIRST_INSTALLATION);
   }
 }

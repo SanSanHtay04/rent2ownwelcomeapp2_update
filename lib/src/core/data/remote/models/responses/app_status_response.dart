@@ -14,9 +14,9 @@ class AppStatusResponse with _$AppStatusResponse {
     @JsonKey(name: 'status')
     @Default(AppStatusType.notFound)
     AppStatusType appStatus,
-    @JsonKey(name: 'message')String? appMessage,
-     String? contactNo,
-     String? contactMsg,
+    @JsonKey(name: 'message') String? appMessage,
+    String? contactNo,
+    String? contactMsg,
   }) = _AppStatusResponse;
 
   factory AppStatusResponse.fromJson(Map<String, dynamic> json) =>
@@ -24,6 +24,13 @@ class AppStatusResponse with _$AppStatusResponse {
 }
 
 /*
+  late String statusCode;
+  late String statusMessage;
+  late String status;
+  late String message;
+  late String contactNo;
+  late String contactMsg;
+
    {
         "status_code": "SUCCESS",
         "status_message": "",

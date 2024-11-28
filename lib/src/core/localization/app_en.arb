@@ -56,7 +56,7 @@
       }
     }
   },
-    "errorEmptyContractInfo": "The Contract Information of ID : {contractId} is empty!\nPlease contact to HO.",
+  "errorEmptyContractInfo": "The Contract Information of ID : {contractId} is empty!\nPlease contact to HO.",
   "@errorEmptyContractInfo": {
     "description": "contractId didn't have information",
     "placeholders": {

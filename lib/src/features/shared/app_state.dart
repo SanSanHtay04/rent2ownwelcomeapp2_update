@@ -12,6 +12,7 @@ class AppState with _$AppState {
   const factory AppState.success({
     required ThemeMode themeMode,
     required String languageCode,
+    required bool isFirstInstallation,
   }) = _success;
 
   ThemeMode get themeMode => maybeMap(
@@ -22,6 +23,11 @@ class AppState with _$AppState {
   String get languageCode => maybeMap(
         orElse: () => '',
         success: (state) => state.languageCode,
+      );
+
+  bool get isFirstInstallation => maybeMap(
+        orElse: () => false,
+        success: (state) => state.isFirstInstallation,
       );
 
   bool get isEnglish => maybeMap(

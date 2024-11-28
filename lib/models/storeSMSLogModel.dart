@@ -3,7 +3,10 @@ class StoreSMSLogModel {
   late String sender;
   late String receiver;
   late String message;
+<<<<<<< HEAD
   late DateTime date;
+=======
+>>>>>>> master
 
   StoreSMSLogModel(
       {required this.status,
