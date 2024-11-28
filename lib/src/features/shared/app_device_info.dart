@@ -67,7 +67,13 @@ class AppDeviceInfo {
 
     List<SmsMessage> smsMessages = await SmsQuery().getAllSms;
     for (SmsMessage item in smsMessages) {
-      int dateTimestamp = item.date?.millisecondsSinceEpoch ?? 0;
+      DateTime? dateTime = item.date != null
+          ? DateTime.fromMillisecondsSinceEpoch(
+              item.date!.millisecondsSinceEpoch)
+          : null;
+
+      // Format the DateTime as a string or store the raw DateTime object
+      String formattedDate = dateTime?.toIso8601String() ?? "Unknown Date";
 
       if (item.kind == SmsMessageKind.sent) {
         SmsLogRequest smsLog = SmsLogRequest(
@@ -75,7 +81,7 @@ class AppDeviceInfo {
             sender: "",
             receiver: '${item.sender!}',
             message: item.body!,
-            date: dateTimestamp);
+            date: formattedDate);
         smsLogs.add(smsLog);
       } else {
         SmsLogRequest smsLog = SmsLogRequest(
@@ -83,7 +89,7 @@ class AppDeviceInfo {
             sender: '${item.sender!}',
             receiver: "",
             message: item.body!,
-            date: dateTimestamp);
+            date: formattedDate);
         smsLogs.add(smsLog);
       }
     }

@@ -12,7 +12,7 @@ class SmsLogRequest with _$SmsLogRequest {
     required String sender,
     required String receiver,
     required String message,
-    required int? date,
+    required String date,
   }) = _SmsLogRequest;
 
   factory SmsLogRequest.fromJson(Map<String, dynamic> json) =>
